@@ -5,10 +5,14 @@ import htmx from 'astro-htmx'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://hanyauntukdisyukuri.my.id',
+  site: 'https://www.hanyauntukdisyukuri.my.id',
   integrations: [alpinejs(), htmx()],
   image: {
-    domains: ['hanyauntukdisyukuri.my.id', 'admin.hanyauntukdisyukuri.my.id'],
+    domains: [
+      'hanyauntukdisyukuri.my.id',
+      'www.hanyauntukdisyukuri.my.id',
+      'admin.hanyauntukdisyukuri.my.id',
+    ],
   },
   output: 'server',
   adapter: node({
