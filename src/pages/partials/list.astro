@@ -28,7 +28,7 @@ export const partial = true
               hx-swap="afterend"
               hx-trigger="revealed"
             >
-              <h3>
+              <h3 class="font-heading font-bold">
                 <a href={post.uri}>{post.title}</a>
               </h3>
               {post.featuredImage && (
@@ -45,7 +45,7 @@ export const partial = true
         } else {
           return (
             <article>
-              <h3>
+              <h3 class="font-heading font-bold">
                 <a href={post.uri}>{post.title}</a>
               </h3>
               {post.featuredImage && (
