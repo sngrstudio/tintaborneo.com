@@ -1,20 +1,45 @@
 ---
-// @ts-nocheck
 import { fetchLogo } from '~/data/site'
 import { Image } from 'astro:assets'
+import MenuIcon from '~icons/material-symbols/menu'
+import SearchIcon from '~icons/material-symbols/search'
 
 const {
   data: { mediaItems: data },
 } = await fetchLogo()
+
+// @ts-ignore
 const logo = data!.nodes.at(0)!.sourceUrl
 ---
 
 <header>
-  <nav>
+  <nav class="flex items-center justify-between px-4 py-2">
+    {/* menu button/current date */}
     <div>
-      <a href="/">
-        <Image src={logo} width={50} height={50} alt="" />
+      <button>
+        <MenuIcon />
+      </button>
+    </div>
+
+    {/* logo */}
+    <div>
+      <a href="/" role="button">
+        <Image
+          class="object-contain w-[175px] h-[35px]"
+          src={logo}
+          width={350}
+          height={70}
+          alt=""
+          loading="eager"
+        />
       </a>
+    </div>
+
+    {/* search button */}
+    <div>
+      <button>
+        <SearchIcon />
+      </button>
     </div>
   </nav>
 </header>
