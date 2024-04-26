@@ -52,9 +52,9 @@ devDependencies:
   '@graphql-codegen/typescript':
     specifier: 4.0.6
     version: 4.0.6(graphql@16.8.1)
-  '@iconify/json':
-    specifier: ^2.2.204
-    version: 2.2.204
+  '@iconify-json/material-symbols':
+    specifier: ^1.1.78
+    version: 1.1.78
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
@@ -1647,11 +1647,10 @@ packages:
       graphql: 16.8.1
     dev: true
 
-  /@iconify/json@2.2.204:
-    resolution: {integrity: sha512-sFlh+TIF54DZoEzsF5YVWY7XEzjN2ZSmCjtzvajk5EdNjvPAKr9Tvvptoyj6hcuylJsDxiU12FRDSdygW1c8bg==}
+  /@iconify-json/material-symbols@1.1.78:
+    resolution: {integrity: sha512-WNDaCOdxIMAVer6fWYCsi7iUJM43sBIRd8bFExOifyb4RpXP1dG+Zh3MXqCX56iwaQ9Ra/a2XlFDNZfKnE4NWQ==}
     dependencies:
       '@iconify/types': 2.0.0
-      pathe: 1.1.2
     dev: true
 
   /@iconify/types@2.0.0:
