@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/layout.astro'
+import { Image } from 'astro:assets'
+import { fetchPost } from '~/data/posts'
+// import { Debug } from 'astro:components'
+
+const { post: postUri } = Astro.params
+
+const postData = await fetchPost(postUri!)
+if (!postData) return Astro.redirect('/404')
+const {
+  data: { post },
+} = postData
+---
+
+<Layout>
+  <main class="px-4 py-16">
+    <article class="prose font-heading">
+      <hgroup>
+        <h1>{post?.title}</h1>
+        {
+          post?.featuredImage && (
+            <figure>
+              <Image
+                class=""
+                src={post.featuredImage.node.sourceUrl!}
+                alt={post.featuredImage.node.altText || post.title}
+                loading="eager"
+                inferSize
+              />
+              <figcaption set:html={post.featuredImage.node.caption} />
+            </figure>
+          )
+        }
+      </hgroup>
+      <Fragment set:html={post?.content} />
+    </article>
+  </main>
+</Layout>

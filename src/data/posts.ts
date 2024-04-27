@@ -8,7 +8,7 @@ type PostFetched = {
 export const fetchPost = async (id: string) => {
   return (await fetchData({
     query: gql`
-      query fetchPostQuery($id: ID!) {
+      query FetchPost($id: ID!) {
         post(id: $id, idType: URI) {
           title
           date
@@ -17,6 +17,24 @@ export const fetchPost = async (id: string) => {
           featuredImage {
             node {
               sourceUrl
+              caption
+              altText
+            }
+          }
+          author {
+            node {
+              name
+              uri
+            }
+          }
+          categories {
+            edges {
+              node {
+                name
+                uri
+                slug
+                parentId
+              }
             }
           }
         }
