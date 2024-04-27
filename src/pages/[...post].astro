@@ -1,39 +1,61 @@
 ---
 import Layout from '~/layouts/layout.astro'
-import { Image } from 'astro:assets'
+import { Picture } from 'astro:assets'
 import { fetchPost } from '~/data/posts'
-// import { Debug } from 'astro:components'
+import { intlFormatDistance } from 'date-fns'
 
 const { post: postUri } = Astro.params
-
 const postData = await fetchPost(postUri!)
 if (!postData) return Astro.redirect('/404')
 const {
   data: { post },
 } = postData
+
+const dateString =
+  new Date(post?.date!).getDate() === new Date().getDate()
+    ? intlFormatDistance(new Date(post?.date!), new Date(), {
+        locale: 'id',
+        unit: 'hour',
+      })
+    : new Date(post?.date!).toLocaleDateString('id', { dateStyle: 'full' })
 ---
 
 <Layout>
-  <main class="px-4 py-16">
-    <article class="prose font-heading">
-      <hgroup>
-        <h1>{post?.title}</h1>
-        {
-          post?.featuredImage && (
-            <figure>
-              <Image
-                class=""
-                src={post.featuredImage.node.sourceUrl!}
-                alt={post.featuredImage.node.altText || post.title}
-                loading="eager"
-                inferSize
-              />
-              <figcaption set:html={post.featuredImage.node.caption} />
-            </figure>
-          )
-        }
-      </hgroup>
-      <Fragment set:html={post?.content} />
-    </article>
+  <main class="pt-24 pb-16">
+    <section>
+      <article class="prose font-heading max-w-none px-4">
+        <hgroup>
+          <h1>{post?.title}</h1>
+          <div class="not-prose font-sans">
+            <p>
+              <time datetime={post?.date}>{dateString}</time>
+            </p>
+            <p>
+              Oleh <b>
+                <a href={post?.author?.node.uri}>{post?.author?.node.name}</a>
+              </b>
+            </p>
+          </div>
+          {
+            post?.featuredImage && (
+              <figure class="-mx-4">
+                <Picture
+                  class="w-full"
+                  src={post.featuredImage.node.sourceUrl!}
+                  alt={post.featuredImage.node.altText || post.title}
+                  loading="eager"
+                  inferSize
+                />
+                <figcaption
+                  class="px-4"
+                  set:html={post.featuredImage.node.caption}
+                />
+              </figure>
+            )
+          }
+        </hgroup>
+        <Fragment set:html={post?.content} />
+      </article>
+    </section>
   </main>
 </Layout>
