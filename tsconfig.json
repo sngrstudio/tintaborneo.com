@@ -1,11 +1,12 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    "types": ["unplugin-icons/types/astro"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
     },
     "allowJs": true,
-    "types": ["unplugin-icons/types/astro"]
+    "exactOptionalPropertyTypes": false
   }
 }

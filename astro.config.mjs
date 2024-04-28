@@ -13,7 +13,7 @@ export default defineConfig({
     domains: [
       'hanyauntukdisyukuri.my.id',
       'www.hanyauntukdisyukuri.my.id',
-      'admin.hanyauntukdisyukuri.my.id',
+      'content.hanyauntukdisyukuri.my.id',
     ],
   },
   output: 'server',

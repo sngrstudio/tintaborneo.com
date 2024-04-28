@@ -1,17 +1,35 @@
 ---
 import BaseLayout from './base.astro'
 import Header from './header.astro'
+import { SEO } from 'astro-seo'
+import { fetchSiteData } from '~/data/site'
 
 import '@fontsource/source-serif-pro/400.css'
 import '@fontsource/source-serif-pro/700.css'
 import '@fontsource/source-serif-pro/900.css'
 import '@fontsource/martel-sans/400.css'
 import '@fontsource/martel-sans/700.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  data: { generalSettings: site },
+} = await fetchSiteData()
+const { title, description } = Astro.props
 ---
 
 <BaseLayout>
   {/* <head/> */}
   <Fragment slot="head">
+    <SEO
+      title={title}
+      titleTemplate={`%s \u2014 ${site?.title}`}
+      titleDefault={site?.title!}
+      description={description || site?.description!}
+    />
     <slot name="head" />
   </Fragment>
 
