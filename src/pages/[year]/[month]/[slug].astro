@@ -4,9 +4,9 @@ import { Picture } from 'astro:assets'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 
-const { post: postUri } = Astro.params
-const postData = await fetchPost(postUri!)
-if (!postData) return Astro.redirect('/404')
+const { slug } = Astro.params
+const postData = await fetchPost(slug!)
+if (!postData.data.post) return Astro.redirect('/404')
 const {
   data: { post },
 } = postData

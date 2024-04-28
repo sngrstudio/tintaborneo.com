@@ -9,7 +9,7 @@ export const fetchPost = async (id: string) => {
   return (await fetchData({
     query: gql`
       query FetchPost($id: ID!) {
-        post(id: $id, idType: URI) {
+        post(id: $id, idType: SLUG) {
           title
           date
           uri
