@@ -11,6 +11,12 @@ export default {
         subheading: ['"Martel Sans"', ...defaultTheme.fontFamily.sans],
       },
     },
+    colors: {
+      'tb-primary': '#C90028',
+      'tb-background': '#FCFAFA',
+      'tb-text': '#262224',
+      'tb-muted': '#70696B',
+    },
   },
   plugins: [typography],
 }

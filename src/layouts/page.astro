@@ -20,6 +20,7 @@ const { title, description } = Astro.props
     <section>
       <article class="prose font-heading max-w-none px-4">
         <hgroup>
+          <slot name="subtitle" />
           <h1>{title}</h1>
           <slot name="header" />
         </hgroup>

@@ -1,11 +1,10 @@
 ---
 import Layout from '~/layouts/layout.astro'
-
-// export const prerender = true
+import ArticleList from '~/components/article-list.astro'
 ---
 
 <Layout>
   <main class="pt-24 pb-16">
-    <h1>hello world</h1>
+    <ArticleList id="/category/berita-utama" />
   </main>
 </Layout>

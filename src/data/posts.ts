@@ -45,3 +45,40 @@ export const fetchPost = async (id: string) => {
     },
   })) as PostFetched
 }
+
+type CategoryWithPostsFetched = {
+  data: Pick<RootQuery, 'category'>
+}
+
+export const fetchCategoryWithPosts = async (id: string) => {
+  return (await fetchData({
+    query: gql`
+      query FetchCategoryWithPosts($id: ID!) {
+        category(id: $id, idType: URI) {
+          name
+          uri
+          posts {
+            edges {
+              node {
+                title
+                excerpt
+                uri
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                    caption
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      id,
+    },
+  })) as CategoryWithPostsFetched
+}

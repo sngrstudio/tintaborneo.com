@@ -15,7 +15,7 @@ const {
 <PageLayout title={post?.title!}>
   {/* header */}
   <Fragment slot="header">
-    <div class="not-prose font-sans">
+    <div class="not-prose font-sans text-tb-muted">
       <p>
         <time datetime={post?.date}>
           {getDateString(new Date(post?.date!))}
