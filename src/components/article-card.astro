@@ -12,14 +12,16 @@ const { post } = Astro.props
 
 <article class="flex gap-2">
   <div class="flex aspect-[128/96] w-[128px] h-[96px]">
-    <Picture
-      class="object-cover w-full h-full"
-      src={post.featuredImage?.node.sourceUrl!}
-      width={256}
-      height={192}
-      alt={post.featuredImage?.node.altText || post.title!}
-      loading="eager"
-    />
+    <a href={post.uri}>
+      <Picture
+        class="object-cover w-full h-full"
+        src={post.featuredImage?.node.sourceUrl!}
+        width={256}
+        height={192}
+        alt={post.featuredImage?.node.altText || post.title!}
+        loading="eager"
+      />
+    </a>
   </div>
   <div class="flex flex-col justify-between">
     <h3 class="font-heading font-bold">
