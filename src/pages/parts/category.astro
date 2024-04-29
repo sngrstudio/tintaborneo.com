@@ -2,6 +2,7 @@
 import ArticleList from '~/components/article-list.astro'
 
 const uri = Astro.url.searchParams.get('uri')
+const first = Astro.url.searchParams.get('first')
 const primary = Astro.url.searchParams.get('primary')
 const id = uri?.split('/').filter(Boolean).at(-1)
 
@@ -10,6 +11,7 @@ export const partial = true
 
 <ArticleList
   id={id!}
+  first={Number(first)}
   type={primary === '1' ? 'primary' : 'secondary'}
   withHeader
 />

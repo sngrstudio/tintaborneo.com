@@ -22,12 +22,14 @@ const subcategories = category?.children?.nodes
     </h1>
   </hgroup>
 
-  <ArticleList id={category?.slug!} />
+  <ArticleList id={category?.slug!} first={12} />
   {
     subcategories?.map((entry: Category) => (
       <Fragment>
         {entry.posts?.nodes.length! > 0 && (
-          <ArticleListLoader uri={`/parts/category?uri=${entry.uri}`} />
+          <ArticleListLoader
+            uri={`/parts/category?uri=${entry.uri}&first=12`}
+          />
         )}
       </Fragment>
     ))

@@ -6,13 +6,14 @@ import { fetchPostsByCategory } from '~/data/posts'
 interface Props {
   id: string
   type?: 'primary' | 'secondary'
+  first?: number
   withHeader?: boolean
 }
 
-const { id, type = 'secondary', withHeader } = Astro.props
+const { id, type = 'secondary', first, withHeader } = Astro.props
 const {
   data: { posts, category },
-} = await fetchPostsByCategory(id)
+} = await fetchPostsByCategory(id, first)
 ---
 
 <section class="flex flex-col gap-3 px-4">
