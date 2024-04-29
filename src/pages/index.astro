@@ -3,6 +3,8 @@ import type { MenuItem } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
 import ArticleList from '~/components/article-list.astro'
 import { fetchMenuList } from '~/data/menu'
+// import LoadingIcon from '~icons/line-md/loading-loop'
+import LoadingIcon from '~icons/eos-icons/three-dots-loading'
 
 const { data: menuData } = await fetchMenuList('home-category-list')
 const menu = menuData.menu?.menuItems?.edges
@@ -14,11 +16,12 @@ const menu = menuData.menu?.menuItems?.edges
     {
       menu?.map(({ node: entry }: { node: MenuItem }) => (
         <div
-          class="h-[96px]"
+          class="flex flex-col items-center justify-center h-[96px]"
           hx-get={`/parts/category?uri=${entry.uri}`}
           hx-trigger="revealed"
-          hx-swap="outerHTML"
-        />
+          hx-swap="outerHTML">
+          <LoadingIcon class="w-[48px] h-[48px] text-tb-primary htmx-indicator" />
+        </div>
       ))
     }
   </main>

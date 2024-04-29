@@ -31,6 +31,7 @@
     "@astrojs/check": "^0.5.10",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.6",
+    "@iconify-json/eos-icons": "^1.1.10",
     "@iconify-json/material-symbols": "^1.1.78",
     "@tailwindcss/typography": "^0.5.13",
     "@types/alpinejs": "^3.13.10",
