@@ -14,7 +14,7 @@ const menu = menuData?.menuItems?.nodes
   <ArticleList id="berita-utama" />
   {
     menu?.map((entry: MenuItem) => (
-      <ArticleListLoader uri={`/parts/category?uri=${entry.uri}`} />
+      <ArticleListLoader uri={`/parts/category?uri=${entry.uri}&primary=1`} />
     ))
   }
 </Fragment>

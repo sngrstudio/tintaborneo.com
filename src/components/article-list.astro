@@ -5,10 +5,11 @@ import { fetchPostsByCategory } from '~/data/posts'
 
 interface Props {
   id: string
+  type?: 'primary' | 'secondary'
   withHeader?: boolean
 }
 
-const { id, withHeader } = Astro.props
+const { id, type = 'secondary', withHeader } = Astro.props
 const {
   data: { posts, category },
 } = await fetchPostsByCategory(id)
@@ -17,8 +18,18 @@ const {
 <section class="flex flex-col gap-3 px-4">
   {
     withHeader && (
-      <hgroup class="border-t-2 border-tb-primary px-4 py-1 -mx-4">
-        <h2 class="font-heading font-bold text-3xl text-tb-primary">
+      <hgroup
+        class:list={[
+          'border-t-2 px-4 py-1 -mx-4',
+          { 'border-tb-primary': type === 'primary' },
+          { 'border-tb-muted': type === 'secondary' },
+        ]}>
+        <h2
+          class:list={[
+            'font-heading font-bold',
+            { 'text-tb-primary text-3xl': type === 'primary' },
+            { 'text-tb-muted text-2xl': type === 'secondary' },
+          ]}>
           <a href={category?.uri}>{category?.name}</a>
         </h2>
       </hgroup>

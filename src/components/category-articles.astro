@@ -1,0 +1,35 @@
+---
+import type { Category } from '~/data/graphql'
+import ArticleList from '~/components/article-list.astro'
+import ArticleListLoader from './article-list-loader.astro'
+import { fetchCategory } from '~/data/categories'
+
+interface Props {
+  id: string
+}
+
+const { id } = Astro.props
+const {
+  data: { category },
+} = await fetchCategory(id)
+const subcategories = category?.children?.nodes
+---
+
+<Fragment>
+  <hgroup class="border-t-2 border-tb-primary px-4 py-2">
+    <h1 class="font-heading font-bold text-5xl text-tb-primary">
+      {category?.name}
+    </h1>
+  </hgroup>
+
+  <ArticleList id={category?.slug!} />
+  {
+    subcategories?.map((entry: Category) => (
+      <Fragment>
+        {entry.posts?.nodes.length! > 0 && (
+          <ArticleListLoader uri={`/parts/category?uri=${entry.uri}`} />
+        )}
+      </Fragment>
+    ))
+  }
+</Fragment>

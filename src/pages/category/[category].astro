@@ -1,0 +1,11 @@
+---
+import Layout from '~/layouts/layout.astro'
+import CategoryArticles from '~/components/category-articles.astro'
+const { category } = Astro.params
+---
+
+<Layout>
+  <main class="flex flex-col gap-6 pt-16 pb-16">
+    <CategoryArticles id={category!} />
+  </main>
+</Layout>
