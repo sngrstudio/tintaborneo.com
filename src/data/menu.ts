@@ -11,12 +11,10 @@ export const fetchMenuList = async (id: string) => {
       query FetchMenuList($id: ID!) {
         menu(id: $id, idType: LOCATION) {
           menuItems {
-            edges {
-              node {
-                uri
-                label
-                order
-              }
+            nodes {
+              uri
+              label
+              order
             }
           }
         }

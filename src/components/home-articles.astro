@@ -1,0 +1,20 @@
+---
+import type { MenuItem } from '~/data/graphql'
+import ArticleList from '~/components/article-list.astro'
+import ArticleListLoader from './article-list-loader.astro'
+import { fetchMenuList } from '~/data/menu'
+
+const {
+  data: { menu: menuData },
+} = await fetchMenuList('home-category-list')
+const menu = menuData?.menuItems?.nodes
+---
+
+<Fragment>
+  <ArticleList id="berita-utama" />
+  {
+    menu?.map((entry: MenuItem) => (
+      <ArticleListLoader uri={`/parts/category?uri=${entry.uri}`} />
+    ))
+  }
+</Fragment>

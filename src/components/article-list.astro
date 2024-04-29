@@ -1,7 +1,7 @@
 ---
 import type { Post } from '~/data/graphql'
 import ArticleCard from '~/components/article-card.astro'
-import { fetchCategoryWithPosts } from '~/data/posts'
+import { fetchPostsByCategory } from '~/data/posts'
 
 interface Props {
   id: string
@@ -10,8 +10,8 @@ interface Props {
 
 const { id, withHeader } = Astro.props
 const {
-  data: { category },
-} = await fetchCategoryWithPosts(id)
+  data: { posts, category },
+} = await fetchPostsByCategory(id)
 ---
 
 <section class="flex flex-col gap-3 px-4">
@@ -25,7 +25,7 @@ const {
     )
   }
   {
-    category?.posts?.edges.map(({ node: post }: { node: Post }, i, arr) => (
+    posts?.nodes.map((post: Post, i, arr) => (
       <Fragment>
         <ArticleCard post={post} />
         {i < arr.length - 1 ? <hr class="text-tb-muted" /> : null}
