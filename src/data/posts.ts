@@ -54,7 +54,7 @@ export const fetchCategoryWithPosts = async (id: string) => {
   return (await fetchData({
     query: gql`
       query FetchCategoryWithPosts($id: ID!) {
-        category(id: $id, idType: URI) {
+        category(id: $id, idType: SLUG) {
           name
           uri
           posts {

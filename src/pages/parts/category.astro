@@ -1,0 +1,9 @@
+---
+import ArticleList from '~/components/article-list.astro'
+
+const uri = Astro.url.searchParams.get('uri')
+const id = uri?.split('/').filter(Boolean).at(1)
+export const partial = true
+---
+
+<ArticleList id={id!} withHeader />

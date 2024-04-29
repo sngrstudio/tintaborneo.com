@@ -5,15 +5,25 @@ import { fetchCategoryWithPosts } from '~/data/posts'
 
 interface Props {
   id: string
+  withHeader?: boolean
 }
 
-const { id } = Astro.props
+const { id, withHeader } = Astro.props
 const {
   data: { category },
 } = await fetchCategoryWithPosts(id)
 ---
 
 <section class="flex flex-col gap-3 px-4">
+  {
+    withHeader && (
+      <hgroup class="border-t-2 border-tb-primary px-4 py-1 -mx-4">
+        <h2 class="font-heading font-bold text-3xl text-tb-primary">
+          <a href={category?.uri}>{category?.name}</a>
+        </h2>
+      </hgroup>
+    )
+  }
   {
     category?.posts?.edges.map(({ node: post }: { node: Post }, i, arr) => (
       <Fragment>

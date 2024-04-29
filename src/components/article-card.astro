@@ -14,7 +14,7 @@ const { post } = Astro.props
   <div class="flex aspect-[128/96] w-[128px] h-[96px]">
     <a href={post.uri}>
       <Picture
-        class="object-cover w-full h-full"
+        class="object-cover object-center w-[128px] h-[96px]"
         src={post.featuredImage?.node.sourceUrl!}
         width={256}
         height={192}
