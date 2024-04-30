@@ -7,3 +7,10 @@
 tasks:
   - init: pnpm install
     command: pnpm dev
+
+vscode:
+  extensions:
+    - "astro-build.astro-vscode",
+    - "bradlc.vscode-tailwindcss",
+    - "ms-azuretools.vscode-docker",
+    - "GitHub.vscode-github-actions"
