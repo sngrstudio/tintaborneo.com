@@ -5,30 +5,28 @@ import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 
 const { slug } = Astro.params
-const postData = await fetchPost(slug!)
-if (!postData.data.post) return Astro.redirect('/404')
-const {
-  data: { post },
-} = postData
+const { data } = await fetchPost(slug!)
+if (!data.post) return Astro.redirect('/404')
+const { post } = data
 ---
 
-<PageLayout title={post?.title!}>
+<PageLayout title={post.title!}>
   {/* header */}
   <Fragment slot="header">
     <div class="not-prose font-sans text-tb-muted">
       <p>
-        <time datetime={post?.date}>
-          {getDateString(new Date(post?.date!))}
+        <time datetime={post.date}>
+          {getDateString(new Date(post.date!))}
         </time>
       </p>
       <p>
         Oleh <b>
-          <a href={post?.author?.node.uri}>{post?.author?.node.name}</a>
+          <a href={post.author?.node.uri}>{post.author?.node.name}</a>
         </b>
       </p>
     </div>
     {
-      post?.featuredImage && (
+      post.featuredImage && (
         <figure class="-mx-4">
           <Picture
             class="w-full"
@@ -44,5 +42,5 @@ const {
   </Fragment>
 
   {/* post content */}
-  <Fragment set:html={post?.content} />
+  <Fragment set:html={post.content} />
 </PageLayout>

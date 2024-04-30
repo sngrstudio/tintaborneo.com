@@ -1,0 +1,31 @@
+---
+import PageLayout from '~/layouts/page.astro'
+import { Picture } from 'astro:assets'
+import { fetchPage } from '~/data/pages'
+
+const { page: pageUri } = Astro.params
+const { data } = await fetchPage(pageUri!)
+if (!data.page) return Astro.redirect('/404')
+const { page } = data
+---
+
+<PageLayout title={page.title!}>
+  <Fragment slot="header">
+    {
+      page.featuredImage && (
+        <figure class="-mx-4">
+          <Picture
+            class="w-full"
+            src={page.featuredImage.node.sourceUrl!}
+            alt={page.featuredImage.node.altText || page.title!}
+            loading="eager"
+            inferSize
+          />
+          <figcaption class="px-4" set:html={page.featuredImage.node.caption} />
+        </figure>
+      )
+    }
+  </Fragment>
+
+  <Fragment set:html={page.content} />
+</PageLayout>

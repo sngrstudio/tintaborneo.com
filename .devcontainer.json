@@ -10,5 +10,5 @@
       ]
     }
   },
-  "postCreateCommand": "pnpm install"
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .env && pnpm install"
 }
