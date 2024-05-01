@@ -25,7 +25,7 @@ const {
 <ListLayout
   title={`Tag: ${tag.name}`}
   description={`Daftar berita dengan topik ${tag.name}`}>
-  <ArticleList posts={posts?.nodes as Array<Post>} />
+  <ArticleList posts={posts?.nodes as Array<Post>} loadImageEagerly />
   {
     posts?.pageInfo.hasNextPage && (
       <Fragment>

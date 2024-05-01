@@ -5,16 +5,22 @@ import Separator from '../separator.astro'
 
 interface Props {
   posts: Array<Post>
+  expandSpotlight?: boolean
+  loadImageEagerly?: boolean
 }
 
-const { posts } = Astro.props
+const { posts, expandSpotlight = false, loadImageEagerly = false } = Astro.props
 ---
 
 <Fragment>
   {
     posts.map((post: Post, i, arr) => (
       <Fragment>
-        <ArticleCard post={post} />
+        <ArticleCard
+          post={post}
+          type={expandSpotlight && i === 0 ? 'spotlight' : 'normal'}
+          loadImage={loadImageEagerly ? 'eager' : 'lazy'}
+        />
         {i < arr.length - 1 && <Separator />}
       </Fragment>
     ))

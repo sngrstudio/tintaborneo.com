@@ -17,7 +17,7 @@ const subcategories = category.children?.nodes
 <Layout title={category.name!}>
   <main class="flex flex-col gap-6 pt-16 pb-16">
     <PageHeader title={category.name!} type="primary" />
-    <ArticleListByCategory categoryId="berita-utama" />
+    <ArticleListByCategory categoryId="berita-utama" loadImageEagerly />
     {
       subcategories?.map((entry: Category) => (
         <Fragment>

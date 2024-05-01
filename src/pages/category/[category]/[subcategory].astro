@@ -23,7 +23,7 @@ const {
 ---
 
 <ListLayout title={category.name!} description="">
-  <ArticleList posts={posts?.nodes as Array<Post>} />
+  <ArticleList posts={posts?.nodes as Array<Post>} loadImageEagerly />
   {
     posts?.pageInfo.hasNextPage && (
       <Fragment>

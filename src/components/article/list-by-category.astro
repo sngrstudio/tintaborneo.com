@@ -8,10 +8,16 @@ import { fetchPosts } from '~/data/posts'
 
 interface Props extends Pick<ArticleSectionProps, 'type' | 'withHeader'> {
   categoryId: string
+  loadImageEagerly?: boolean
 }
 
 const AMOUNT = 6
-const { categoryId, type, withHeader } = Astro.props
+const {
+  categoryId,
+  type,
+  withHeader = false,
+  loadImageEagerly = false,
+} = Astro.props
 
 const {
   data: { category },
@@ -29,5 +35,9 @@ const {
   uri={category?.uri!}
   type={type}
   withHeader={withHeader}>
-  <ArticleList posts={posts?.nodes!} />
+  <ArticleList
+    posts={posts?.nodes!}
+    loadImageEagerly={loadImageEagerly}
+    expandSpotlight
+  />
 </ArticleSection>

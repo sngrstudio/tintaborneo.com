@@ -5,29 +5,51 @@ import { getDateString } from '~/utils/date'
 
 interface Props {
   post: Post
+  type?: 'spotlight' | 'normal'
+  loadImage?: 'lazy' | 'eager'
 }
 
-const { post } = Astro.props
+const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
 ---
 
-<article class="flex gap-2">
-  <div class="flex aspect-[128/96] w-[128px] h-[96px]">
-    <a href={post.uri}>
+<article
+  class:list={[
+    'flex gap-2 font-heading',
+    { 'flex-col': type === 'spotlight' },
+    { 'flex-row': type === 'normal' },
+  ]}>
+  <div
+    class:list={[
+      'flex aspect-[128/96]',
+      { 'w-full h-auto': type === 'spotlight' },
+      { 'w-[128px] h-[96px]': type === 'normal' },
+    ]}>
+    <a class:list={[{ 'flex-1 -mx-4': type === 'spotlight' }]} href={post.uri}>
       <Picture
-        class="object-cover object-center w-[128px] h-[96px]"
+        class:list={[
+          'object-cover object-center',
+          { 'w-full h-full': type === 'spotlight' },
+          { 'w-[128px] h-[96px]': type === 'normal' },
+        ]}
         src={post.featuredImage?.node.sourceUrl!}
-        width={256}
-        height={192}
+        width={type === 'spotlight' ? 256 : 512}
+        height={type === 'spotlight' ? 192 : 384}
         alt={post.featuredImage?.node.altText || post.title!}
-        loading="eager"
+        loading={loadImage}
       />
     </a>
   </div>
-  <div class="flex flex-col justify-between">
-    <h3 class="font-heading font-bold">
+  <div
+    class:list={[
+      'flex flex-col justify-between [&>p]:line-clamp-4',
+      { 'gap-2': type === 'spotlight' },
+      { 'gap-1': type !== 'spotlight' },
+    ]}>
+    <h3 class:list={['font-bold', { 'text-xl': type === 'spotlight' }]}>
       <a href={post.uri}>{post.title}</a>
     </h3>
-    <p class="text-sm">
+    {type === 'spotlight' && <Fragment set:html={post.excerpt} />}
+    <p class="font-sans text-sm">
       <time datetime={post.date}>
         {getDateString(new Date(post.date!))}
       </time>
