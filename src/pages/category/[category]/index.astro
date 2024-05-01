@@ -14,17 +14,21 @@ if (!category) return Astro.redirect('/404')
 const subcategories = category.children?.nodes
 ---
 
-<Layout title={category.name!}>
+<Layout title={category.name!} description={category.description!}>
   <main class="flex flex-col gap-6 pt-16 pb-16">
     <PageHeader title={category.name!} type="primary" />
-    <ArticleListByCategory categoryId="berita-utama" loadImageEagerly />
+    <ArticleListByCategory
+      categoryId="berita-utama"
+      amount={12}
+      loadImageEagerly
+    />
     {
       subcategories?.map((entry: Category) => (
         <Fragment>
           {entry.posts?.nodes.length! > 0 && (
             <div
               class="flex flex-col items-center justify-center h-[144px]"
-              hx-get={`/parts/category/?id=${entry.slug}`}
+              hx-get={`/parts/category/?id=${entry.slug}&amount=12`}
               hx-trigger="revealed"
               hx-swap="outerHTML">
               <LoadingIndicator />

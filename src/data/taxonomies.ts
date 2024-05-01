@@ -11,6 +11,7 @@ export const fetchCategory = async (id: string) => {
       query FetchCategory($id: ID!) {
         category(id: $id, idType: SLUG) {
           name
+          description
           slug
           uri
           children {
@@ -56,7 +57,7 @@ export const fetchTag = async (id: string) => {
 }
 
 type UserFetched = {
-  data: Pick<RootQuery, 'tag'>
+  data: Pick<RootQuery, 'user'>
 }
 
 export const fetchUser = async (id: string) => {
@@ -65,6 +66,7 @@ export const fetchUser = async (id: string) => {
       query FetchUser($id: ID!) {
         user(id: $id, idType: SLUG) {
           name
+          description
           slug
           uri
         }

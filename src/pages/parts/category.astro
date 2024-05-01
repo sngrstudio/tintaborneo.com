@@ -2,6 +2,7 @@
 import ArticleListByCategory from '~/components/article/list-by-category.astro'
 
 const id = Astro.url.searchParams.get('id')
+const amount = Astro.url.searchParams.get('amount')
 const isPrimary = Astro.url.searchParams.get('primary')
 
 export const partial = true
@@ -9,6 +10,7 @@ export const partial = true
 
 <ArticleListByCategory
   categoryId={id!}
+  amount={Number(amount)}
   type={isPrimary ? 'primary' : 'secondary'}
   withHeader
 />

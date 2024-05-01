@@ -4,31 +4,33 @@ import ListLayout from '~/layouts/list.astro'
 import ArticleList from '~/components/article/list.astro'
 import Separator from '~/components/separator.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
-import { fetchCategory } from '~/data/taxonomies'
+import { fetchUser } from '~/data/taxonomies'
 import { fetchPosts } from '~/data/posts'
 
 const AMOUNT = 12
 
-const { subcategory: categoryId } = Astro.params
+const { author: authorId } = Astro.params
 const {
-  data: { category },
-} = await fetchCategory(categoryId!)
-if (!category) return Astro.redirect('/404')
+  data: { user: author },
+} = await fetchUser(authorId!)
+if (!author) return Astro.redirect('/404')
 const {
   data: { posts },
 } = await fetchPosts({
   amount: AMOUNT,
-  category: category.slug!,
+  author: author.slug!,
 })
 ---
 
-<ListLayout title={category.name!} description={category.description!}>
+<ListLayout
+  title={author.name!}
+  description={author.description || 'Jurnalis TintaBorneo.com'}>
   <ArticleList posts={posts?.nodes as Array<Post>} loadImageEagerly />
   {
     posts?.pageInfo.hasNextPage && (
       <Fragment>
         <Separator
-          hx-get={`/parts/list?tag=${category.slug}&amount=${AMOUNT}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
+          hx-get={`/parts/list?author=${author.slug}&amount=${AMOUNT}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
           hx-trigger="revealed"
           hx-swap="outerHTML"
           hx-target="#list-slot"

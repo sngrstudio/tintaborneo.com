@@ -8,12 +8,13 @@ import { fetchPosts } from '~/data/posts'
 
 interface Props extends Pick<ArticleSectionProps, 'type' | 'withHeader'> {
   categoryId: string
+  amount?: number
   loadImageEagerly?: boolean
 }
 
-const AMOUNT = 6
 const {
   categoryId,
+  amount = 6,
   type,
   withHeader = false,
   loadImageEagerly = false,
@@ -25,7 +26,7 @@ const {
 const {
   data: { posts },
 } = await fetchPosts({
-  amount: AMOUNT,
+  amount,
   category: categoryId,
 })
 ---
