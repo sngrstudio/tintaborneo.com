@@ -1,16 +1,12 @@
 ---
-import type { FetchPostsArgs } from '~/data/posts'
-import List from './list.astro'
-
-interface Props extends FetchPostsArgs {
+export interface Props {
   title?: string
   uri?: string
   type?: 'primary' | 'secondary'
   withHeader?: boolean
 }
 
-const { title, uri, type, withHeader, cursor, amount, author, category, tag } =
-  Astro.props
+const { title, uri, type, withHeader } = Astro.props
 ---
 
 <section class="flex flex-col gap-3 px-4">
@@ -33,11 +29,5 @@ const { title, uri, type, withHeader, cursor, amount, author, category, tag } =
       </hgroup>
     )
   }
-  <List
-    cursor={cursor}
-    amount={amount}
-    author={author}
-    category={category}
-    tag={tag}
-  />
+  <slot />
 </section>

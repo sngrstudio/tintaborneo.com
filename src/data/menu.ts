@@ -15,6 +15,11 @@ export const fetchMenuList = async (id: string) => {
               uri
               label
               order
+              connectedObject {
+                ... on Category {
+                  slug
+                }
+              }
             }
           }
         }

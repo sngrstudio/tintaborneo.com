@@ -1,6 +1,7 @@
 ---
 import type { LayoutProps } from './layout'
 import Layout from './layout.astro'
+import PageHeader from './page-header.astro'
 
 interface Props extends LayoutProps {}
 
@@ -15,11 +16,7 @@ const { title, description } = Astro.props
 
   {/* body */}
   <main class="flex flex-col gap-6 pt-16 pb-16">
-    <hgroup class="border-t-2 border-tb-muted px-4 py-2">
-      <h1 class="font-heading font-bold text-3xl text-tb-muted">
-        {title}
-      </h1>
-    </hgroup>
+    <PageHeader title={title!} />
     <section class="flex flex-col gap-3 px-4">
       <slot />
     </section>

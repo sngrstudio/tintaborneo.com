@@ -4,9 +4,10 @@ import { Picture } from 'astro:assets'
 import { fetchPage } from '~/data/pages'
 
 const { page: pageUri } = Astro.params
-const { data } = await fetchPage(pageUri!)
-if (!data.page) return Astro.redirect('/404')
-const { page } = data
+const {
+  data: { page },
+} = await fetchPage(pageUri!)
+if (!page) return Astro.redirect('/404')
 ---
 
 <PageLayout title={page.title!}>
