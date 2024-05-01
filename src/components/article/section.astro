@@ -1,19 +1,16 @@
 ---
-import type { Post } from '~/data/graphql'
-import ArticleCard from '~/components/article/card.astro'
-import { fetchPostsByCategory } from '~/data/posts'
+import type { FetchPostsArgs } from '~/data/posts'
+import List from './list.astro'
 
-interface Props {
-  id: string
+interface Props extends FetchPostsArgs {
+  title?: string
+  uri?: string
   type?: 'primary' | 'secondary'
-  first?: number
   withHeader?: boolean
 }
 
-const { id, type = 'secondary', first, withHeader } = Astro.props
-const {
-  data: { posts, category },
-} = await fetchPostsByCategory(id, first)
+const { title, uri, type, withHeader, cursor, amount, author, category, tag } =
+  Astro.props
 ---
 
 <section class="flex flex-col gap-3 px-4">
@@ -31,17 +28,16 @@ const {
             { 'text-tb-primary text-3xl': type === 'primary' },
             { 'text-tb-muted text-2xl': type === 'secondary' },
           ]}>
-          <a href={category?.uri}>{category?.name}</a>
+          <a href={uri}>{title}</a>
         </h2>
       </hgroup>
     )
   }
-  {
-    posts?.nodes.map((post: Post, i, arr) => (
-      <Fragment>
-        <ArticleCard post={post} />
-        {i < arr.length - 1 ? <hr class="text-tb-muted" /> : null}
-      </Fragment>
-    ))
-  }
+  <List
+    cursor={cursor}
+    amount={amount}
+    author={author}
+    category={category}
+    tag={tag}
+  />
 </section>

@@ -1,0 +1,22 @@
+---
+import type { Post } from '~/data/graphql'
+import ArticleCard from '~/components/article/card.astro'
+import Separator from './separator.astro'
+
+interface Props {
+  posts: Array<Post>
+}
+
+const { posts } = Astro.props
+---
+
+<Fragment>
+  {
+    posts.map((post: Post, i, arr) => (
+      <Fragment>
+        <ArticleCard post={post} />
+        {i < arr.length - 1 && <Separator />}
+      </Fragment>
+    ))
+  }
+</Fragment>

@@ -1,4 +1,5 @@
 ---
+import type { LayoutProps } from './layout'
 import BaseLayout from './base.astro'
 import Header from './header.astro'
 import { SEO } from 'astro-seo'
@@ -10,10 +11,7 @@ import '@fontsource/source-serif-pro/900.css'
 import '@fontsource/martel-sans/400.css'
 import '@fontsource/martel-sans/700.css'
 
-interface Props {
-  title?: string
-  description?: string
-}
+interface Props extends LayoutProps {}
 
 const {
   data: { generalSettings: site },

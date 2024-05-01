@@ -1,0 +1,34 @@
+---
+import type { Post } from '~/data/graphql'
+import ArticleList from '~/components/article/list.astro'
+import Separator from '~/components/article/separator.astro'
+import { fetchPosts } from '~/data/posts'
+
+const cursor = Astro.url.searchParams.get('cursor')
+const amount = Astro.url.searchParams.get('amount')
+const author = Astro.url.searchParams.get('author')
+const category = Astro.url.searchParams.get('category')
+const tag = Astro.url.searchParams.get('tag')
+const infinite = Astro.url.searchParams.get('infinite')
+
+const {
+  data: { posts },
+} = await fetchPosts({
+  cursor: cursor || undefined,
+  amount: Number(amount) || undefined,
+  author: author || undefined,
+  category: category || undefined,
+  tag: tag || undefined,
+})
+---
+
+<ArticleList posts={posts?.nodes as Array<Post>} />
+{
+  infinite && posts?.pageInfo.hasNextPage && (
+    <Separator
+      hx-get={`/parts/list?tag=${tag}&amount=${amount}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
+      hx-trigger="revealed"
+      hx-swap="afterend"
+    />
+  )
+}

@@ -118,3 +118,71 @@ export const fetchPostsByUser = async (id: string) => {
     },
   })) as PostsByUserFetched
 }
+
+type PostsFetched = {
+  data: Pick<RootQuery, 'posts' | 'user'>
+}
+
+export type FetchPostsArgs = {
+  cursor?: string
+  amount?: number
+  author?: string
+  category?: string
+  tag?: string
+}
+
+export const fetchPosts = async ({
+  cursor,
+  amount,
+  author,
+  category,
+  tag,
+}: FetchPostsArgs) => {
+  return (await fetchData({
+    query: gql`
+      query FetchPosts(
+        $cursor: String = ""
+        $amount: Int = 6
+        $author: String = ""
+        $category: String = ""
+        $tag: String = ""
+      ) {
+        posts(
+          after: $cursor
+          first: $amount
+          where: {
+            authorName: $author
+            categoryName: $category
+            tag: $tag
+            orderby: { field: DATE, order: DESC }
+          }
+        ) {
+          nodes {
+            title
+            excerpt
+            uri
+            date
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+                caption
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    `,
+    variables: {
+      cursor,
+      amount,
+      author,
+      category,
+      tag,
+    },
+  })) as PostsFetched
+}
