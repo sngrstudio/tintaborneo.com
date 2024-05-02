@@ -3,9 +3,9 @@ import type { Post } from '~/data/graphql'
 import { Picture } from 'astro:assets'
 import { getDateString } from '~/utils/date'
 
-interface Props {
+export interface Props {
   post: Post
-  type?: 'spotlight' | 'normal'
+  type?: 'spotlight' | 'normal' | 'list'
   loadImage?: 'lazy' | 'eager'
 }
 
@@ -14,26 +14,36 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
 
 <article
   class:list={[
-    'flex gap-2 font-heading',
-    { 'flex-col': type === 'spotlight' },
-    { 'flex-row': type === 'normal' },
+    'grid font-heading',
+    {
+      'grid-cols-1 gap-y-2 items-start md:col-span-3 md:grid-cols-2 md:gap-x-2':
+        type === 'spotlight',
+    },
+    {
+      'grid-cols-3 gap-x-2': type === 'normal' || type === 'list',
+    },
+    {
+      'md:grid-cols-1 md:gap-y-2 md:gap-x-0': type === 'normal',
+    },
   ]}>
   <div
     class:list={[
-      'flex aspect-[128/96]',
-      { 'w-full h-auto': type === 'spotlight' },
-      { 'w-[128px] h-[96px]': type === 'normal' },
+      'flex h-max',
+      { 'md:order-[2]': type === 'spotlight' },
+      { '': type === 'normal' },
     ]}>
-    <a class:list={[{ 'flex-1 -mx-4': type === 'spotlight' }]} href={post.uri}>
+    <a
+      class:list={['h-max', { 'flex-1 -mx-4 md:mx-0': type === 'spotlight' }]}
+      href={post.uri}>
       <Picture
         class:list={[
-          'object-cover object-center',
-          { 'w-full h-full': type === 'spotlight' },
-          { 'w-[128px] h-[96px]': type === 'normal' },
+          'aspect-[4/3] object-cover object-center w-full h-auto',
+          { '': type === 'spotlight' },
+          { '': type === 'normal' },
         ]}
         src={post.featuredImage?.node.sourceUrl!}
-        width={type === 'spotlight' ? 256 : 512}
-        height={type === 'spotlight' ? 192 : 384}
+        width={1280}
+        height={960}
         alt={post.featuredImage?.node.altText || post.title!}
         loading={loadImage}
       />
@@ -41,15 +51,31 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
   </div>
   <div
     class:list={[
-      'flex flex-col justify-between [&>p]:line-clamp-4',
-      { 'gap-2': type === 'spotlight' },
-      { 'gap-1': type !== 'spotlight' },
+      'col-span-2 flex-1 flex flex-col justify-between',
+      {
+        'gap-2 [&>p:not(.tb-time)]:line-clamp-4 md:col-span-1 md:gap-4 md:justify-center md:order-[1]':
+          type === 'spotlight',
+      },
+      {
+        'gap-1 md:justify-start [&>p:not(.tb-time)]:hidden [&>p:not(.tb-time)]:line-clamp-2 md:[&>p:not(.tb-time)]:[display:-webkit-box]':
+          type === 'normal',
+      },
+      {
+        'gap-1 md:justify-start [&>p:not(.tb-time)]:hidden [&>p:not(.tb-time)]:line-clamp-2 md:[&>p:not(.tb-time)]:[display:-webkit-box]':
+          type === 'list',
+      },
     ]}>
-    <h3 class:list={['font-bold', { 'text-xl': type === 'spotlight' }]}>
+    <h3
+      class:list={[
+        'font-bold',
+        { 'text-xl md:text-2xl': type === 'spotlight' },
+        { 'text-base md:text-lg': type === 'normal' },
+        { 'text-base md:text-xl': type === 'list' },
+      ]}>
       <a href={post.uri}>{post.title}</a>
     </h3>
-    {type === 'spotlight' && <Fragment set:html={post.excerpt} />}
-    <p class="font-sans text-sm">
+    <Fragment set:html={post.excerpt} />
+    <p class="tb-time font-sans text-sm md:mt-auto">
       <time datetime={post.date}>
         {getDateString(new Date(post.date!))}
       </time>

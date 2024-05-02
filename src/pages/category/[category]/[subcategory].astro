@@ -23,12 +23,12 @@ const {
 ---
 
 <ListLayout title={category.name!} description={category.description!}>
-  <ArticleList posts={posts?.nodes as Array<Post>} loadImageEagerly />
+  <ArticleList posts={posts?.nodes as Array<Post>} loadImage="eager" />
   {
     posts?.pageInfo.hasNextPage && (
       <Fragment>
         <Separator
-          hx-get={`/parts/list?tag=${category.slug}&amount=${AMOUNT}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
+          hx-get={`/parts/list?category=${category.slug}&amount=${AMOUNT}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
           hx-trigger="revealed"
           hx-swap="outerHTML"
           hx-target="#list-slot"

@@ -2,14 +2,15 @@
 import ArticleSection, {
   type Props as ArticleSectionProps,
 } from './section.astro'
-import ArticleList from './list.astro'
+import ArticleList, { type Props as ArticleListProps } from './list.astro'
 import { fetchCategory } from '~/data/taxonomies'
 import { fetchPosts } from '~/data/posts'
 
-interface Props extends Pick<ArticleSectionProps, 'type' | 'withHeader'> {
+interface Props
+  extends Pick<ArticleSectionProps, 'type' | 'withHeader'>,
+    Pick<ArticleListProps, 'loadImage'> {
   categoryId: string
   amount?: number
-  loadImageEagerly?: boolean
 }
 
 const {
@@ -17,7 +18,7 @@ const {
   amount = 6,
   type,
   withHeader = false,
-  loadImageEagerly = false,
+  loadImage = 'lazy',
 } = Astro.props
 
 const {
@@ -36,9 +37,5 @@ const {
   uri={category?.uri!}
   type={type}
   withHeader={withHeader}>
-  <ArticleList
-    posts={posts?.nodes!}
-    loadImageEagerly={loadImageEagerly}
-    expandSpotlight
-  />
+  <ArticleList posts={posts?.nodes!} type="spotlight" loadImage={loadImage} />
 </ArticleSection>

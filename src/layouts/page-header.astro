@@ -15,9 +15,9 @@ const { title, type = 'secondary' } = Astro.props
   ]}>
   <h1
     class:list={[
-      'font-heading font-bold',
-      { 'text-4xl text-tb-primary': type === 'primary' },
-      { 'text-3xl text-tb-muted': type === 'secondary' },
+      'font-heading',
+      { 'font-black text-4xl text-tb-primary md:text-5xl': type === 'primary' },
+      { 'font-bold text-3xl text-tb-muted': type === 'secondary' },
     ]}>
     {title}
   </h1>

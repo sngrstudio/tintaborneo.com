@@ -25,11 +25,12 @@ const {
 export const partial = true
 ---
 
-<ArticleList posts={posts?.nodes as Array<Post>} />
+<ArticleList posts={posts?.nodes as Array<Post>} type="list" />
 {
   infinite && posts?.pageInfo.hasNextPage && (
     <Fragment>
       <Separator
+        class="md:hidden"
         hx-get={`/parts/list?tag=${tag}&amount=${amount}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
         hx-trigger="revealed"
         hx-swap="outerHTML"

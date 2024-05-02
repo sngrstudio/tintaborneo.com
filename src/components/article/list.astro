@@ -1,15 +1,16 @@
 ---
 import type { Post } from '~/data/graphql'
-import ArticleCard from '~/components/article/card.astro'
+import ArticleCard, {
+  type Props as ArticleCardProps,
+} from '~/components/article/card.astro'
 import Separator from '../separator.astro'
 
-interface Props {
+export interface Props extends Pick<ArticleCardProps, 'loadImage'> {
   posts: Array<Post>
-  expandSpotlight?: boolean
-  loadImageEagerly?: boolean
+  type?: 'spotlight' | 'list'
 }
 
-const { posts, expandSpotlight = false, loadImageEagerly = false } = Astro.props
+const { posts, type = 'list', loadImage = 'lazy' } = Astro.props
 ---
 
 <Fragment>
@@ -18,10 +19,16 @@ const { posts, expandSpotlight = false, loadImageEagerly = false } = Astro.props
       <Fragment>
         <ArticleCard
           post={post}
-          type={expandSpotlight && i === 0 ? 'spotlight' : 'normal'}
-          loadImage={loadImageEagerly ? 'eager' : 'lazy'}
-        />
-        {i < arr.length - 1 && <Separator />}
+          type={
+            type === 'spotlight' && i === 0
+              ? 'spotlight'
+              : type === 'list'
+                ? 'list'
+                : 'normal'
+          }
+          loadImage={loadImage}
+        />{' '}
+        {i < arr.length - 1 && <Separator class="md:hidden" />}
       </Fragment>
     ))
   }
