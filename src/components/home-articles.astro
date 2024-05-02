@@ -11,7 +11,7 @@ const menu = menuData?.menuItems?.nodes
 ---
 
 <Fragment>
-  <ArticleListByCategory categoryId="berita-utama" loadImageEagerly />
+  <ArticleListByCategory categoryId="berita-utama" loadImage="eager" />
   {
     menu?.map((entry: MenuItem) => (
       <div

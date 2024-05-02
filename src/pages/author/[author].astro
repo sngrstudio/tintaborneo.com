@@ -1,46 +1,23 @@
 ---
-import type { Post } from '~/data/graphql'
 import ListLayout from '~/layouts/list.astro'
-import ArticleList from '~/components/article/list.astro'
-import Separator from '~/components/separator.astro'
-import LoadingIndicator from '~/components/loading-indicator.astro'
+import ArticleListLoader from '~/components/article/list-loader.astro'
 import { fetchUser } from '~/data/taxonomies'
-import { fetchPosts } from '~/data/posts'
-
-const AMOUNT = 12
 
 const { author: authorId } = Astro.params
 const {
   data: { user: author },
 } = await fetchUser(authorId!)
 if (!author) return Astro.redirect('/404')
-const {
-  data: { posts },
-} = await fetchPosts({
-  amount: AMOUNT,
-  author: author.slug!,
-})
 ---
 
 <ListLayout
   title={author.name!}
   description={author.description || 'Jurnalis TintaBorneo.com'}>
-  <ArticleList posts={posts?.nodes as Array<Post>} loadImageEagerly />
-  {
-    posts?.pageInfo.hasNextPage && (
-      <Fragment>
-        <Separator
-          hx-get={`/parts/list?author=${author.slug}&amount=${AMOUNT}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
-          hx-trigger="revealed"
-          hx-swap="outerHTML"
-          hx-target="#list-slot"
-        />
-        <div
-          id="list-slot"
-          class="flex flex-col items-center justify-center h-[144px]">
-          <LoadingIndicator />
-        </div>
-      </Fragment>
-    )
-  }
+  <ArticleListLoader
+    type="user"
+    slug={author.slug!}
+    amount={12}
+    lazyload={false}
+    isInfinite
+  />
 </ListLayout>

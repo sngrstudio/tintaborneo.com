@@ -1,25 +1,23 @@
 ---
 import type { Post } from '~/data/graphql'
 import ArticleList from '~/components/article/list.astro'
-import Separator from '~/components/separator.astro'
-import LoadingIndicator from '~/components/loading-indicator.astro'
+import ArticleListLoader from '~/components/article/list-loader.astro'
 import { fetchPosts } from '~/data/posts'
 
 const cursor = Astro.url.searchParams.get('cursor')
 const amount = Astro.url.searchParams.get('amount')
-const author = Astro.url.searchParams.get('author')
-const category = Astro.url.searchParams.get('category')
-const tag = Astro.url.searchParams.get('tag')
+const type = Astro.url.searchParams.get('type')
+const slug = Astro.url.searchParams.get('slug')
 const infinite = Astro.url.searchParams.get('infinite')
 
 const {
   data: { posts },
 } = await fetchPosts({
+  author: type === 'author' && slug ? slug : undefined,
+  category: type === 'category' && slug ? slug : undefined,
+  tag: type === 'tag' && slug ? slug : undefined,
   cursor: cursor || undefined,
   amount: Number(amount) || undefined,
-  author: author || undefined,
-  category: category || undefined,
-  tag: tag || undefined,
 })
 
 export const partial = true
@@ -28,19 +26,12 @@ export const partial = true
 <ArticleList posts={posts?.nodes as Array<Post>} type="list" />
 {
   infinite && posts?.pageInfo.hasNextPage && (
-    <Fragment>
-      <Separator
-        class="md:hidden"
-        hx-get={`/parts/list?tag=${tag}&amount=${amount}&cursor=${posts.pageInfo.endCursor}&infinite=true`}
-        hx-trigger="revealed"
-        hx-swap="outerHTML"
-        hx-target="#list-slot"
-      />
-      <div
-        id="list-slot"
-        class="flex flex-col items-center justify-center h-[144px]">
-        <LoadingIndicator />
-      </div>
-    </Fragment>
+    <ArticleListLoader
+      type={type as 'category' | 'tag' | 'user'}
+      slug={slug!}
+      amount={Number(amount) || 6}
+      cursor={posts.pageInfo.endCursor!}
+      isInfinite={!!infinite}
+    />
   )
 }
