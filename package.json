@@ -4,12 +4,15 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "astro check && astro build",
+    "build": "astro build",
+    "check": "pnpm get-assets && astro check && tsc --noEmit",
     "codegen": "graphql-codegen --config codegen.ts",
-    "dev": "astro dev",
+    "dev": "pnpm get-assets && astro dev",
     "format": "prettier --write .",
+    "get-assets": "tsx ./scripts/logo.ts",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "prebuild": "pnpm check"
   },
   "dependencies": {
     "@alpinejs/intersect": "^3.13.10",
@@ -39,6 +42,7 @@
     "dotenv": "^16.4.5",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
+    "tsx": "^4.8.2",
     "typescript": "^5.4.5",
     "unplugin-icons": "^0.18.5"
   },

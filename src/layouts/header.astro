@@ -1,15 +1,14 @@
 ---
-import { fetchLogo } from '~/data/site'
 import { Image } from 'astro:assets'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
+import logo from '~/assets/logo.png'
 
-const {
-  data: { mediaItems: data },
-} = await fetchLogo()
+interface Props {
+  title: string
+}
 
-// @ts-ignore
-const logo = data!.nodes.at(0)!.sourceUrl
+const { title } = Astro.props
 ---
 
 <header class="fixed top-0 inset-x-0 bg-tb-background z-[9999]">
@@ -29,7 +28,7 @@ const logo = data!.nodes.at(0)!.sourceUrl
           src={logo}
           width={350}
           height={70}
-          alt=""
+          alt={title}
           loading="eager"
         />
       </a>
