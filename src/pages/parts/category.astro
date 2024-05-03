@@ -4,6 +4,7 @@ import ArticleListByCategory from '~/components/article/list-by-category.astro'
 const id = Astro.url.searchParams.get('id')
 const amount = Astro.url.searchParams.get('amount')
 const isPrimary = Astro.url.searchParams.get('primary')
+const featured = Astro.url.searchParams.get('featured')
 const withHeader = Astro.url.searchParams.get('header')
 const loadImageEagerly = Astro.url.searchParams.get('loadImageEagerly')
 
@@ -14,6 +15,7 @@ export const partial = true
   categoryId={id!}
   amount={Number(amount) || 6}
   type={isPrimary ? 'primary' : 'secondary'}
+  excludeFeatured={!featured}
   withHeader={!!withHeader}
   loadImage={!!loadImageEagerly ? 'eager' : 'lazy'}
 />

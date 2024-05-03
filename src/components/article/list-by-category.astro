@@ -11,13 +11,15 @@ interface Props
     Pick<ArticleListProps, 'loadImage'> {
   categoryId: string
   amount?: number
+  excludeFeatured?: boolean
 }
 
 const {
   categoryId,
   amount = 6,
   type,
-  withHeader = false,
+  excludeFeatured,
+  withHeader,
   loadImage = 'lazy',
 } = Astro.props
 
@@ -25,10 +27,17 @@ const {
   data: { category },
 } = await fetchCategory(categoryId)
 const {
+  data: { category: featuredCtg },
+} = await fetchCategory('berita-utama')
+const {
   data: { posts },
 } = await fetchPosts({
   amount,
   category: categoryId,
+  categoryNotIn:
+    !excludeFeatured || categoryId !== 'berita-utama'
+      ? [featuredCtg?.id!]
+      : undefined,
 })
 ---
 

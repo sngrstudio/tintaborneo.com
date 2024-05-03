@@ -10,6 +10,7 @@ export const fetchCategory = async (id: string) => {
     query: gql`
       query FetchCategory($id: ID!) {
         category(id: $id, idType: SLUG) {
+          id
           name
           description
           slug

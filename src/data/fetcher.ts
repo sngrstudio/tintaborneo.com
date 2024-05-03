@@ -6,7 +6,7 @@ export const fetchData = async ({
   variables,
 }: {
   query: ReturnType<typeof gql>
-  variables?: Record<string, string | number | undefined>
+  variables?: Record<string, string | Array<string> | number | undefined>
 }) => {
   try {
     const response = await fetch(GRAPHQL_ENDPOINT, {

@@ -46,79 +46,6 @@ export const fetchPost = async (id: string) => {
   })) as PostFetched
 }
 
-type PostsByCategoryFetched = {
-  data: Pick<RootQuery, 'posts' | 'category'>
-}
-
-export const fetchPostsByCategory = async (id: string, first?: number) => {
-  return (await fetchData({
-    query: gql`
-      query FetchPostsByCategory($id: ID!, $category: String!, $first: Int!) {
-        posts(where: { categoryName: $category }, first: $first) {
-          nodes {
-            title
-            excerpt
-            uri
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                caption
-              }
-            }
-          }
-        }
-        category(id: $id, idType: SLUG) {
-          name
-          uri
-        }
-      }
-    `,
-    variables: {
-      id,
-      first: first || 6,
-      category: id,
-    },
-  })) as PostsByCategoryFetched
-}
-
-type PostsByUserFetched = {
-  data: Pick<RootQuery, 'posts' | 'user'>
-}
-
-export const fetchPostsByUser = async (id: string) => {
-  return (await fetchData({
-    query: gql`
-      query FetchPostsByUser($id: ID!, $user: String!) {
-        posts(where: { authorName: $user }, first: 12) {
-          nodes {
-            title
-            excerpt
-            uri
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                caption
-              }
-            }
-          }
-        }
-        user(id: $id, idType: SLUG) {
-          name
-          uri
-        }
-      }
-    `,
-    variables: {
-      id,
-      user: id,
-    },
-  })) as PostsByUserFetched
-}
-
 type PostsFetched = {
   data: Pick<RootQuery, 'posts' | 'user'>
 }
@@ -128,6 +55,7 @@ export type FetchPostsArgs = {
   amount?: number
   author?: string
   category?: string
+  categoryNotIn?: Array<string> | undefined
   tag?: string
 }
 
@@ -136,6 +64,7 @@ export const fetchPosts = async ({
   amount,
   author,
   category,
+  categoryNotIn,
   tag,
 }: FetchPostsArgs) => {
   return (await fetchData({
@@ -146,6 +75,7 @@ export const fetchPosts = async ({
         $author: String = ""
         $category: String = ""
         $tag: String = ""
+        $categoryNotIn: [ID] = ""
       ) {
         posts(
           after: $cursor
@@ -155,6 +85,7 @@ export const fetchPosts = async ({
             categoryName: $category
             tag: $tag
             orderby: { field: DATE, order: DESC }
+            categoryNotIn: $categoryNotIn
           }
         ) {
           nodes {
@@ -167,6 +98,13 @@ export const fetchPosts = async ({
                 sourceUrl
                 altText
                 caption
+              }
+            }
+            categories {
+              nodes {
+                id
+                name
+                slug
               }
             }
           }
@@ -182,6 +120,7 @@ export const fetchPosts = async ({
       amount,
       author,
       category,
+      categoryNotIn,
       tag,
     },
   })) as PostsFetched
