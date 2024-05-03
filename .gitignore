@@ -12,15 +12,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+
 # environment variables
 .env
 .env.production
-
-# downloaded assets
-src/assets/*
-!src/assets/.gitkeep
-public/*
-!public/.gitkeep
 
 # macOS-specific files
 .DS_Store

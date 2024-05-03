@@ -19,22 +19,19 @@ export const fetchSiteData = async () => {
 }
 
 type LogoFetched = {
-  data: Pick<RootQuery, 'mediaItem'>
+  data: Pick<RootQuery, 'mediaItems'>
 }
 
-export const fetchLogo = async (id: string) => {
+export const fetchLogo = async () => {
   return (await fetchData({
     query: gql`
-      query FetchLogo($id: ID!) {
-        mediaItem(id: $id, idType: SLUG) {
-          sourceUrl
-          altText
-          slug
+      query FetchLogo {
+        mediaItems(where: { title: "logo" }) {
+          nodes {
+            sourceUrl
+          }
         }
       }
     `,
-    variables: {
-      id,
-    },
   })) as LogoFetched
 }

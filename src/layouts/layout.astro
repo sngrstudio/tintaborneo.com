@@ -2,7 +2,6 @@
 import type { LayoutProps } from './layout'
 import BaseLayout from './base.astro'
 import Header from './header.astro'
-import Footer from './footer.astro'
 import { SEO } from 'astro-seo'
 import { fetchSiteData } from '~/data/site'
 
@@ -34,8 +33,7 @@ const { title, description } = Astro.props
 
   {/* <body/> */}
   <Fragment>
-    <Header title={site?.title!} />
+    <Header />
     <slot />
-    <Footer />
   </Fragment>
 </BaseLayout>
