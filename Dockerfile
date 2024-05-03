@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json pnpm-lock.yaml ./
 
 FROM builder-base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-prod,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM builder-base AS builder
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
