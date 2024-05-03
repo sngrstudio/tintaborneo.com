@@ -1,0 +1,71 @@
+---
+import { fetchLogo } from '~/data/site'
+import { Image } from 'astro:assets'
+import { fetchMenuList } from '~/data/menu'
+import type { MenuItem } from '~/data/graphql'
+
+const {
+  data: { mediaItem: logo },
+} = await fetchLogo('logo-alt')
+const {
+  data: { menu: primaryMenuData },
+} = await fetchMenuList('primary-menu')
+const {
+  data: { menu: secondaryMenuData },
+} = await fetchMenuList('secondary-menu')
+const primaryMenu = primaryMenuData?.menuItems?.nodes
+const secondaryMenu = secondaryMenuData?.menuItems?.nodes
+const copyTexts = [
+  `<b>&copy; ${new Date().getFullYear()} PT Multimedia Jagad Perkasa.</b>`,
+  `Hak cipta dilindungi oleh undang-undang.`,
+  `Didesain & dikembangkan oleh <a class="underline" href="https://sngr.my.id" rel="sponsored">SNGR Studio</a>.`,
+]
+---
+
+<footer
+  class="flex flex-col gap-4 bg-tb-text text-tb-background px-4 pt-4 pb-8 md:items-center">
+  <div class="flex items-center justify-center">
+    <Image
+      class="object-contain w-[250px] h-[50px]"
+      src={logo?.sourceUrl!}
+      width={500}
+      height={100}
+      alt={logo?.altText!}
+      loading="eager"
+    />
+  </div>
+  <div>
+    <ul
+      class="flex flex-col gap-y-1 font-subheading font-bold text-lg md:flex-row md:gap-x-3 md:gap-y-0">
+      {
+        primaryMenu?.map((entry: MenuItem) => (
+          <li class="hover:underline">
+            <a href={entry.uri}>{entry.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div>
+    <ul class="flex flex-wrap gap-x-2 text-sm">
+      {
+        secondaryMenu?.map((entry: MenuItem) => (
+          <li>
+            <a href={entry.uri}>{entry.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div>
+    <ul class="flex flex-wrap gap-x-2 text-sm">
+      {
+        copyTexts.map((entry) => (
+          <li>
+            <span set:html={entry} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

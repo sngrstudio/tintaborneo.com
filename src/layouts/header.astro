@@ -4,12 +4,15 @@ import { Image } from 'astro:assets'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
 
-const {
-  data: { mediaItems: data },
-} = await fetchLogo()
+interface Props {
+  title: string
+}
 
-// @ts-ignore
-const logo = data!.nodes.at(0)!.sourceUrl
+const {
+  data: { mediaItem: logo },
+} = await fetchLogo('logo')
+
+const { title } = Astro.props
 ---
 
 <header class="fixed top-0 inset-x-0 bg-tb-background z-[9999]">
@@ -26,10 +29,10 @@ const logo = data!.nodes.at(0)!.sourceUrl
       <a href="/" role="button">
         <Image
           class="object-contain w-[175px] h-[35px]"
-          src={logo}
+          src={logo?.sourceUrl!}
           width={350}
           height={70}
-          alt=""
+          alt={title}
           loading="eager"
         />
       </a>
