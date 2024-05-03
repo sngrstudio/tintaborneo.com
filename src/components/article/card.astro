@@ -42,9 +42,13 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
           { '': type === 'normal' },
         ]}
         src={post.featuredImage?.node.sourceUrl!}
-        width={1280}
-        height={960}
+        width={type === 'spotlight' ? 430 : 236}
+        height={type === 'spotlight' ? 323 : 177}
         alt={post.featuredImage?.node.altText || post.title!}
+        widths={type === 'spotlight' ? [270, 366, 430] : [128, 172, 236]}
+        sizes={type === 'spotlight'
+          ? '(max-width: 640px) 430px, (max-width: 768px) 270px, 366px'
+          : '(max-width: 640px) 128px, (max-width: 768px) 172px, 236px'}
         formats={['avif', 'webp']}
         loading={loadImage}
       />

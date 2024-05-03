@@ -14,8 +14,7 @@ const subcategories = category.children?.nodes
 ---
 
 <Layout title={category.name!} description={category.description!}>
-  <main
-    class="flex flex-col gap-6 pt-16 pb-16 md:max-w-screen-lg md:mx-auto md:gap-12 md:pt-24">
+  <main class="flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12">
     <PageHeader title={category.name!} type="primary" />
     <ArticleListByCategoryLoader
       id={category.slug!}
