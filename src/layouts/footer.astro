@@ -1,8 +1,8 @@
 ---
-import { fetchLogo } from '~/data/site'
-import { Image } from 'astro:assets'
-import { fetchMenuList } from '~/data/menu'
 import type { MenuItem } from '~/data/graphql'
+import { fetchLogo } from '~/data/site'
+import { Picture } from 'astro:assets'
+import { fetchMenuList } from '~/data/menu'
 
 const {
   data: { mediaItem: logo },
@@ -13,6 +13,7 @@ const {
 const {
   data: { menu: secondaryMenuData },
 } = await fetchMenuList('secondary-menu')
+
 const primaryMenu = primaryMenuData?.menuItems?.nodes
 const secondaryMenu = secondaryMenuData?.menuItems?.nodes
 const copyTexts = [
@@ -25,13 +26,13 @@ const copyTexts = [
 <footer
   class="flex flex-col gap-4 bg-tb-text text-tb-background px-4 pt-4 pb-8 md:items-center">
   <div class="flex items-center justify-center">
-    <Image
+    <Picture
       class="object-contain w-[250px] h-[50px]"
       src={logo?.sourceUrl!}
       width={500}
       height={100}
       alt={logo?.altText!}
-      loading="eager"
+      formats={['avif', 'webp']}
     />
   </div>
   <div>
@@ -50,7 +51,7 @@ const copyTexts = [
     <ul class="flex flex-wrap gap-x-2 text-sm">
       {
         secondaryMenu?.map((entry: MenuItem) => (
-          <li>
+          <li class="hover:underline">
             <a href={entry.uri}>{entry.label}</a>
           </li>
         ))

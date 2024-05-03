@@ -8,13 +8,7 @@ import Icons from 'unplugin-icons/vite'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.hanyauntukdisyukuri.my.id',
-  integrations: [
-    tailwind(),
-    htmx(),
-    alpinejs({
-      entrypoint: '/src/lib/alpine',
-    }),
-  ],
+  integrations: [tailwind(), htmx(), alpinejs()],
   image: {
     domains: [
       'hanyauntukdisyukuri.my.id',

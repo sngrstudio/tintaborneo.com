@@ -32,6 +32,7 @@ const { post } = data
             class="w-full"
             src={post.featuredImage.node.sourceUrl!}
             alt={post.featuredImage.node.altText || post.title!}
+            formats={['avif', 'webp']}
             loading="eager"
             inferSize
           />

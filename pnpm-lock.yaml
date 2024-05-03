@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@alpinejs/intersect':
-    specifier: ^3.13.10
-    version: 3.13.10
   '@astrojs/alpinejs':
     specifier: ^0.4.0
     version: 0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.13.10)
@@ -94,10 +91,6 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
-
-  /@alpinejs/intersect@3.13.10:
-    resolution: {integrity: sha512-peYkDonUNK1LSZmk7oBbmO7PmMhMdkanRApNX+grjHUVOC9L/m8voeFnDWV/faPv2oIbi2L3ALP4YZeKzhv1Vw==}
-    dev: false
 
   /@ampproject/remapping@2.3.0:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}

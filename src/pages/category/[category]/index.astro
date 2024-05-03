@@ -2,8 +2,7 @@
 import type { Category } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
 import PageHeader from '~/layouts/page-header.astro'
-import ArticleListByCategory from '~/components/article/list-by-category.astro'
-import LoadingIndicator from '~/components/loading-indicator.astro'
+import ArticleListByCategoryLoader from '~/components/article/list-by-category-loader.astro'
 import { fetchCategory } from '~/data/taxonomies'
 
 const { category: categoryId } = Astro.params
@@ -18,18 +17,17 @@ const subcategories = category.children?.nodes
   <main
     class="flex flex-col gap-6 pt-16 pb-16 md:max-w-screen-lg md:mx-auto md:gap-12 md:pt-24">
     <PageHeader title={category.name!} type="primary" />
-    <ArticleListByCategory categoryId={category.slug!} loadImage="eager" />
+    <ArticleListByCategoryLoader
+      id={category.slug!}
+      lazyload={false}
+      withHeader={false}
+      loadImageEagerly
+    />
     {
       subcategories?.map((entry: Category) => (
         <Fragment>
           {entry.posts?.nodes.length! > 0 && (
-            <div
-              class="flex flex-col items-center justify-center h-[144px]"
-              hx-get={`/parts/category/?id=${entry.slug}&amount=10`}
-              hx-trigger="revealed"
-              hx-swap="outerHTML">
-              <LoadingIndicator />
-            </div>
+            <ArticleListByCategoryLoader id={entry.slug!} />
           )}
         </Fragment>
       ))

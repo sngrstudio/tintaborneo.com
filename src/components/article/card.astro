@@ -45,6 +45,7 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
         width={1280}
         height={960}
         alt={post.featuredImage?.node.altText || post.title!}
+        formats={['avif', 'webp']}
         loading={loadImage}
       />
     </a>
