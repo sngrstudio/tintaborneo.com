@@ -25,7 +25,7 @@ const menu = menuData?.menuItems?.nodes
 <header
   class="fixed top-0 inset-x-0 flex flex-col items-stretch bg-tb-background z-[9999] px-4 py-2 md:gap-y-2">
   <Alert message="Ini adalah tampilan ujicoba dan belum dirilis ke publik." />
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between py-1">
     {/* menu button/current date */}
     <div>
       <button>
@@ -37,10 +37,10 @@ const menu = menuData?.menuItems?.nodes
     <div>
       <a href="/" role="button">
         <Picture
-          class="object-contain w-[175px] h-[35px]"
+          class="object-contain w-[200px] h-[40px]"
           src={logo?.sourceUrl!}
-          width={350}
-          height={70}
+          width={400}
+          height={80}
           alt={title}
           formats={['avif', 'webp']}
           loading="eager"
