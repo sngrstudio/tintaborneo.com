@@ -16,7 +16,7 @@ interface Props
 
 const {
   categoryId,
-  amount = 6,
+  amount,
   type,
   excludeFeatured,
   withHeader,
@@ -27,17 +27,11 @@ const {
   data: { category },
 } = await fetchCategory(categoryId)
 const {
-  data: { category: featuredCtg },
-} = await fetchCategory('berita-utama')
-const {
   data: { posts },
 } = await fetchPosts({
   amount,
   category: categoryId,
-  categoryNotIn:
-    !excludeFeatured || categoryId !== 'berita-utama'
-      ? [featuredCtg?.id!]
-      : undefined,
+  tagNotIn: !excludeFeatured ? 'berita-utama' : '',
 })
 ---
 

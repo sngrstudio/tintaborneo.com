@@ -28,14 +28,19 @@ export const fetchPost = async (id: string) => {
             }
           }
           categories {
-            edges {
-              node {
-                name
-                uri
-                slug
-                parentId
-              }
+            nodes {
+              name
+              uri
             }
+          }
+          tags {
+            nodes {
+              name
+              uri
+            }
+          }
+          postAdditionalField {
+            city
           }
         }
       }
@@ -47,7 +52,7 @@ export const fetchPost = async (id: string) => {
 }
 
 type PostsFetched = {
-  data: Pick<RootQuery, 'posts' | 'user'>
+  data: Pick<RootQuery, 'posts'>
 }
 
 export type FetchPostsArgs = {
@@ -55,8 +60,8 @@ export type FetchPostsArgs = {
   amount?: number
   author?: string
   category?: string
-  categoryNotIn?: Array<string> | undefined
   tag?: string
+  tagNotIn?: string | string[]
 }
 
 export const fetchPosts = async ({
@@ -64,8 +69,8 @@ export const fetchPosts = async ({
   amount,
   author,
   category,
-  categoryNotIn,
   tag,
+  tagNotIn,
 }: FetchPostsArgs) => {
   return (await fetchData({
     query: gql`
@@ -75,7 +80,7 @@ export const fetchPosts = async ({
         $author: String = ""
         $category: String = ""
         $tag: String = ""
-        $categoryNotIn: [ID] = ""
+        $tagNotIn: [ID] = ""
       ) {
         posts(
           after: $cursor
@@ -85,7 +90,8 @@ export const fetchPosts = async ({
             categoryName: $category
             tag: $tag
             orderby: { field: DATE, order: DESC }
-            categoryNotIn: $categoryNotIn
+            status: PUBLISH
+            tagNotIn: $tagNotIn
           }
         ) {
           nodes {
@@ -102,9 +108,14 @@ export const fetchPosts = async ({
             }
             categories {
               nodes {
-                id
                 name
-                slug
+                uri
+              }
+            }
+            tags {
+              nodes {
+                name
+                uri
               }
             }
           }
@@ -120,8 +131,8 @@ export const fetchPosts = async ({
       amount,
       author,
       category,
-      categoryNotIn,
       tag,
+      tagNotIn,
     },
   })) as PostsFetched
 }

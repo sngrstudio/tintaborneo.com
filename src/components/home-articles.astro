@@ -1,25 +1,32 @@
 ---
 import type { MenuItem } from '~/data/graphql'
+import ArticleSection from './article/section.astro'
+import ArticleList from './article/list.astro'
 import ArticleListByCategoryLoader from './article/list-by-category-loader.astro'
 import { fetchMenuList } from '~/data/menu'
+import { fetchPosts } from '~/data/posts'
 
 const {
   data: { menu: menuData },
 } = await fetchMenuList('home-category-list')
 const menu = menuData?.menuItems?.nodes
+
+const {
+  data: { posts },
+} = await fetchPosts({
+  tag: 'berita-utama',
+})
 ---
 
 <Fragment>
-  <ArticleListByCategoryLoader
-    id="berita-utama"
-    lazyload={false}
-    withHeader={false}
-    loadImageEagerly
-  />
+  <ArticleSection>
+    <ArticleList posts={posts?.nodes!} type="spotlight" loadImage="eager" />
+  </ArticleSection>
   {
     menu?.map((entry: MenuItem) => (
       <ArticleListByCategoryLoader
         id={entry.connectedObject?.slug!}
+        featured={false}
         isPrimary
       />
     ))
