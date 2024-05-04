@@ -1,5 +1,6 @@
 ---
 import type { MenuItem } from '~/data/graphql'
+import Alert from '~/components/alert.astro'
 import { fetchLogo } from '~/data/site'
 import { fetchMenuList } from '~/data/menu'
 import { Picture } from 'astro:assets'
@@ -23,6 +24,7 @@ const menu = menuData?.menuItems?.nodes
 
 <header
   class="fixed top-0 inset-x-0 flex flex-col items-stretch bg-tb-background z-[9999] px-4 py-2 md:gap-y-2">
+  <Alert message="Ini adalah tampilan ujicoba dan belum dirilis ke publik." />
   <div class="flex items-center justify-between">
     {/* menu button/current date */}
     <div>
