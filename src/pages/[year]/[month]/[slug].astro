@@ -1,13 +1,15 @@
 ---
+import type { Tag } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
 import { Picture } from 'astro:assets'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 
 const { slug } = Astro.params
-const { data } = await fetchPost(slug!)
-if (!data.post) return Astro.redirect('/404')
-const { post } = data
+const {
+  data: { post },
+} = await fetchPost(slug!)
+if (!post) return Astro.redirect('/404')
 ---
 
 <PageLayout title={post.title!}>
@@ -49,4 +51,21 @@ const { post } = data
 
   {/* post content */}
   <Fragment set:html={post.content} />
+
+  {/* tag list */}
+  <div class="not-prose text-tb-muted text-sm">
+    <p>
+      <b>Topik:</b>
+      {
+        post.tags?.nodes.map((tag: Tag, i, arr) => (
+          <>
+            <a class="hover:underline" href={tag.uri}>
+              {tag.name}
+            </a>
+            {i < arr.length - 1 && <span>,&nbsp;</span>}
+          </>
+        ))
+      }
+    </p>
+  </div>
 </PageLayout>

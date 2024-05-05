@@ -15,7 +15,7 @@ export const partial = true
   categoryId={id!}
   amount={Number(amount) || 6}
   type={isPrimary ? 'primary' : 'secondary'}
-  excludeFeatured={!featured}
+  featured={!!featured}
   withHeader={!!withHeader}
   loadImage={!!loadImageEagerly ? 'eager' : 'lazy'}
 />
