@@ -9,10 +9,10 @@ const {
 } = await fetchLogo('logo-alt')
 const {
   data: { menu: primaryMenuData },
-} = await fetchMenuList('primary-menu')
+} = await fetchMenuList('primary-navigation')
 const {
   data: { menu: secondaryMenuData },
-} = await fetchMenuList('secondary-menu')
+} = await fetchMenuList('footer-links')
 
 const primaryMenu = primaryMenuData?.menuItems?.nodes
 const secondaryMenu = secondaryMenuData?.menuItems?.nodes
