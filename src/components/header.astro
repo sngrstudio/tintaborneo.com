@@ -26,7 +26,8 @@ const menu = menuData?.menuItems?.nodes
   <div class="flex items-center justify-between py-1">
     {/* menu button/current date */}
     <div x-data>
-      <button x-on:click="$dispatch('setsidebaropen', true)">
+      <button
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')">
         <MenuIcon />
       </button>
     </div>
@@ -48,7 +49,8 @@ const menu = menuData?.menuItems?.nodes
 
     {/* search button */}
     <div x-data>
-      <button x-on:click="$dispatch('setsidebaropen', true)">
+      <button
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')">
         <SearchIcon />
       </button>
     </div>
