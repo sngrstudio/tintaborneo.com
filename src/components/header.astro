@@ -22,11 +22,11 @@ const menu = menuData?.menuItems?.nodes
 ---
 
 <header
-  class="fixed top-0 inset-x-0 flex flex-col items-stretch bg-tb-background z-[9999] px-4 py-2 md:gap-y-2">
+  class="fixed top-0 inset-x-0 flex flex-col items-stretch bg-tb-background z-[9998] px-4 py-2 md:gap-y-2">
   <div class="flex items-center justify-between py-1">
     {/* menu button/current date */}
-    <div>
-      <button>
+    <div x-data>
+      <button x-on:click="$dispatch('setsidebaropen', true)">
         <MenuIcon />
       </button>
     </div>
@@ -47,8 +47,8 @@ const menu = menuData?.menuItems?.nodes
     </div>
 
     {/* search button */}
-    <div>
-      <button>
+    <div x-data>
+      <button x-on:click="$dispatch('setsidebaropen', true)">
         <SearchIcon />
       </button>
     </div>

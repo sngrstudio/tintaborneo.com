@@ -10,11 +10,23 @@ export const fetchMenuList = async (id: string) => {
     query: gql`
       query FetchMenuList($id: ID!) {
         menu(id: $id, idType: LOCATION) {
-          menuItems {
+          menuItems(first: 50) {
             nodes {
-              uri
               label
+              uri
               order
+              connectedNode {
+                node {
+                  ... on Category {
+                    slug
+                    posts {
+                      nodes {
+                        uri
+                      }
+                    }
+                  }
+                }
+              }
               connectedObject {
                 ... on Category {
                   slug

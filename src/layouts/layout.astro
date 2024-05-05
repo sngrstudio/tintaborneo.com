@@ -1,8 +1,9 @@
 ---
 import type { LayoutProps } from './layout'
 import BaseLayout from './base.astro'
-import Header from './header.astro'
-import Footer from './footer.astro'
+import Header from '~/components/header.astro'
+import Footer from '~/components/footer.astro'
+import Sidebar from '~/components/sidebar.astro'
 import Alert from '~/components/alert.astro'
 import { SEO } from 'astro-seo'
 import { fetchSiteData } from '~/data/site'
@@ -39,7 +40,14 @@ const { title, description } = Astro.props
   <Fragment>
     <Header title={site?.title!} />
     <slot />
+    <Sidebar />
     <Footer />
     <Alert message="Ini adalah tampilan ujicoba dan belum dirilis ke publik." />
   </Fragment>
 </BaseLayout>
+
+<style is:global>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

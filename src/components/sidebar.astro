@@ -1,0 +1,36 @@
+---
+import type { MenuItem } from '~/data/graphql'
+import CloseIcon from '~icons/material-symbols/close'
+import { fetchMenuList } from '~/data/menu'
+
+const {
+  data: { menu: menuData },
+} = await fetchMenuList('sidebar-navigation')
+const menu = menuData?.menuItems?.nodes
+---
+
+<aside
+  class="fixed inset-0 z-[9999] flex flex-col gap-2 bg-tb-background px-4 pt-2 pb-8"
+  x-data="{isOpen: false}"
+  x-on:setsidebaropen.window="isOpen=$event.detail"
+  x-show="isOpen"
+  x-cloak>
+  <div class="flex justify-end py-3">
+    <div>
+      <button x-on:click="isOpen=false">
+        <CloseIcon />
+      </button>
+    </div>
+  </div>
+  <div class="flex-1 h-full overflow-y-scroll">
+    <ul class="flex flex-col gap-[0.125rem]">
+      {
+        menu?.map((entry: MenuItem) => (
+          <li class="font-subheading font-bold">
+            <a href={entry.uri}>{entry.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</aside>
