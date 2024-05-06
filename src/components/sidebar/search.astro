@@ -1,9 +1,21 @@
 ---
-
+import SearchIcon from '~icons/material-symbols/search'
 ---
 
 <template x-if="type==='search'">
-  <div class="flex-1 h-full overflow-y-scroll">
-    <input class="w-full" type="text" placeholder="Pencarian" />
+  <div class="flex-1 h-full overflow-y-scroll" x-data="{ search: '' }">
+    <form
+      class="flex w-full text-lg border-b-2 border-tb-text focus-within:border-tb-primary"
+      x-on:submit.prevent="console.log(search)">
+      <input
+        class="flex-1 outline-none"
+        type="text"
+        placeholder="Cari di TintaBorneo.com"
+        x-model="search"
+      />
+      <button class="" type="submit">
+        <SearchIcon />
+      </button>
+    </form>
   </div>
 </template>

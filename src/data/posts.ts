@@ -136,3 +136,48 @@ export const fetchPosts = async ({
     },
   })) as PostsFetched
 }
+
+export type SearchPostsArgs = {
+  cursor?: string
+  search?: string
+}
+
+export const searchPosts = async ({ cursor, search }: SearchPostsArgs) => {
+  return (await fetchData({
+    query: gql`
+      query SearchPosts($cursor: String = "", $search: String = "") {
+        posts(
+          after: $cursor
+          where: {
+            orderby: { field: DATE, order: DESC }
+            status: PUBLISH
+            search: $search
+          }
+          first: 12
+        ) {
+          nodes {
+            title
+            excerpt
+            uri
+            date
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+                caption
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    `,
+    variables: {
+      cursor,
+      search,
+    },
+  })) as PostsFetched
+}

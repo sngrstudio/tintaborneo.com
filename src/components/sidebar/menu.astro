@@ -23,7 +23,9 @@ const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
                 x-on:mouseover="open=true"
                 x-on:mouseout="open=false">
                 <summary class="flex gap-1 list-none">
-                  <a href={entry.uri}>{entry.label}</a>
+                  <a href={entry.uri} x-on:click="isOpen=false">
+                    {entry.label}
+                  </a>
                   <span x-on:click="open=!open" role="button">
                     <ExpandIcon x-show="!open" x-cloak />
                     <CollapseIcon x-show="open" x-cloak />
@@ -32,13 +34,17 @@ const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
                 <ul class="flex flex-col gap-1 md:gap-1 pl-4 mt-1 md:mt-2">
                   {entry.childItems?.nodes.map((entry: MenuItem) => (
                     <li class="text-xl md:text-lg">
-                      <a href={entry.uri}>{entry.label}</a>
+                      <a href={entry.uri} x-on:click="isOpen=false">
+                        {entry.label}
+                      </a>
                     </li>
                   ))}
                 </ul>
               </details>
             ) : (
-              <a href={entry.uri}>{entry.label}</a>
+              <a href={entry.uri} x-on:click="isOpen=false">
+                {entry.label}
+              </a>
             )}
           </li>
         ))
