@@ -1,20 +1,45 @@
 ---
 import type { MenuItem } from '~/data/graphql'
+import ExpandIcon from '~icons/material-symbols/expand-more'
+import CollapseIcon from '~icons/material-symbols/expand-less'
 import { fetchMenuList } from '~/data/menu'
 
 const {
   data: { menu: menuData },
 } = await fetchMenuList('sidebar-navigation')
-const menu = menuData?.menuItems?.nodes
+const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
 ---
 
 <template x-if="type==='menu'">
-  <div class="flex-1 h-full overflow-y-scroll">
-    <ul class="flex flex-col gap-[0.125rem]">
+  <div class="flex-1 flex flex-col h-full overflow-y-scroll">
+    <ul class="flex-1 flex flex-col gap-2 md:gap-2">
       {
         menu?.map((entry: MenuItem) => (
-          <li class="font-subheading font-bold">
-            <a href={entry.uri}>{entry.label}</a>
+          <li class="font-subheading font-bold text-3xl w-max md:text-2xl">
+            {entry.childItems?.nodes.length! > 0 ? (
+              <details
+                x-data="{open: false}"
+                x-bind:open="open"
+                x-on:mouseover="open=true"
+                x-on:mouseout="open=false">
+                <summary class="flex gap-1 list-none">
+                  <a href={entry.uri}>{entry.label}</a>
+                  <span x-on:click="open=!open" role="button">
+                    <ExpandIcon x-show="!open" x-cloak />
+                    <CollapseIcon x-show="open" x-cloak />
+                  </span>
+                </summary>
+                <ul class="flex flex-col gap-1 md:gap-1 pl-4 mt-1 md:mt-2">
+                  {entry.childItems?.nodes.map((entry: MenuItem) => (
+                    <li class="text-xl md:text-lg">
+                      <a href={entry.uri}>{entry.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a href={entry.uri}>{entry.label}</a>
+            )}
           </li>
         ))
       }

@@ -15,6 +15,7 @@ export const fetchMenuList = async (id: string) => {
               label
               uri
               order
+              parentId
               connectedNode {
                 node {
                   ... on Category {
@@ -30,6 +31,13 @@ export const fetchMenuList = async (id: string) => {
               connectedObject {
                 ... on Category {
                   slug
+                }
+              }
+              childItems(first: 50) {
+                nodes {
+                  label
+                  uri
+                  order
                 }
               }
             }

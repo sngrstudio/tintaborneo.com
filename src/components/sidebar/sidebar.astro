@@ -5,11 +5,12 @@ import CloseIcon from '~icons/material-symbols/close'
 ---
 
 <aside
-  class="fixed inset-y-0 left-0 right-0 z-[9999] flex flex-col gap-2 bg-tb-background px-4 pt-2 pb-8 md:w-1/3 lg:w-1/4 md:border-tb-primary md:shadow"
+  class="fixed inset-y-0 left-0 right-0 z-[9999] flex flex-col gap-8 bg-tb-background px-4 pt-2 pb-8 md:w-1/3 lg:w-1/4 md:border-tb-primary md:shadow"
   x-data="{isOpen: false, type: ''}"
   x-bind:class="{'md:right-auto md:border-r-2': type==='menu', 'md:left-auto md:border-l-2': type==='search'}"
   x-on:setsidebaropen.window="isOpen=$event.detail"
   x-on:setsidebarmenu.window="type=$event.detail"
+  x-on:click.outside="isOpen=false"
   x-show="isOpen"
   x-cloak>
   {/* close button */}
