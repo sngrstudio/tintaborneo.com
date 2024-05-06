@@ -1,5 +1,11 @@
 ---
 import ErrorLayout from '~/layouts/error.astro'
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=31536000, must-revalidate'
+)
 ---
 
 <ErrorLayout title="404 Not Found" message="Halaman tidak ditemukan." />

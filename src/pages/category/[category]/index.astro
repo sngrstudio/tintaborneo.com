@@ -20,6 +20,16 @@ const {
   category: category.name!,
   tag: 'berita-utama',
 })
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=60, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=300, stale-while-revalidate=3600'
+)
 ---
 
 <Layout title={category.name!} description={category.description!}>
