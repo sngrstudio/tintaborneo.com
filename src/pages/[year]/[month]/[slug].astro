@@ -1,7 +1,7 @@
 ---
 import type { Tag } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
-import { Picture } from 'astro:assets'
+import { Picture, getImage } from 'astro:assets'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 
@@ -10,6 +10,32 @@ const {
   data: { post },
 } = await fetchPost(slug!)
 if (!post) return Astro.redirect('/404')
+
+const imageForSEO = post.featuredImage
+  ? await getImage({
+      src: post.featuredImage?.node.sourceUrl!,
+      inferSize: true,
+    })
+  : undefined
+
+const JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: post.title,
+  image: [
+    imageForSEO && Astro.site?.origin + imageForSEO.src,
+    Astro.site?.origin + `/og?post=${post.slug}`,
+    Astro.site?.origin + `/og?post=${post.slug}&square=true`,
+  ].filter(Boolean),
+  datePublished: post.date + '+07:00',
+  author: [
+    {
+      '@type': 'Person',
+      name: post.author?.node.name,
+      url: Astro.site?.origin! + post.author?.node.uri,
+    },
+  ],
+}
 
 // Headers configuration
 Astro.response.headers.set(
@@ -81,4 +107,13 @@ Astro.response.headers.set(
       }
     </p>
   </div>
+
+  {/* JSON-LD Data */}
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(JSONLD)}
+    />
+  </Fragment>
 </PageLayout>
