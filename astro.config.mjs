@@ -7,16 +7,14 @@ import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.hanyauntukdisyukuri.my.id',
+  site: 'https://new.tintaborneo.com',
   integrations: [tailwind(), htmx(), alpinejs()],
   image: {
     domains: [
-      'hanyauntukdisyukuri.my.id',
-      'www.hanyauntukdisyukuri.my.id',
-      'content.hanyauntukdisyukuri.my.id',
       'tintaborneo.com',
       'www.tintaborneo.com',
       'new.tintaborneo.com',
+      'src.tintaborneo.com',
       'content.tintaborneo.com',
     ],
   },
