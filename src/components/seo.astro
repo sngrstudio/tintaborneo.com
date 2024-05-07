@@ -15,17 +15,19 @@ const { title, description, post, site } = Astro.props
   titleTemplate={`%s \u2014 ${site.title}`}
   titleDefault={site.title!}
   description={description || site.description!}
+  canonical={Astro.site?.origin + Astro.url.pathname}
   noindex={true}
   nofollow={true}
   openGraph={{
     basic: {
       title: title! || site.title!,
       type: !!post ? 'article' : 'website',
+      url: Astro.site?.origin + Astro.url.pathname,
       image: !!post
-        ? `${Astro.url.origin}/og?post=${post?.slug}`
+        ? `${Astro.site?.origin}/og?post=${post?.slug}`
         : !!title
-          ? `${Astro.url.origin}/og?title=${title}`
-          : `${Astro.url.origin}/og`,
+          ? `${Astro.site?.origin}/og?title=${title}`
+          : `${Astro.site?.origin}/og`,
     },
     optional: {
       description:
