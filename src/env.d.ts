@@ -12,3 +12,10 @@ interface ImportMeta {
 interface Window {
   Alpine: import('alpinejs').Alpine
 }
+
+import 'react'
+declare module 'react' {
+  export interface HTMLAttributes<T> {
+    tw?: string
+  }
+}

@@ -7,6 +7,8 @@
       "~/*": ["./src/*"]
     },
     "allowJs": true,
-    "exactOptionalPropertyTypes": false
+    "jsx": "react-jsx",
+    "exactOptionalPropertyTypes": false,
+    "jsxImportSource": "react"
   }
 }
