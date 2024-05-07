@@ -22,10 +22,11 @@ WORKDIR /usr/src/app
 USER node
 COPY --chown=node:node --from=prod-deps /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=builder /usr/src/app/dist ./dist
+COPY --chown=node:node server.mjs .
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
 
-CMD ["dumb-init", "node", "./dist/server/entry.mjs"]
+CMD ["dumb-init", "node", "server.mjs"]
