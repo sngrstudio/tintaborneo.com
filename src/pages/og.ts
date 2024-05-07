@@ -11,6 +11,8 @@ const {
 } = await fetchSiteData()
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
+  const square = url.searchParams.get('square')
+
   const markup = html`
     <div
       tw="flex flex-col-reverse bg-[#FCFAFA] w-full h-full"
@@ -35,7 +37,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
 
   const svg = await satori(markup, {
     width: 1200,
-    height: 630,
+    height: !!square ? 1200 : 630,
     fonts: [
       {
         name: 'Source Serif Pro',
