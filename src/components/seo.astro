@@ -1,0 +1,52 @@
+---
+import type { LayoutProps } from '~/layouts/layout'
+import type { GeneralSettings, Tag } from '~/data/graphql'
+import { SEO } from 'astro-seo'
+
+interface Props extends LayoutProps {
+  site: GeneralSettings
+}
+
+const { title, description, post, site } = Astro.props
+---
+
+<SEO
+  title={title}
+  titleTemplate={`%s \u2014 ${site.title}`}
+  titleDefault={site.title!}
+  description={description || site.description!}
+  noindex={true}
+  nofollow={true}
+  openGraph={{
+    basic: {
+      title: title! || site.title!,
+      type: !!post ? 'article' : 'website',
+      image: !!post
+        ? `${Astro.url.origin}/og?post=${post?.slug}`
+        : !!title
+          ? `${Astro.url.origin}/og?title=${title}`
+          : `${Astro.url.origin}/og`,
+    },
+    optional: {
+      description:
+        description || `Berita oleh ${site.title} \u2014 ${site.description}`,
+      siteName: site.title!,
+      locale: 'id_ID',
+    },
+    image: {
+      type: 'image/png',
+      width: 1200,
+      height: 630,
+      alt: `Kartu gambar utama untuk ${title || site.title}`,
+    },
+    article: !!post
+      ? {
+          publishedTime: post.date!,
+          modifiedTime: post.date!,
+          authors: [post.author?.node.name!],
+          section: post.categories?.nodes.at(0)?.name!,
+          tags: post.tags?.nodes.map((t: Tag) => t.name!),
+        }
+      : undefined,
+  }}
+/>

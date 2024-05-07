@@ -17,4 +17,15 @@ Astro.response.headers.set(
   <main class="flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12">
     <HomeArticles />
   </main>
+
+  {/* JSON-LD Data */}
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org/',
+      })}
+    />
+  </Fragment>
 </Layout>

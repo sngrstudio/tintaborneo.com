@@ -22,7 +22,10 @@ Astro.response.headers.set(
 )
 ---
 
-<PageLayout title={post.title!}>
+<PageLayout
+  title={post.title!}
+  description={post.excerpt!.replace(/<[^>]*>|[&][a-zA-Z]+;/g, '')}
+  post={post}>
   {/* header */}
   <Fragment slot="header">
     <div class="not-prose font-sans text-tb-muted">

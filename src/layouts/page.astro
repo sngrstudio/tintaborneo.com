@@ -4,10 +4,10 @@ import Layout from '~/layouts/layout.astro'
 
 interface Props extends LayoutProps {}
 
-const { title, description } = Astro.props
+const { title, description, post } = Astro.props
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} post={post}>
   {/* head */}
   <Fragment slot="head">
     <slot name="head" />

@@ -13,6 +13,8 @@ export const fetchPost = async (id: string) => {
           title
           date
           uri
+          slug
+          excerpt
           content
           featuredImage {
             node {

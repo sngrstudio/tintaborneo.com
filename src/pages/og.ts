@@ -4,11 +4,8 @@ import template from '~/components/og/template'
 import sharp from 'sharp'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { fetchSiteData, fetchLogo } from '~/data/site'
-
-const {
-  data: { generalSettings: site },
-} = await fetchSiteData()
+import { fetchLogo } from '~/data/site'
+import { fetchPost } from '~/data/posts'
 
 const {
   data: { mediaItem: logo },
@@ -16,20 +13,37 @@ const {
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
   const title = url.searchParams.get('title')
+  const postSlug = url.searchParams.get('post')
   const square = url.searchParams.get('square')
+  const postData = postSlug ? await fetchPost(postSlug) : undefined
 
   const svg = await satori(
     template({
-      title: title || undefined,
+      title: postData ? postData.data.post?.title! : title ? title : undefined,
       url: origin!,
-      site: site!,
+      image: postData
+        ? postData.data.post?.featuredImage?.node.sourceUrl!
+        : undefined,
+      excerpt: postData
+        ? postData.data.post?.excerpt!.replace(/<[^>]*>|[&][a-zA-Z]+;/g, '')
+        : undefined,
       logo: logo!,
-      withFooter: !!title,
+      isPost: !!postData,
     }),
     {
-      width: 1200,
-      height: !!square ? 1200 : 630,
+      width: !!square ? 960 : 1200,
+      height: !!square ? 960 : 630,
       fonts: [
+        {
+          name: 'Source Serif Pro',
+          weight: 400,
+          data: await fs.readFile(
+            path.join(
+              process.cwd(),
+              'node_modules/@fontsource/source-serif-pro/files/source-serif-pro-latin-400-normal.woff'
+            )
+          ),
+        },
         {
           name: 'Source Serif Pro',
           weight: 700,
