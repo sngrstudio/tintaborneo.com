@@ -38,7 +38,7 @@ const Carousel: FC<PostsData> = ({ posts }) => {
             )}
             <div className="absolute bottom-0 inset-x-0">
               <h3 className=" font-heading font-bold text-2xl px-2 pb-4 md:text-xl">
-                <span className="text-tb-background bg-tb-primary p-1">
+                <span className="text-tb-background bg-tb-primary box-decoration-clone p-1">
                   {entry.title}
                 </span>
               </h3>
