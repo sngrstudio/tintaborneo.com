@@ -10,27 +10,33 @@ const Carousel: FC<PostsData> = ({ posts }) => {
     <div className="overflow-hidden" ref={carouselRef}>
       <div className="flex aspect-[4/3] md:aspect-auto md:gap-2">
         {posts.map((entry) => (
-          <div className="relative flex-[0_0_100%] min-w-0 md:flex-auto">
-            <picture>
-              <source
-                srcSet={entry.optimizedImage.avif.srcSet.attribute}
-                sizes={entry.optimizedImage.avif.attributes.sizes}
-                type="image/avif"
-              />
-              <source
-                srcSet={entry.optimizedImage.webp.srcSet.attribute}
-                sizes={entry.optimizedImage.webp.attributes.sizes}
-                type="image/webp"
-              />
-              <img
-                className="w-full aspect-[4/3]"
-                src={entry.optimizedImage.original.src}
-                srcSet={entry.optimizedImage.original.srcSet.attribute}
-                sizes={entry.optimizedImage.original.attributes.sizes}
-                alt={entry.featuredImage?.node.altText || entry.title!}
-                loading="eager"
-              />
-            </picture>
+          <a
+            className="relative flex-[0_0_100%] min-w-0 md:flex-auto"
+            href={entry.uri!}
+            rel="preload">
+            {entry.optimizedImage && (
+              <picture>
+                <source
+                  srcSet={entry.optimizedImage.avif.srcSet.attribute}
+                  sizes={entry.optimizedImage.avif.attributes.sizes}
+                  type="image/avif"
+                />
+                <source
+                  srcSet={entry.optimizedImage.webp.srcSet.attribute}
+                  sizes={entry.optimizedImage.webp.attributes.sizes}
+                  type="image/webp"
+                />
+                <img
+                  className="w-full aspect-[4/3]"
+                  src={entry.optimizedImage.original.src}
+                  srcSet={entry.optimizedImage.original.srcSet.attribute}
+                  sizes={entry.optimizedImage.original.attributes.sizes}
+                  alt={entry.featuredImage?.node.altText || entry.title!}
+                  loading="eager"
+                  {...entry.optimizedImage.original.attributes}
+                />
+              </picture>
+            )}
             <div className="absolute bottom-0 inset-x-0">
               <h3 className=" font-heading font-bold text-2xl px-2 pb-4 md:text-xl">
                 <span className="text-tb-background bg-tb-primary p-1">
@@ -38,7 +44,7 @@ const Carousel: FC<PostsData> = ({ posts }) => {
                 </span>
               </h3>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

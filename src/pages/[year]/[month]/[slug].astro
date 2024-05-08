@@ -1,29 +1,36 @@
 ---
 import type { Tag } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
-import { Picture, getImage } from 'astro:assets'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
+import { getPicture } from '~/utils/image'
 
 const { slug } = Astro.params
 const {
-  data: { post },
+  data: { post: postData },
 } = await fetchPost(slug!)
-if (!post) return Astro.redirect('/404')
+if (!postData) return Astro.redirect('/404')
 
-const imageForSEO = post.featuredImage
-  ? await getImage({
-      src: post.featuredImage?.node.sourceUrl!,
-      inferSize: true,
-    })
-  : undefined
+const post = {
+  ...postData,
+  optimizedImage: postData.featuredImage
+    ? await getPicture({
+        src: postData.featuredImage.node.sourceUrl!,
+        format: 'jpeg',
+        widths: [430, 736],
+        sizes: '(max-width: 640px) 430px, 736px',
+        inferSize: true,
+      })
+    : undefined,
+}
 
 const JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   headline: post.title,
   image: [
-    imageForSEO && Astro.site?.origin + imageForSEO.src,
+    post.optimizedImage &&
+      Astro.site?.origin + post.optimizedImage.original.src,
     Astro.site?.origin + `/og?post=${post.slug}`,
     Astro.site?.origin + `/og?post=${post.slug}&square=true`,
   ].filter(Boolean),
@@ -67,21 +74,32 @@ Astro.response.headers.set(
       </p>
     </div>
     {
-      post.featuredImage && (
+      post.optimizedImage && (
         <figure class="-mx-4 md:mx-0">
-          <Picture
-            class="w-full"
-            src={post.featuredImage.node.sourceUrl!}
-            alt={post.featuredImage.node.altText || post.title!}
-            widths={[430, 736]}
-            sizes="(max-width: 640px) 430px, 736px"
-            formats={['avif', 'webp']}
-            loading="eager"
-            inferSize
-          />
+          <picture>
+            <source
+              srcset={post.optimizedImage.avif.srcSet.attribute}
+              sizes={post.optimizedImage.avif.attributes.sizes}
+              type="image/avif"
+            />
+            <source
+              srcset={post.optimizedImage.webp.srcSet.attribute}
+              sizes={post.optimizedImage.webp.attributes.sizes}
+              type="image/webp"
+            />
+            <img
+              class="w-full"
+              src={post.optimizedImage.original.src}
+              srcset={post.optimizedImage.original.srcSet.attribute}
+              sizes={post.optimizedImage.original.attributes.sizes}
+              alt={post.featuredImage?.node.altText || post.title!}
+              {...post.optimizedImage.original.attributes}
+              loading="eager"
+            />
+          </picture>
           <figcaption
             class="px-4 md:px-0"
-            set:html={post.featuredImage.node.caption}
+            set:html={post.featuredImage?.node.caption}
           />
         </figure>
       )
@@ -108,12 +126,42 @@ Astro.response.headers.set(
     </p>
   </div>
 
-  {/* JSON-LD Data */}
+  {/* Additional Head tags */}
   <Fragment slot="head">
     <script
       is:inline
       type="application/ld+json"
       set:html={JSON.stringify(JSONLD)}
     />
+    {
+      post.optimizedImage && (
+        <>
+          <link
+            rel="preload"
+            href={post.optimizedImage.avif.src}
+            imagesrcset={post.optimizedImage.avif.srcSet.attribute}
+            imagesizes={post.optimizedImage.avif.attributes.sizes}
+            type="image/avif"
+            as="image"
+          />
+          <link
+            rel="preload"
+            href={post.optimizedImage.webp.src}
+            imagesrcset={post.optimizedImage.webp.srcSet.attribute}
+            imagesizes={post.optimizedImage.webp.attributes.sizes}
+            type="image/webp"
+            as="image"
+          />
+          <link
+            rel="preload"
+            href={post.optimizedImage.original.src}
+            imagesrcset={post.optimizedImage.original.srcSet.attribute}
+            imagesizes={post.optimizedImage.original.attributes.sizes}
+            type="image/jpeg"
+            as="image"
+          />
+        </>
+      )
+    }
   </Fragment>
 </PageLayout>

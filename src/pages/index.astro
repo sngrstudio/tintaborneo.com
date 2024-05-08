@@ -15,13 +15,15 @@ const {
 const posts = await Promise.all(
   postsData!.nodes.map(async (post: Post) => ({
     ...post,
-    optimizedImage: await getPicture({
-      src: post.featuredImage?.node.sourceUrl!,
-      format: 'jpeg',
-      widths: [250, 325, 430],
-      sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
-      inferSize: true,
-    }),
+    optimizedImage: post.featuredImage
+      ? await getPicture({
+          src: post.featuredImage.node.sourceUrl!,
+          format: 'jpeg',
+          widths: [250, 325, 430],
+          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
+          inferSize: true,
+        })
+      : undefined,
   }))
 )
 
@@ -45,32 +47,36 @@ Astro.response.headers.set(
   <Fragment slot="head">
     {
       posts.map((entry) => (
-        <>
-          <link
-            rel="preload"
-            href={entry.optimizedImage.avif.src}
-            imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
-            imagesizes={entry.optimizedImage.avif.attributes.sizes}
-            type="image/avif"
-            as="image"
-          />
-          <link
-            rel="preload"
-            href={entry.optimizedImage.webp.src}
-            imagesrcset={entry.optimizedImage.webp.srcSet.attribute}
-            imagesizes={entry.optimizedImage.webp.attributes.sizes}
-            type="image/webp"
-            as="image"
-          />
-          <link
-            rel="preload"
-            href={entry.optimizedImage.original.src}
-            imagesrcset={entry.optimizedImage.original.srcSet.attribute}
-            imagesizes={entry.optimizedImage.original.attributes.sizes}
-            type="image/jpeg"
-            as="image"
-          />
-        </>
+        <Fragment>
+          {entry.optimizedImage && (
+            <Fragment>
+              <link
+                rel="preload"
+                href={entry.optimizedImage.avif.src}
+                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+                imagesizes={entry.optimizedImage.avif.attributes.sizes}
+                type="image/avif"
+                as="image"
+              />
+              <link
+                rel="preload"
+                href={entry.optimizedImage.webp.src}
+                imagesrcset={entry.optimizedImage.webp.srcSet.attribute}
+                imagesizes={entry.optimizedImage.webp.attributes.sizes}
+                type="image/webp"
+                as="image"
+              />
+              <link
+                rel="preload"
+                href={entry.optimizedImage.original.src}
+                imagesrcset={entry.optimizedImage.original.srcSet.attribute}
+                imagesizes={entry.optimizedImage.original.attributes.sizes}
+                type="image/jpeg"
+                as="image"
+              />
+            </Fragment>
+          )}
+        </Fragment>
       ))
     }
   </Fragment>
