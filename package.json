@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm check && astro build",
+    "build": "pnpm check && pnpm gen-icons && astro build",
     "check": "pnpx concurrently \"astro check\" \"tsc --noEmit\" \"prettier --check .\"",
     "codegen": "graphql-codegen --config codegen.ts",
     "dev": "astro dev",
     "format": "prettier --write .",
+    "gen-icons": "pwa-assets-generator --manifest=false --preset minimal-2023 public/icon.svg",
     "preinstall": "npx only-allow pnpm",
     "preview": "astro preview",
     "start": "astro dev"
@@ -49,6 +50,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "@types/alpinejs": "^3.13.10",
     "@types/react": "^18.3.1",
+    "@vite-pwa/assets-generator": "^0.2.4",
     "dotenv": "^16.4.5",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
