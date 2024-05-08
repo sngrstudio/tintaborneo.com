@@ -4,10 +4,12 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "astro check && astro build",
+    "build": "pnpm check && astro build",
+    "check": "pnpx concurrently \"astro check\" \"tsc --noEmit\" \"prettier --check .\"",
     "codegen": "graphql-codegen --config codegen.ts",
     "dev": "astro dev",
     "format": "prettier --write .",
+    "preinstall": "npx only-allow pnpm",
     "preview": "astro preview",
     "start": "astro dev"
   },
@@ -26,6 +28,8 @@
     "astro-htmx": "^1.0.5",
     "astro-seo": "^0.8.3",
     "date-fns": "^3.6.0",
+    "embla-carousel-autoplay": "^8.0.4",
+    "embla-carousel-react": "^8.0.4",
     "fastify": "^4.27.0",
     "graphql": "^16.8.1",
     "htmx.org": "^1.9.12",

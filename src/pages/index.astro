@@ -1,6 +1,29 @@
 ---
+import type { Post } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
-import HomeArticles from '~/components/home-articles.astro'
+import HomeArticles from '~/components/home/articles.astro'
+import { getPicture } from '~/utils/image'
+import { fetchPosts } from '~/data/posts'
+
+const {
+  data: { posts: postsData },
+} = await fetchPosts({
+  tag: 'berita-utama',
+  amount: 9,
+})
+
+const posts = await Promise.all(
+  postsData!.nodes.map(async (post: Post) => ({
+    ...post,
+    optimizedImage: await getPicture({
+      src: post.featuredImage?.node.sourceUrl!,
+      format: 'jpeg',
+      widths: [250, 325, 430],
+      sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
+      inferSize: true,
+    }),
+  }))
+)
 
 // Headers configuration
 Astro.response.headers.set(
@@ -15,6 +38,40 @@ Astro.response.headers.set(
 
 <Layout>
   <main class="flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12">
-    <HomeArticles />
+    <HomeArticles posts={posts} />
   </main>
+
+  {/* Preloading images */}
+  <Fragment slot="head">
+    {
+      posts.map((entry) => (
+        <>
+          <link
+            rel="preload"
+            href={entry.optimizedImage.avif.src}
+            imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+            imagesizes={entry.optimizedImage.avif.attributes.sizes}
+            type="image/avif"
+            as="image"
+          />
+          <link
+            rel="preload"
+            href={entry.optimizedImage.webp.src}
+            imagesrcset={entry.optimizedImage.webp.srcSet.attribute}
+            imagesizes={entry.optimizedImage.webp.attributes.sizes}
+            type="image/webp"
+            as="image"
+          />
+          <link
+            rel="preload"
+            href={entry.optimizedImage.original.src}
+            imagesrcset={entry.optimizedImage.original.srcSet.attribute}
+            imagesizes={entry.optimizedImage.original.attributes.sizes}
+            type="image/jpeg"
+            as="image"
+          />
+        </>
+      ))
+    }
+  </Fragment>
 </Layout>

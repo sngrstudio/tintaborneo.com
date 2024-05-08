@@ -1,0 +1,12 @@
+---
+import type { PostsData } from './type'
+import CarouselComponent from './carousel-component'
+
+interface Props extends PostsData {}
+
+const { posts } = Astro.props
+---
+
+<section class="lg:px-4">
+  <CarouselComponent posts={posts} client:idle />
+</section>

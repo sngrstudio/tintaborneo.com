@@ -1,12 +1,13 @@
 ---
 import type { Post } from '~/data/graphql'
+import type { PostWithOptimizedImage } from '../home/type'
 import ArticleCard, {
   type Props as ArticleCardProps,
 } from '~/components/article/card.astro'
 import Separator from '../separator.astro'
 
 export interface Props extends Pick<ArticleCardProps, 'loadImage'> {
-  posts: Array<Post>
+  posts: Array<Post | PostWithOptimizedImage>
   type?: 'spotlight' | 'list'
 }
 

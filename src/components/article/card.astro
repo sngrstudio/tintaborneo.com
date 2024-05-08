@@ -1,10 +1,11 @@
 ---
 import type { Post } from '~/data/graphql'
+import type { PostWithOptimizedImage } from '../home/type'
 import { Picture } from 'astro:assets'
 import { getDateString } from '~/utils/date'
 
 export interface Props {
-  post: Post
+  post: Post | PostWithOptimizedImage
   type?: 'spotlight' | 'normal' | 'list'
   loadImage?: 'lazy' | 'eager'
 }
