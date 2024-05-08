@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import type { PostsData } from './type'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
+import { getDateString } from '~/utils/date'
 
 const Carousel: FC<PostsData> = ({ posts }) => {
   const [carouselRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
@@ -36,12 +37,15 @@ const Carousel: FC<PostsData> = ({ posts }) => {
                 />
               </picture>
             )}
-            <div className="absolute bottom-0 inset-x-0">
-              <h3 className=" font-heading font-bold text-2xl px-2 pb-4 md:text-xl">
-                <span className="text-tb-background bg-tb-primary box-decoration-clone p-1">
-                  {entry.title}
-                </span>
+            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-tb-text to-[#00000000] text-tb-background px-2 pb-4">
+              <h3 className="font-heading font-bold leading-snug text-2xl md:text-xl">
+                <span className="box-decoration-clone p-1">{entry.title}</span>
               </h3>
+              <p className="text-sm">
+                <time dateTime={entry.date!}>
+                  {getDateString(new Date(entry.date!))}
+                </time>
+              </p>
             </div>
           </a>
         ))}
