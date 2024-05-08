@@ -6,12 +6,6 @@ import { Picture } from 'astro:assets'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
 
-interface Props {
-  title: string
-}
-
-const { title } = Astro.props
-
 const {
   data: { mediaItem: logo },
 } = await fetchLogo('logo')
@@ -27,7 +21,8 @@ const menu = menuData?.menuItems?.nodes
     {/* menu button/current date */}
     <div x-data>
       <button
-        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')">
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')"
+        aria-label="Buka Menu">
         <MenuIcon />
       </button>
     </div>
@@ -40,7 +35,7 @@ const menu = menuData?.menuItems?.nodes
           src={logo?.sourceUrl!}
           width={400}
           height={80}
-          alt={title}
+          alt="Beranda"
           formats={['avif', 'webp']}
           loading="eager"
         />
@@ -50,7 +45,8 @@ const menu = menuData?.menuItems?.nodes
     {/* search button */}
     <div x-data>
       <button
-        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')">
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')"
+        aria-label="Buka Pencarian">
         <SearchIcon />
       </button>
     </div>

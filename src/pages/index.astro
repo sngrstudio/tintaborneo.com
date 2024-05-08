@@ -18,10 +18,12 @@ const posts = await Promise.all(
     optimizedImage: post.featuredImage
       ? await getPicture({
           src: post.featuredImage.node.sourceUrl!,
+          width: 800,
+          height: 600,
           format: 'jpeg',
           widths: [250, 325, 430],
           sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
-          inferSize: true,
+          loading: 'eager',
         })
       : undefined,
   }))

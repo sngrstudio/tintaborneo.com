@@ -6,7 +6,6 @@ import Footer from '~/components/footer.astro'
 import Sidebar from '~/components/sidebar/sidebar.astro'
 import Alert from '~/components/alert.astro'
 import SEO from '~/components/seo.astro'
-import { fetchSiteData } from '~/data/site'
 
 import '@fontsource/source-serif-pro/400.css'
 import '@fontsource/source-serif-pro/700.css'
@@ -16,22 +15,19 @@ import '@fontsource/martel-sans/700.css'
 
 interface Props extends LayoutProps {}
 
-const {
-  data: { generalSettings: site },
-} = await fetchSiteData()
 const { title, description, post } = Astro.props
 ---
 
 <BaseLayout>
   {/* <head/> */}
   <Fragment slot="head">
-    <SEO title={title} description={description} post={post} site={site!} />
+    <SEO title={title} description={description} post={post} />
     <slot name="head" />
   </Fragment>
 
   {/* <body/> */}
   <Fragment>
-    <Header title={site?.title!} />
+    <Header />
     <slot />
     <Sidebar />
     <Footer />

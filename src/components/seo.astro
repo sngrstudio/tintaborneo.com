@@ -1,26 +1,29 @@
 ---
 import type { LayoutProps } from '~/layouts/layout'
-import type { GeneralSettings, Tag } from '~/data/graphql'
+import type { Tag } from '~/data/graphql'
 import { SEO } from 'astro-seo'
+import { fetchSiteData } from '~/data/site'
 
-interface Props extends LayoutProps {
-  site: GeneralSettings
-}
+interface Props extends LayoutProps {}
 
-const { title, description, post, site } = Astro.props
+const { title, description, post } = Astro.props
+
+const {
+  data: { generalSettings: site },
+} = await fetchSiteData()
 ---
 
 <SEO
   title={title}
-  titleTemplate={`%s \u2014 ${site.title}`}
-  titleDefault={site.title!}
-  description={description || site.description!}
+  titleTemplate={`%s \u2014 ${site?.title}`}
+  titleDefault={site?.title!}
+  description={description || site?.description!}
   canonical={Astro.site?.origin + Astro.url.pathname}
   noindex={true}
   nofollow={true}
   openGraph={{
     basic: {
-      title: title! || site.title!,
+      title: title! || site?.title!,
       type: !!post ? 'article' : 'website',
       url: Astro.site?.origin + Astro.url.pathname,
       image: !!post
@@ -31,15 +34,15 @@ const { title, description, post, site } = Astro.props
     },
     optional: {
       description:
-        description || `Berita oleh ${site.title} \u2014 ${site.description}`,
-      siteName: site.title!,
+        description || `Berita oleh ${site?.title} \u2014 ${site?.description}`,
+      siteName: site?.title!,
       locale: 'id_ID',
     },
     image: {
       type: 'image/png',
       width: 1200,
       height: 630,
-      alt: `Kartu gambar utama untuk ${title || site.title}`,
+      alt: `Kartu gambar utama untuk ${title || site?.title}`,
     },
     article: !!post
       ? {

@@ -20,6 +20,7 @@ const post = {
         widths: [430, 736],
         sizes: '(max-width: 640px) 430px, 736px',
         inferSize: true,
+        loading: 'eager',
       })
     : undefined,
 }
@@ -94,7 +95,6 @@ Astro.response.headers.set(
               sizes={post.optimizedImage.original.attributes.sizes}
               alt={post.featuredImage?.node.altText || post.title!}
               {...post.optimizedImage.original.attributes}
-              loading="eager"
             />
           </picture>
           <figcaption

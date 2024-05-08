@@ -31,8 +31,7 @@ const Carousel: FC<PostsData> = ({ posts }) => {
                   src={entry.optimizedImage.original.src}
                   srcSet={entry.optimizedImage.original.srcSet.attribute}
                   sizes={entry.optimizedImage.original.attributes.sizes}
-                  alt={entry.featuredImage?.node.altText || entry.title!}
-                  loading="eager"
+                  alt=""
                   {...entry.optimizedImage.original.attributes}
                 />
               </picture>
