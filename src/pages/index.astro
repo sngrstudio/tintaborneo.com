@@ -32,11 +32,11 @@ const posts = await Promise.all(
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
-  'public, max-age=30, stale-while-revalidate=60'
+  'public, max-age=90, stale-while-revalidate=3600'
 )
 Astro.response.headers.set(
   'CDN-Cache-Control',
-  'public, s-maxage=300, stale-while-revalidate=3600'
+  'public, s-maxage=1800, stale-while-revalidate=86400'
 )
 ---
 

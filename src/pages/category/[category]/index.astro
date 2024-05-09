@@ -24,11 +24,11 @@ const {
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
-  'public, max-age=60, stale-while-revalidate=3600'
+  'public, max-age=300, stale-while-revalidate=3600'
 )
 Astro.response.headers.set(
   'CDN-Cache-Control',
-  'public, s-maxage=300, stale-while-revalidate=3600'
+  'public, s-maxage=3600, stale-while-revalidate=86400'
 )
 ---
 

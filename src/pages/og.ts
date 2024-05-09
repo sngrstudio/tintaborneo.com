@@ -83,6 +83,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
   return new Response(png, {
     headers: {
       'Content-Type': 'image/png',
+      'x-robots-tag': 'noindex, follow',
     },
   })
 }

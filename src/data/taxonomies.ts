@@ -78,3 +78,24 @@ export const fetchUser = async (id: string) => {
     },
   })) as UserFetched
 }
+
+type CategoriesFetched = {
+  data: Pick<RootQuery, 'categories'>
+}
+
+export const fetchCategories = async () => {
+  return (await fetchData({
+    query: gql`
+      query FetchCategories {
+        categories(first: 128) {
+          nodes {
+            name
+            slug
+            uri
+            parentId
+          }
+        }
+      }
+    `,
+  })) as CategoriesFetched
+}
