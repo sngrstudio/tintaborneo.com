@@ -78,7 +78,7 @@ export const fetchPosts = async ({
     query: gql`
       query FetchPosts(
         $cursor: String = ""
-        $amount: Int = 6
+        $amount: Int = 8
         $author: String = ""
         $category: String = ""
         $tag: String = ""

@@ -20,13 +20,7 @@ const { posts, type = 'list', loadImage = 'lazy' } = Astro.props
       <Fragment>
         <ArticleCard
           post={post}
-          type={
-            type === 'spotlight' && i === 0
-              ? 'spotlight'
-              : type === 'list'
-                ? 'list'
-                : 'normal'
-          }
+          type={type === 'list' ? 'list' : 'normal'}
           loadImage={loadImage}
         />{' '}
         {i < arr.length - 1 && <Separator class="md:hidden" />}

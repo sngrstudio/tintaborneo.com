@@ -23,7 +23,7 @@ Astro.response.headers.set(
 
 <ArticleListByCategory
   categoryId={id!}
-  amount={Number(amount) || 6}
+  amount={Number(amount)}
   type={isPrimary ? 'primary' : 'secondary'}
   featured={!!featured}
   withHeader={!!withHeader}

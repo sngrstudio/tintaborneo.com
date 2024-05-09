@@ -8,13 +8,9 @@ const {
   data: { mediaItem: logo },
 } = await fetchLogo('logo-alt')
 const {
-  data: { menu: primaryMenuData },
-} = await fetchMenuList('primary-navigation')
-const {
   data: { menu: secondaryMenuData },
 } = await fetchMenuList('footer-links')
 
-const primaryMenu = primaryMenuData?.menuItems?.nodes
 const secondaryMenu = secondaryMenuData?.menuItems?.nodes
 const copyTexts = [
   `<b>&copy; ${new Date().getFullYear()} PT Multimedia Jagad Perkasa.</b>`,
@@ -24,7 +20,7 @@ const copyTexts = [
 ---
 
 <footer
-  class="flex flex-col gap-4 bg-tb-text text-tb-background px-4 pt-4 pb-8 mt-16 md:items-center">
+  class="flex flex-col items-center gap-4 bg-tb-secondary text-tb-background px-4 pt-4 pb-8 mt-16">
   <div class="flex items-center justify-center">
     <Picture
       class="object-contain w-[250px] h-[50px]"
@@ -36,19 +32,7 @@ const copyTexts = [
     />
   </div>
   <div>
-    <ul
-      class="flex flex-col gap-y-1 font-subheading font-bold text-lg md:flex-row md:gap-x-3 md:gap-y-0">
-      {
-        primaryMenu?.map((entry: MenuItem) => (
-          <li class="hover:underline">
-            <a href={entry.uri}>{entry.label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-  <div>
-    <ul class="flex flex-wrap gap-x-2 text-sm">
+    <ul class="flex justify-center flex-wrap gap-x-2 text-sm">
       {
         secondaryMenu?.map((entry: MenuItem) => (
           <li class="hover:underline">
@@ -59,7 +43,7 @@ const copyTexts = [
     </ul>
   </div>
   <div>
-    <ul class="flex flex-wrap gap-x-2 text-sm">
+    <ul class="flex flex-wrap justify-center gap-x-2 text-sm text-center">
       {
         copyTexts.map((entry) => (
           <li>

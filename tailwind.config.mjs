@@ -13,6 +13,7 @@ export default {
     },
     colors: {
       'tb-primary': '#C90028',
+      'tb-secondary': '#00815e',
       'tb-background': '#FCFAFA',
       'tb-text': '#262224',
       'tb-muted': '#70696B',
