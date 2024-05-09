@@ -8,14 +8,12 @@ import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://new.tintaborneo.com',
+  site: 'https://www.tintaborneo.com',
   integrations: [tailwind(), htmx(), alpinejs(), react()],
   image: {
     domains: [
       'tintaborneo.com',
       'www.tintaborneo.com',
-      'new.tintaborneo.com',
-      'src.tintaborneo.com',
       'content.tintaborneo.com',
     ],
   },
