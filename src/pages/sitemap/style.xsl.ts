@@ -8,7 +8,7 @@ export const GET: APIRoute = async () => {
   return new Response(xsl, {
     headers: {
       'Content-Type': 'text/xsl',
-      'Cache-Control': 'public, max-age=31536000, must-revalidate',
+      'Cache-Control': 'public, max-age=0, must-revalidate',
       'X-Robots-Tag': 'noindex, follow',
     },
   })
