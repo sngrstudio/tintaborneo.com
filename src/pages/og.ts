@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
         ? postData.data.post?.featuredImage?.node.sourceUrl!
         : undefined,
       excerpt: postData
-        ? postData.data.post?.excerpt!.replace(/<[^>]*>|[&][a-zA-Z]+;/g, '')
+        ? postData.data.post?.excerpt!.replace(/<[^>]*>/g, '')
         : undefined,
       logo: logo!,
       isPost: !!postData,
