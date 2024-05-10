@@ -29,7 +29,9 @@ export const GET: APIRoute = async ({ site, params, redirect }) => {
         `
       )}
     </urlset>    
-  `.trim()
+  `
+    .replace(',', '')
+    .trim()
 
   return new Response(xml, {
     headers: {

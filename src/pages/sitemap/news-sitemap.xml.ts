@@ -28,7 +28,9 @@ export const GET: APIRoute = async ({ site }) => {
         `
       )}
     </urlset>    
-  `.trim()
+  `
+    .replace(',', '')
+    .trim()
 
   return new Response(xml, {
     headers: {
