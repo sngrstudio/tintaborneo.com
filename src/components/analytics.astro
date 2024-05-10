@@ -1,0 +1,16 @@
+---
+const UMAMI_SITE_ID = process.env.UMAMI_SITE_ID
+---
+
+<Fragment>
+  {
+    UMAMI_SITE_ID && (
+      <script
+        defer
+        src="/__analytics"
+        data-website-id={UMAMI_SITE_ID}
+        is:inline
+      />
+    )
+  }
+</Fragment>

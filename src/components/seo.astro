@@ -19,8 +19,6 @@ const {
   titleDefault={site?.title!}
   description={description || site?.description!}
   canonical={Astro.site?.origin + Astro.url.pathname}
-  noindex={true}
-  nofollow={true}
   openGraph={{
     basic: {
       title: title! || site?.title!,
