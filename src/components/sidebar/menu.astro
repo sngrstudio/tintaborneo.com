@@ -29,7 +29,9 @@ const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
                   class="flex gap-1 list-none"
                   x-on:click="open=!open"
                   role="button">
-                  <a x-bind:href={`open ? ${entry.uri} : ''`}>{entry.label}</a>
+                  <a x-bind:href={`open ? '${entry.uri}' : ''`}>
+                    {entry.label}
+                  </a>
                   <span>
                     <ExpandIcon x-show="!open" x-cloak />
                     <CollapseIcon x-show="open" x-cloak />

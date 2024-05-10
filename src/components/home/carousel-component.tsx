@@ -8,13 +8,16 @@ const Carousel: FC<PostsData> = ({ posts }) => {
   const [carouselRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
 
   return (
-    <div className="overflow-hidden" ref={carouselRef}>
+    <div
+      className="overflow-hidden rounded-xl md:rounded-none"
+      ref={carouselRef}>
       <div className="flex aspect-[4/3] md:aspect-auto md:gap-2">
-        {posts.map((entry) => (
+        {posts.map((entry, i) => (
           <a
-            className="relative flex-[0_0_100%] min-w-0 md:flex-auto"
+            className="relative flex-[0_0_100%] min-w-0 md:flex-auto md:rounded-xl md:overflow-hidden"
             href={entry.uri!}
-            rel="preload">
+            rel="preload"
+            key={i}>
             {entry.optimizedImage && (
               <picture>
                 <source
@@ -28,7 +31,7 @@ const Carousel: FC<PostsData> = ({ posts }) => {
                   type="image/webp"
                 />
                 <img
-                  className="w-full aspect-[4/3]"
+                  className="object-cover w-full aspect-[4/3]"
                   src={entry.optimizedImage.original.src}
                   srcSet={entry.optimizedImage.original.srcSet.attribute}
                   sizes={entry.optimizedImage.original.attributes.sizes}
@@ -37,9 +40,9 @@ const Carousel: FC<PostsData> = ({ posts }) => {
                 />
               </picture>
             )}
-            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-tb-text to-[#00000000] text-tb-background px-2 pb-4">
-              <h3 className="font-heading font-bold leading-snug text-2xl md:text-xl">
-                <span className="box-decoration-clone p-1">{entry.title}</span>
+            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-tb-text to-[#00000000] text-tb-background px-4 pb-4">
+              <h3 className="font-heading font-bold leading-tight text-2xl md:text-xl">
+                <span>{entry.title}</span>
               </h3>
               <p className="text-sm">
                 <time dateTime={entry.date!}>
