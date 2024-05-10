@@ -6,8 +6,6 @@ import react from '@astrojs/react'
 import htmx from 'astro-htmx'
 import Icons from 'unplugin-icons/vite'
 
-const UMAMI_ENDPOINT = process.env.UMAMI_ENDPOINT || '/404'
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.tintaborneo.com',
@@ -18,9 +16,6 @@ export default defineConfig({
       'www.tintaborneo.com',
       'content.tintaborneo.com',
     ],
-  },
-  redirects: {
-    '/__analytics': UMAMI_ENDPOINT,
   },
   output: 'server',
   adapter: node({
