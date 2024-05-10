@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ site }) => {
       `
       )}
     </sitemapindex>  
-  `.trim()
+  `.replace(/\s+/g, '')
 
   return new Response(xml, {
     headers: {
