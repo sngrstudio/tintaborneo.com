@@ -21,13 +21,16 @@ const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
               <details
                 x-data="{open: false}"
                 x-bind:open="open"
+                x-on:click.outside="open=false"
                 x-on:mouseover="open=true"
-                x-on:mouseout="open=false">
-                <summary class="flex gap-1 list-none">
-                  <a href={entry.uri} x-on:click="isOpen=false">
-                    {entry.label}
-                  </a>
-                  <span x-on:click="open=!open" role="button">
+                x-on:mouseout="open=false"
+                x-cloak>
+                <summary
+                  class="flex gap-1 list-none"
+                  x-on:click="open=!open"
+                  role="button">
+                  <a x-bind:href={`open ? ${entry.uri} : ''`}>{entry.label}</a>
+                  <span>
                     <ExpandIcon x-show="!open" x-cloak />
                     <CollapseIcon x-show="open" x-cloak />
                   </span>

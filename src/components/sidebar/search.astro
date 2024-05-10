@@ -7,10 +7,10 @@ import SearchIcon from '~icons/material-symbols/search'
     class="flex-1 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
     x-data="{ search: '' }">
     <form
-      class="flex w-full text-lg border-b-2 border-tb-text focus-within:border-tb-primary"
+      class="flex w-full text-lg border-b-2 focus-within:border-tb-background"
       x-on:submit.prevent="console.log(search)">
       <input
-        class="flex-1 outline-none"
+        class="flex-1 outline-none bg-[transparent] text-tb-background"
         type="text"
         placeholder="Cari di TintaBorneo.com"
         x-model="search"
