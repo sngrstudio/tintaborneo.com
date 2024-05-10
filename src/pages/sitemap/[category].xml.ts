@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site, params, redirect }) => {
         (post: Post) => `
           <url>
             <loc>${site?.origin}${post.uri}</loc>
-            <lastmod>${post?.date}</lastmod>
+            <lastmod>${post?.date}+07:00</lastmod>
           </url>
         `
       )}

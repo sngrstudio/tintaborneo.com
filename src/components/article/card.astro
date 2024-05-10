@@ -75,8 +75,8 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
     </h3>
     <Fragment set:html={post.excerpt} />
     <p class="tb-time font-sans text-sm md:mt-auto">
-      <time datetime={post.date}>
-        {getDateString(new Date(post.date!))}
+      <time datetime={post.date + '+07:00'}>
+        {getDateString(new Date(post.date! + '+07:00'))}
       </time>
     </p>
   </div>
