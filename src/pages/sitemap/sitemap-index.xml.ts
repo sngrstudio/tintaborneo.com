@@ -11,13 +11,15 @@ export const GET: APIRoute = async ({ site }) => {
   const xml = `
     <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="style.xsl"?>
     <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${categories?.map(
-        (entry) => `
+      ${categories
+        ?.map(
+          (entry) => `
         <sitemap>
           <loc>${site?.origin}/sitemap/${entry.slug}.xml</loc>
         </sitemap>
       `
-      )}
+        )
+        .join('')}
     </sitemapindex>  
   `.replace(/\s+/g, '')
 
