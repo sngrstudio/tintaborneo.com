@@ -15,7 +15,7 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
 
 <article
   class:list={[
-    'grid font-heading',
+    'grid content-start font-heading',
     {
       'grid-cols-1 gap-y-2 items-start md:col-span-3 md:grid-cols-2 md:gap-x-2':
         type === 'spotlight',
