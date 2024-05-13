@@ -1,5 +1,7 @@
 ---
+import type { Tag } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
+import LoadingIndicator from '~/components/loading-indicator.astro'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 import { getPicture } from '~/utils/image'
@@ -107,6 +109,17 @@ Astro.response.headers.set(
 
   {/* post content */}
   <Fragment set:html={post.content} />
+
+  {/* related posts */}
+  <Fragment slot="aftercontent">
+    <div
+      class="flex flex-col items-center justify-start h-[100vh] pt-24"
+      hx-get={`/parts/related?id=${post.id}&tagIds=${post.tags?.nodes.map((tag: Tag) => tag.id).join(',')}`}
+      hx-trigger="revealed"
+      hx-swap="outerHTML">
+      <LoadingIndicator />
+    </div>
+  </Fragment>
 
   {/* Additional Head tags */}
   <Fragment slot="head">

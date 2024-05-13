@@ -51,10 +51,10 @@ const menu = menuData?.menuItems?.nodes
       </button>
     </div>
   </div>
-  <nav>
+  <nav class="px-4 overflow-auto">
     <ul
       class:list={[
-        'hidden font-subheading font-bold md:flex md:justify-center md:gap-x-3 md:gap-y-0',
+        'hidden font-subheading font-bold md:flex md:justify-start lg:justify-center md:gap-x-3 md:gap-y-0',
         { 'text-tb-primary': Astro.url.pathname === '/' },
         { 'text-tb-muted': Astro.url.pathname !== '/' },
       ]}>

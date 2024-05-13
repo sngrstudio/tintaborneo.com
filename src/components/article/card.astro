@@ -29,14 +29,17 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
   ]}>
   <div
     class:list={[
-      'flex h-max rounded-lg overflow-hidden',
+      'flex h-max w-full rounded-lg overflow-hidden',
       { 'md:order-[2]': type === 'spotlight' },
     ]}>
     <a
-      class:list={['h-max', { 'flex-1 -mx-4 md:mx-0': type === 'spotlight' }]}
+      class:list={[
+        'w-full h-max',
+        { 'flex-1 -mx-4 md:mx-0': type === 'spotlight' },
+      ]}
       href={post.uri}>
       <Picture
-        class:list="aspect-[4/3] object-cover object-center w-full h-auto"
+        class:list="flex-1 aspect-[4/3] object-cover object-center w-full h-auto"
         src={post.featuredImage?.node.sourceUrl!}
         width={236}
         height={177}

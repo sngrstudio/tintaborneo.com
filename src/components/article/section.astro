@@ -4,19 +4,25 @@ export interface Props {
   uri?: string
   type?: 'primary' | 'secondary'
   withHeader?: boolean
+  singleRow?: boolean
 }
 
-const { title, uri, type, withHeader } = Astro.props
+const { title, uri, type, withHeader, singleRow } = Astro.props
 ---
 
-<section class="grid grid-cols-1 gap-3 px-4 md:gap-4 md:grid-cols-4">
+<section
+  class:list={[
+    'grid grid-cols-1 gap-3 px-4',
+    { 'md:grid-cols-4 md:gap-4': !singleRow },
+  ]}>
   {
     withHeader && (
       <hgroup
         class:list={[
-          'border-t-2 px-4 py-1 -mx-4 md:col-span-4 md:py-3',
+          'border-t-2 px-4 py-1 -mx-4',
           { 'border-tb-primary': type === 'primary' },
           { 'border-tb-muted': type === 'secondary' },
+          { 'md:col-span-4 md:py-3': !singleRow },
         ]}>
         <h2
           class:list={[

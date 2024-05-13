@@ -14,10 +14,11 @@ const { title, description, post } = Astro.props
   </Fragment>
 
   {/* body */}
-  <main class="max-w-screen-lg min-h-[60vh] mx-auto">
-    <section>
+  <main
+    class="max-w-screen-xl grid grid-cols-1 lg:grid-cols-3 lg:gap-2 min-h-[60vh] mx-auto lg:px-4">
+    <section class="md:col-span-2">
       <article
-        class="prose font-heading max-w-none md:prose-lg md:max-w-screen-md md:mx-auto px-4">
+        class="prose font-heading max-w-none md:prose-lg px-4 pb-8 lg:pb-0">
         <hgroup>
           <slot name="subtitle" />
           <h1>{title}</h1>

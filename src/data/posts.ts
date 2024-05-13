@@ -10,6 +10,7 @@ export const fetchPost = async (id: string) => {
     query: gql`
       query FetchPost($id: ID!) {
         post(id: $id, idType: SLUG) {
+          id
           title
           date
           uri
@@ -37,8 +38,7 @@ export const fetchPost = async (id: string) => {
           }
           tags {
             nodes {
-              name
-              uri
+              id
             }
           }
           postAdditionalField {
@@ -135,6 +135,65 @@ export const fetchPosts = async ({
       category,
       tag,
       tagNotIn,
+    },
+  })) as PostsFetched
+}
+
+export type FetchRelatedPostsArgs = {
+  amount?: number
+  tagIn: string[]
+  notIn: string[]
+}
+
+export const fetchRelatedPosts = async ({
+  tagIn,
+  notIn,
+  amount,
+}: FetchRelatedPostsArgs) => {
+  return (await fetchData({
+    query: gql`
+      query FetchRelatedPosts($tagIn: [ID]!, $notIn: [ID]!, $amount: Int = 8) {
+        posts(
+          first: $amount
+          where: {
+            orderby: { field: DATE, order: DESC }
+            status: PUBLISH
+            tagIn: $tagIn
+            notIn: $notIn
+          }
+        ) {
+          nodes {
+            title
+            excerpt
+            uri
+            date
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+                caption
+              }
+            }
+            categories {
+              nodes {
+                name
+                uri
+              }
+            }
+            tags {
+              nodes {
+                name
+                uri
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      amount,
+      tagIn,
+      notIn,
     },
   })) as PostsFetched
 }

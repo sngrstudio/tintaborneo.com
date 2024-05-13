@@ -4,7 +4,6 @@ import type { PostWithOptimizedImage } from '../home/type'
 import ArticleCard, {
   type Props as ArticleCardProps,
 } from '~/components/article/card.astro'
-import Separator from '../separator.astro'
 
 export interface Props extends Pick<ArticleCardProps, 'loadImage'> {
   posts: Array<Post | PostWithOptimizedImage>
@@ -16,14 +15,13 @@ const { posts, type = 'list', loadImage = 'lazy' } = Astro.props
 
 <Fragment>
   {
-    posts.map((post: Post, i, arr) => (
+    posts.map((post: Post) => (
       <Fragment>
         <ArticleCard
           post={post}
           type={type === 'list' ? 'list' : 'normal'}
           loadImage={loadImage}
-        />{' '}
-        {i < arr.length - 1 && <Separator class="md:hidden" />}
+        />
       </Fragment>
     ))
   }
