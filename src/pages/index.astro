@@ -1,19 +1,85 @@
 ---
+import type { Post } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
-import { fetchCategory } from '~/data/category'
+import HomeArticles from '~/components/home/articles.astro'
+import { getPicture } from '~/utils/image'
+import { fetchPosts } from '~/data/posts'
 
 const {
-  data: { category },
-} = await fetchCategory('/berita/category/berita-utama')
-if (!category) return Astro.redirect('/404')
+  data: { posts: postsData }
+} = await fetchPosts({
+  tag: 'berita-utama',
+  amount: 11
+})
+
+const posts = await Promise.all(
+  postsData!.nodes.map(async (post: Post) => ({
+    ...post,
+    optimizedImage: post.featuredImage
+      ? await getPicture({
+          src: post.featuredImage.node.sourceUrl!,
+          width: 800,
+          height: 600,
+          format: 'jpeg',
+          widths: [250, 325, 430],
+          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
+          loading: 'eager'
+        })
+      : undefined
+  }))
+)
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=90, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=180, stale-while-revalidate=3600'
+)
 ---
 
 <Layout>
-  <main>
-    <section
-      hx-get={`/partials/list?category=${encodeURIComponent(category.name as string)}`}
-      hx-trigger="load"
-    >
-    </section>
+  <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
+    <HomeArticles posts={posts} />
   </main>
+
+  {/* Preloading images */}
+  <Fragment slot='head'>
+    {
+      posts.map((entry) => (
+        <Fragment>
+          {entry.optimizedImage && (
+            <Fragment>
+              <link
+                rel='preload'
+                href={entry.optimizedImage.avif.src}
+                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+                imagesizes={entry.optimizedImage.avif.attributes.sizes}
+                type='image/avif'
+                as='image'
+              />
+              <link
+                rel='preload'
+                href={entry.optimizedImage.webp.src}
+                imagesrcset={entry.optimizedImage.webp.srcSet.attribute}
+                imagesizes={entry.optimizedImage.webp.attributes.sizes}
+                type='image/webp'
+                as='image'
+              />
+              <link
+                rel='preload'
+                href={entry.optimizedImage.original.src}
+                imagesrcset={entry.optimizedImage.original.srcSet.attribute}
+                imagesizes={entry.optimizedImage.original.attributes.sizes}
+                type='image/jpeg'
+                as='image'
+              />
+            </Fragment>
+          )}
+        </Fragment>
+      ))
+    }
+  </Fragment>
 </Layout>

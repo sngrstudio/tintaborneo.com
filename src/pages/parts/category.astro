@@ -1,0 +1,31 @@
+---
+import ArticleListByCategory from '~/components/article/list-by-category.astro'
+
+const id = Astro.url.searchParams.get('id')
+const amount = Astro.url.searchParams.get('amount')
+const isPrimary = Astro.url.searchParams.get('primary')
+const featured = Astro.url.searchParams.get('featured')
+const withHeader = Astro.url.searchParams.get('header')
+const loadImageEagerly = Astro.url.searchParams.get('loadImageEagerly')
+
+export const partial = true
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=3600, stale-while-revalidate=86400'
+)
+---
+
+<ArticleListByCategory
+  categoryId={id!}
+  amount={Number(amount)}
+  type={isPrimary ? 'primary' : 'secondary'}
+  featured={!!featured}
+  withHeader={!!withHeader}
+  loadImage={!!loadImageEagerly ? 'eager' : 'lazy'}
+/>

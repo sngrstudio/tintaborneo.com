@@ -1,0 +1,81 @@
+---
+import type { MenuItem } from '~/data/graphql'
+import { fetchLogo } from '~/data/site'
+import { fetchMenuList } from '~/data/menu'
+import { Picture } from 'astro:assets'
+import MenuIcon from '~icons/material-symbols/menu'
+import SearchIcon from '~icons/material-symbols/search'
+
+const {
+  data: { mediaItem: logo }
+} = await fetchLogo('logo')
+const {
+  data: { menu: menuData }
+} = await fetchMenuList('primary-navigation')
+const menu = menuData?.menuItems?.nodes
+---
+
+<header
+  class='fixed top-0 inset-x-0 flex flex-col items-stretch bg-tb-background z-[9997] px-4 py-2 md:gap-y-2'
+>
+  <div class='flex items-center justify-between py-1'>
+    {/* menu button/current date */}
+    <div x-data>
+      <button
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')"
+        aria-label='Buka Menu'
+      >
+        <MenuIcon />
+      </button>
+    </div>
+
+    {/* logo */}
+    <div>
+      <a href='/' role='button'>
+        <Picture
+          class='object-contain w-[200px] h-[40px]'
+          src={logo?.sourceUrl!}
+          width={400}
+          height={80}
+          alt='Beranda'
+          formats={['avif', 'webp']}
+          loading='eager'
+        />
+      </a>
+    </div>
+
+    {/* search button */}
+    <div x-data>
+      <button
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')"
+        aria-label='Buka Pencarian'
+      >
+        <SearchIcon />
+      </button>
+    </div>
+  </div>
+  <nav
+    class='px-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+  >
+    <ul
+      class:list={[
+        'hidden font-subheading font-bold md:flex md:justify-start lg:justify-center md:gap-x-3 md:gap-y-0',
+        { 'text-tb-primary': Astro.url.pathname === '/' },
+        { 'text-tb-muted': Astro.url.pathname !== '/' }
+      ]}
+    >
+      {
+        menu?.map((entry: MenuItem) => (
+          <li
+            class:list={[
+              'hover:underline',
+              { 'text-tb-primary': entry.uri === Astro.url.pathname }
+            ]}
+          >
+            <a href={entry.uri}>{entry.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

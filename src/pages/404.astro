@@ -1,13 +1,5 @@
 ---
-import Layout from '~/layouts/layout.astro'
-
-// export const prerender = true
+import ErrorLayout from '~/layouts/error.astro'
 ---
 
-<Layout>
-  <main>
-    <article>
-      <h1>404 Not Found</h1>
-    </article>
-  </main>
-</Layout>
+<ErrorLayout title='404 Not Found' message='Halaman tidak ditemukan.' />

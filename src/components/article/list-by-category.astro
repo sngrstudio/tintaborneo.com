@@ -1,0 +1,45 @@
+---
+import ArticleSection, {
+  type Props as ArticleSectionProps
+} from './section.astro'
+import ArticleList, { type Props as ArticleListProps } from './list.astro'
+import { fetchCategory } from '~/data/taxonomies'
+import { fetchPosts } from '~/data/posts'
+
+interface Props
+  extends Pick<ArticleSectionProps, 'type' | 'withHeader'>,
+    Pick<ArticleListProps, 'loadImage'> {
+  categoryId: string
+  amount?: number
+  featured?: boolean
+}
+
+const {
+  categoryId,
+  amount,
+  type,
+  featured,
+  withHeader,
+  loadImage = 'lazy'
+} = Astro.props
+
+const {
+  data: { category }
+} = await fetchCategory(categoryId)
+const {
+  data: { posts }
+} = await fetchPosts({
+  amount,
+  category: categoryId,
+  tagNotIn: featured ? 'berita-utama' : undefined
+})
+---
+
+<ArticleSection
+  title={category?.name!}
+  uri={category?.uri!}
+  type={type}
+  withHeader={withHeader}
+>
+  <ArticleList posts={posts?.nodes!} type='spotlight' loadImage={loadImage} />
+</ArticleSection>

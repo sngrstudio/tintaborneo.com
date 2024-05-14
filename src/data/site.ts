@@ -1,20 +1,40 @@
 import type { RootQuery } from './graphql'
 import { fetchData, gql } from './fetcher'
 
-type LogoFetched = {
-  data: Pick<RootQuery, 'mediaItems'>
+type SiteDataFetched = {
+  data: Pick<RootQuery, 'generalSettings'>
 }
 
-export const fetchLogo = async () => {
+export const fetchSiteData = async () => {
   return (await fetchData({
     query: gql`
-      query fetchLogoQuery {
-        mediaItems(where: { title: "logo" }) {
-          nodes {
-            sourceUrl
-          }
+      query FetchSiteData {
+        generalSettings {
+          title
+          description
+        }
+      }
+    `
+  })) as SiteDataFetched
+}
+
+type LogoFetched = {
+  data: Pick<RootQuery, 'mediaItem'>
+}
+
+export const fetchLogo = async (id: string) => {
+  return (await fetchData({
+    query: gql`
+      query FetchLogo($id: ID!) {
+        mediaItem(id: $id, idType: SLUG) {
+          sourceUrl
+          slug
+          altText
         }
       }
     `,
+    variables: {
+      id
+    }
   })) as LogoFetched
 }

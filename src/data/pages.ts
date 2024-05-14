@@ -8,7 +8,7 @@ type PageFetched = {
 export const fetchPage = async (id: string) => {
   return (await fetchData({
     query: gql`
-      query fetchPageQuery($id: ID!) {
+      query FetchPage($id: ID!) {
         page(id: $id, idType: URI) {
           title
           uri
@@ -16,13 +16,15 @@ export const fetchPage = async (id: string) => {
           featuredImage {
             node {
               sourceUrl
+              caption
+              altText
             }
           }
         }
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as PageFetched
 }

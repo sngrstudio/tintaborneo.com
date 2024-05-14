@@ -5,5 +5,14 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: pnpm install
+  - before: corepack enable
+    init: |
+      echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .env
+      pnpm install
     command: pnpm dev
+# vscode:
+#   extensions:
+#     - astro-build.astro-vscode,
+#     - bradlc.vscode-tailwindcss,
+#     - ms-azuretools.vscode-docker,
+#     - GitHub.vscode-github-actions

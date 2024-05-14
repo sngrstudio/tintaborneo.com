@@ -1,0 +1,55 @@
+---
+import type { LayoutProps } from '~/layouts/layout'
+import type { Tag } from '~/data/graphql'
+import { SEO } from 'astro-seo'
+import { fetchSiteData } from '~/data/site'
+
+interface Props extends LayoutProps {}
+
+const { title, description, post } = Astro.props
+
+const {
+  data: { generalSettings: site }
+} = await fetchSiteData()
+---
+
+<SEO
+  title={title}
+  titleTemplate={`%s \u2014 ${site?.title}`}
+  titleDefault={site?.title!}
+  description={description || site?.description!}
+  canonical={Astro.site?.origin + Astro.url.pathname}
+  openGraph={{
+    basic: {
+      title: title! || site?.title!,
+      type: !!post ? 'article' : 'website',
+      url: Astro.site?.origin + Astro.url.pathname,
+      image: !!post
+        ? `${Astro.site?.origin}/og?post=${post?.slug}`
+        : !!title
+          ? `${Astro.site?.origin}/og?title=${title}`
+          : `${Astro.site?.origin}/og`
+    },
+    optional: {
+      description:
+        description || `Berita oleh ${site?.title} \u2014 ${site?.description}`,
+      siteName: site?.title!,
+      locale: 'id_ID'
+    },
+    image: {
+      type: 'image/png',
+      width: 1200,
+      height: 630,
+      alt: `Kartu gambar utama untuk ${title || site?.title}`
+    },
+    article: !!post
+      ? {
+          publishedTime: post.date!,
+          modifiedTime: post.date!,
+          authors: [post.author?.node.name!],
+          section: post.categories?.nodes.at(0)?.name!,
+          tags: post.tags?.nodes.map((t: Tag) => t.name!)
+        }
+      : undefined
+  }}
+/>

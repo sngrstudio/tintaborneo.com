@@ -11,7 +11,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 }
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never }
 export type Incremental<T> =
   | T
@@ -63,7 +63,7 @@ export enum AvatarRatingEnum {
   /** Indicates an R level avatar rating level. */
   R = 'R',
   /** Indicates an X level avatar rating level. */
-  X = 'X',
+  X = 'X'
 }
 
 /** The category type */
@@ -228,7 +228,7 @@ export enum CategoryIdType {
   /** Url friendly name of the node */
   Slug = 'SLUG',
   /** The URI for the node */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Connection between the Category type and the category type */
@@ -702,7 +702,7 @@ export enum CommentNodeIdTypeEnum {
   /** Identify a resource by the Database ID. */
   DatabaseId = 'DATABASE_ID',
   /** Identify a resource by the (hashed) Global ID. */
-  Id = 'ID',
+  Id = 'ID'
 }
 
 /** The status of the comment object. */
@@ -714,7 +714,7 @@ export enum CommentStatusEnum {
   /** Comments with the Spam status */
   Spam = 'SPAM',
   /** Comments with the Trash status */
-  Trash = 'TRASH',
+  Trash = 'TRASH'
 }
 
 /** Connection between the Comment type and the Comment type */
@@ -970,7 +970,7 @@ export enum CommentsConnectionOrderbyEnum {
   /** Order by the the type of comment, such as 'comment', 'pingback', or 'trackback'. */
   CommentType = 'COMMENT_TYPE',
   /** Order by the user ID. */
-  UserId = 'USER_ID',
+  UserId = 'USER_ID'
 }
 
 /** A plural connection from one Node Type in the Graph to another Node Type, with support for relational data via &quot;edges&quot;. */
@@ -1098,7 +1098,7 @@ export enum ContentNodeIdTypeEnum {
   /** Identify a resource by the (hashed) Global ID. */
   Id = 'ID',
   /** Identify a resource by the URI. */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Connection between the ContentNode type and the ContentType type */
@@ -1344,7 +1344,7 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Page = 'PAGE',
   /** The Type of Content object */
-  Post = 'POST',
+  Post = 'POST'
 }
 
 /** The Type of Identifier used to fetch a single Content Type node. To be used along with the "id" field. Default is "ID". */
@@ -1352,7 +1352,7 @@ export enum ContentTypeIdTypeEnum {
   /** The globally unique ID */
   Id = 'ID',
   /** The name of the content type. */
-  Name = 'NAME',
+  Name = 'NAME'
 }
 
 /** Connection between the ContentType type and the ContentNode type */
@@ -1473,19 +1473,19 @@ export type ContentTypeToTaxonomyConnectionPageInfo = PageInfo &
 /** Allowed Content Types of the Category taxonomy. */
 export enum ContentTypesOfCategoryEnum {
   /** The Type of Content object */
-  Post = 'POST',
+  Post = 'POST'
 }
 
 /** Allowed Content Types of the PostFormat taxonomy. */
 export enum ContentTypesOfPostFormatEnum {
   /** The Type of Content object */
-  Post = 'POST',
+  Post = 'POST'
 }
 
 /** Allowed Content Types of the Tag taxonomy. */
 export enum ContentTypesOfTagEnum {
   /** The Type of Content object */
-  Post = 'POST',
+  Post = 'POST'
 }
 
 /** Input for the createCategory mutation. */
@@ -2814,7 +2814,7 @@ export enum MediaItemIdType {
   /** Identify a media item by its source url */
   SourceUrl = 'SOURCE_URL',
   /** Identify a resource by the URI. */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Meta connected to a MediaItem */
@@ -2859,7 +2859,7 @@ export enum MediaItemSizeEnum {
   /** MediaItem with the 1536x1536 size */
   '1536X1536' = '_1536X1536',
   /** MediaItem with the 2048x2048 size */
-  '2048X2048' = '_2048X2048',
+  '2048X2048' = '_2048X2048'
 }
 
 /** The status of the media item object. */
@@ -2871,7 +2871,7 @@ export enum MediaItemStatusEnum {
   /** Objects with the private status */
   Private = 'PRIVATE',
   /** Objects with the trash status */
-  Trash = 'TRASH',
+  Trash = 'TRASH'
 }
 
 /** Connection between the MediaItem type and the Comment type */
@@ -3184,7 +3184,7 @@ export enum MenuItemNodeIdTypeEnum {
   /** Identify a resource by the Database ID. */
   DatabaseId = 'DATABASE_ID',
   /** Identify a resource by the (hashed) Global ID. */
-  Id = 'ID',
+  Id = 'ID'
 }
 
 /** Deprecated in favor of MenuItemLinkeable Interface */
@@ -3268,7 +3268,7 @@ export enum MenuLocationEnum {
   /** Put the menu in the secondary-menu location */
   SecondaryMenu = 'SECONDARY_MENU',
   /** Put the menu in the tertiary-menu location */
-  TertiaryMenu = 'TERTIARY_MENU',
+  TertiaryMenu = 'TERTIARY_MENU'
 }
 
 /** The Type of Identifier used to fetch a single node. Default is "ID". To be used along with the "id" field. */
@@ -3282,7 +3282,7 @@ export enum MenuNodeIdTypeEnum {
   /** Identify a menu node by its name */
   Name = 'NAME',
   /** Identify a menu node by its slug */
-  Slug = 'SLUG',
+  Slug = 'SLUG'
 }
 
 /** Connection between the Menu type and the MenuItem type */
@@ -3513,7 +3513,7 @@ export enum MimeTypeEnum {
   /** video/x-ms-wmv mime type. */
   VideoXMsWmv = 'VIDEO_X_MS_WMV',
   /** video/x-ms-wmx mime type. */
-  VideoXMsWmx = 'VIDEO_X_MS_WMX',
+  VideoXMsWmx = 'VIDEO_X_MS_WMX'
 }
 
 /** An object with an ID */
@@ -3680,7 +3680,7 @@ export enum OrderEnum {
   /** Sort the query result set in an ascending order */
   Asc = 'ASC',
   /** Sort the query result set in a descending order */
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 /** The page type */
@@ -3909,7 +3909,7 @@ export enum PageIdType {
   /** Identify a resource by the (hashed) Global ID. */
   Id = 'ID',
   /** Identify a resource by the URI. */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Information about pagination in a connection. */
@@ -4185,7 +4185,7 @@ export enum PluginStatusEnum {
   /** The plugin was active recently. */
   RecentlyActive = 'RECENTLY_ACTIVE',
   /** The plugin has an upgrade available. */
-  Upgrade = 'UPGRADE',
+  Upgrade = 'UPGRADE'
 }
 
 /** The post type */
@@ -4585,7 +4585,7 @@ export enum PostFormatIdType {
   /** Url friendly name of the node */
   Slug = 'SLUG',
   /** The URI for the node */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Connection between the PostFormat type and the ContentNode type */
@@ -4789,7 +4789,7 @@ export enum PostIdType {
   /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
   Slug = 'SLUG',
   /** Identify a resource by the URI. */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** The format of post field data. */
@@ -4797,7 +4797,7 @@ export enum PostObjectFieldFormatEnum {
   /** Provide the field value directly from database. Null on unauthenticated requests. */
   Raw = 'RAW',
   /** Provide the field value as rendered by WordPress. Default. */
-  Rendered = 'RENDERED',
+  Rendered = 'RENDERED'
 }
 
 /** The column to use when filtering by date */
@@ -4805,7 +4805,7 @@ export enum PostObjectsConnectionDateColumnEnum {
   /** The date the comment was created in local time. */
   Date = 'DATE',
   /** The most recent modification date of the comment. */
-  Modified = 'MODIFIED',
+  Modified = 'MODIFIED'
 }
 
 /** Field to order the connection by */
@@ -4829,7 +4829,7 @@ export enum PostObjectsConnectionOrderbyEnum {
   /** Order by slug */
   Slug = 'SLUG',
   /** Order by title */
-  Title = 'TITLE',
+  Title = 'TITLE'
 }
 
 /** Options for ordering the connection */
@@ -4885,7 +4885,7 @@ export enum PostStatusEnum {
   /** Objects with the request-pending status */
   RequestPending = 'REQUEST_PENDING',
   /** Objects with the trash status */
-  Trash = 'TRASH',
+  Trash = 'TRASH'
 }
 
 /** Set relationships between the post to tags */
@@ -5585,7 +5585,7 @@ export enum RelationEnum {
   /** The logical AND condition returns true if both operands are true, otherwise, it returns false. */
   And = 'AND',
   /** The logical OR condition returns false if both operands are false, otherwise, it returns true. */
-  Or = 'OR',
+  Or = 'OR'
 }
 
 /** Input for the resetUserPassword mutation. */
@@ -7568,7 +7568,7 @@ export enum ScriptLoadingStrategyEnum {
   /** Use the script `async` attribute */
   Async = 'ASYNC',
   /** Use the script `defer` attribute */
-  Defer = 'DEFER',
+  Defer = 'DEFER'
 }
 
 /** Input for the sendPasswordResetEmail mutation. */
@@ -7767,7 +7767,7 @@ export enum TagIdType {
   /** Url friendly name of the node */
   Slug = 'SLUG',
   /** The URI for the node */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Connection between the Tag type and the ContentNode type */
@@ -8061,7 +8061,7 @@ export enum TaxonomyEnum {
   /** Taxonomy enum post_format */
   Postformat = 'POSTFORMAT',
   /** Taxonomy enum post_tag */
-  Tag = 'TAG',
+  Tag = 'TAG'
 }
 
 /** The Type of Identifier used to fetch a single Taxonomy node. To be used along with the "id" field. Default is "ID". */
@@ -8069,7 +8069,7 @@ export enum TaxonomyIdTypeEnum {
   /** The globally unique ID */
   Id = 'ID',
   /** The name of the taxonomy */
-  Name = 'NAME',
+  Name = 'NAME'
 }
 
 /** Connection between the Taxonomy type and the ContentType type */
@@ -8246,7 +8246,7 @@ export enum TermNodeIdTypeEnum {
   /** Url friendly name of the node */
   Slug = 'SLUG',
   /** The URI for the node */
-  Uri = 'URI',
+  Uri = 'URI'
 }
 
 /** Connection between the TermNode type and the EnqueuedScript type */
@@ -8340,7 +8340,7 @@ export enum TermObjectsConnectionOrderbyEnum {
   /** Order the connection by term id. */
   TermId = 'TERM_ID',
   /** Order the connection by term order. */
-  TermOrder = 'TERM_ORDER',
+  TermOrder = 'TERM_ORDER'
 }
 
 /** A theme object */
@@ -8979,7 +8979,7 @@ export enum UserNodeIdTypeEnum {
   /** The URI for the node */
   Uri = 'URI',
   /** The username the User uses to login with */
-  Username = 'USERNAME',
+  Username = 'USERNAME'
 }
 
 /** A user role object */
@@ -9038,7 +9038,7 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   Editor = 'EDITOR',
   /** User role with specific capabilities */
-  Subscriber = 'SUBSCRIBER',
+  Subscriber = 'SUBSCRIBER'
 }
 
 /** Connection between the User type and the Comment type */
@@ -9616,7 +9616,7 @@ export enum UsersConnectionOrderbyEnum {
   /** Order by registration date */
   Registered = 'REGISTERED',
   /** Order by URL */
-  Url = 'URL',
+  Url = 'URL'
 }
 
 /** Options for ordering the connection */
@@ -9638,7 +9638,7 @@ export enum UsersConnectionSearchColumnEnum {
   /** A URL-friendly name for the user. The default is the user's username. */
   Nicename = 'NICENAME',
   /** The URL of the user's website. */
-  Url = 'URL',
+  Url = 'URL'
 }
 
 /** Information about pagination in a connection. */

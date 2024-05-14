@@ -1,0 +1,39 @@
+---
+import type { MenuItem, Post } from '~/data/graphql'
+import type { PostsData } from './type'
+import ArticleCarousel from './carousel.astro'
+import ArticleSection from '../article/section.astro'
+import ArticleList from '../article/list.astro'
+import ArticleListByCategoryLoader from '../article/list-by-category-loader.astro'
+import { fetchMenuList } from '~/data/menu'
+
+export interface Props extends PostsData {}
+
+const { posts } = Astro.props
+const carouselPosts = posts.slice(0, 3)
+const otherFeaturedPosts = posts.slice(3, posts.length)
+
+const {
+  data: { menu: menuData }
+} = await fetchMenuList('primary-navigation')
+const menu = menuData?.menuItems?.nodes
+---
+
+<ArticleCarousel posts={carouselPosts} />
+<ArticleSection>
+  <ArticleList
+    posts={otherFeaturedPosts as Array<Post>}
+    type='spotlight'
+    loadImage='eager'
+  />
+</ArticleSection>
+<Fragment>
+  {
+    menu?.map((entry: MenuItem) => (
+      <ArticleListByCategoryLoader
+        id={entry.connectedObject?.slug!}
+        isPrimary
+      />
+    ))
+  }
+</Fragment>

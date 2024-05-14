@@ -1,0 +1,54 @@
+---
+import type { Category } from '~/data/graphql'
+import Layout from '~/layouts/layout.astro'
+import PageHeader from '~/components/page-header.astro'
+import ArticleSection from '~/components/article/section.astro'
+import ArticleList from '~/components/article/list.astro'
+import ArticleListByCategoryLoader from '~/components/article/list-by-category-loader.astro'
+import { fetchCategory } from '~/data/taxonomies'
+import { fetchPosts } from '~/data/posts'
+
+const { category: categoryId } = Astro.params
+const {
+  data: { category }
+} = await fetchCategory(categoryId!)
+if (!category) return Astro.redirect('/404')
+const subcategories = category.children?.nodes
+const {
+  data: { posts }
+} = await fetchPosts({
+  category: category.name!,
+  tag: 'berita-utama',
+  amount: 8
+})
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=3600, stale-while-revalidate=86400'
+)
+---
+
+<Layout title={category.name!} description={category.description!}>
+  <main
+    class='flex flex-col gap-6 min-h-[60vh] md:max-w-screen-lg md:mx-auto md:gap-12'
+  >
+    <PageHeader title={category.name!} type='primary' />
+    <ArticleSection>
+      <ArticleList posts={posts?.nodes!} type='spotlight' loadImage='eager' />
+    </ArticleSection>
+    {
+      subcategories?.map((entry: Category) => (
+        <Fragment>
+          {entry.posts?.nodes.length! > 0 && (
+            <ArticleListByCategoryLoader id={entry.slug!} />
+          )}
+        </Fragment>
+      ))
+    }
+  </main>
+</Layout>

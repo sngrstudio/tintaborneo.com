@@ -1,0 +1,164 @@
+---
+import type { Tag } from '~/data/graphql'
+import PageLayout from '~/layouts/page.astro'
+import LoadingIndicator from '~/components/loading-indicator.astro'
+import { fetchPost } from '~/data/posts'
+import { getDateString } from '~/utils/date'
+import { getPicture } from '~/utils/image'
+
+const { slug } = Astro.params
+const {
+  data: { post: postData }
+} = await fetchPost(slug!)
+if (!postData) return Astro.redirect('/404')
+
+const post = {
+  ...postData,
+  optimizedImage: postData.featuredImage
+    ? await getPicture({
+        src: postData.featuredImage.node.sourceUrl!,
+        format: 'jpeg',
+        widths: [430, 736],
+        sizes: '(max-width: 640px) 430px, 736px',
+        inferSize: true,
+        loading: 'eager'
+      })
+    : undefined
+}
+
+const JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: post.title,
+  image: [
+    post.optimizedImage &&
+      Astro.site?.origin + post.optimizedImage.original.src,
+    Astro.site?.origin + `/og?post=${post.slug}`,
+    Astro.site?.origin + `/og?post=${post.slug}&square=true`
+  ].filter(Boolean),
+  datePublished: post.date + '+07:00',
+  author: [
+    {
+      '@type': 'Person',
+      name: post.author?.node.name,
+      url: Astro.site?.origin! + post.author?.node.uri
+    }
+  ]
+}
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=3600, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=86400, stale-while-revalidate=604800'
+)
+---
+
+<PageLayout
+  title={post.title!}
+  description={post.excerpt!.replace(/<[^>]*>|[&][a-zA-Z]+;/g, '')}
+  post={post}
+>
+  {/* header */}
+  <Fragment slot='header'>
+    <div class='not-prose font-sans text-tb-muted'>
+      <p>
+        <time datetime={post.date + '+07:00'}>
+          {getDateString(new Date(post.date! + '+07:00'))}
+        </time>
+      </p>
+      <p>
+        Oleh <b>
+          <a href={post.author?.node.uri}>{post.author?.node.name}</a>
+        </b>
+      </p>
+    </div>
+    {
+      post.optimizedImage && (
+        <figure class='-mx-4 md:mx-0'>
+          <picture>
+            <source
+              srcset={post.optimizedImage.avif.srcSet.attribute}
+              sizes={post.optimizedImage.avif.attributes.sizes}
+              type='image/avif'
+            />
+            <source
+              srcset={post.optimizedImage.webp.srcSet.attribute}
+              sizes={post.optimizedImage.webp.attributes.sizes}
+              type='image/webp'
+            />
+            <img
+              class='w-full'
+              src={post.optimizedImage.original.src}
+              srcset={post.optimizedImage.original.srcSet.attribute}
+              sizes={post.optimizedImage.original.attributes.sizes}
+              alt={post.featuredImage?.node.altText || post.title!}
+              {...post.optimizedImage.original.attributes}
+            />
+          </picture>
+          <figcaption
+            class='px-4 md:px-0'
+            set:html={post.featuredImage?.node.caption}
+          />
+        </figure>
+      )
+    }
+  </Fragment>
+
+  {/* post content */}
+  <Fragment set:html={post.content} />
+
+  {/* related posts */}
+  <Fragment slot='aftercontent'>
+    <div
+      class='flex flex-col items-center justify-start h-[100vh] pt-24'
+      hx-get={`/parts/related?id=${post.id}&tagIds=${post.tags?.nodes.map((tag: Tag) => tag.id).join(',')}`}
+      hx-trigger='revealed'
+      hx-swap='outerHTML'
+    >
+      <LoadingIndicator />
+    </div>
+  </Fragment>
+
+  {/* Additional Head tags */}
+  <Fragment slot='head'>
+    <script
+      is:inline
+      type='application/ld+json'
+      set:html={JSON.stringify(JSONLD)}
+    />
+    {
+      post.optimizedImage && (
+        <>
+          <link
+            rel='preload'
+            href={post.optimizedImage.avif.src}
+            imagesrcset={post.optimizedImage.avif.srcSet.attribute}
+            imagesizes={post.optimizedImage.avif.attributes.sizes}
+            type='image/avif'
+            as='image'
+          />
+          <link
+            rel='preload'
+            href={post.optimizedImage.webp.src}
+            imagesrcset={post.optimizedImage.webp.srcSet.attribute}
+            imagesizes={post.optimizedImage.webp.attributes.sizes}
+            type='image/webp'
+            as='image'
+          />
+          <link
+            rel='preload'
+            href={post.optimizedImage.original.src}
+            imagesrcset={post.optimizedImage.original.srcSet.attribute}
+            imagesizes={post.optimizedImage.original.attributes.sizes}
+            type='image/jpeg'
+            as='image'
+          />
+        </>
+      )
+    }
+  </Fragment>
+</PageLayout>

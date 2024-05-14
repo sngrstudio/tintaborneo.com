@@ -1,0 +1,28 @@
+---
+import type { LayoutProps } from './layout'
+import Layout from './layout.astro'
+import PageHeader from '../components/page-header.astro'
+
+interface Props extends LayoutProps {}
+
+const { title, description } = Astro.props
+---
+
+<Layout title={title} description={description}>
+  {/* head */}
+  <Fragment slot='head'>
+    <slot name='head' />
+  </Fragment>
+
+  {/* body */}
+  <main
+    class='flex flex-col gap-6 min-h-[60vh] md:max-w-screen-lg md:mx-auto md:gap-12'
+  >
+    <PageHeader title={title!} />
+    <section
+      class='flex flex-col gap-3 px-4 md:gap-6 md:max-w-screen-sm md:mx-auto'
+    >
+      <slot />
+    </section>
+  </main>
+</Layout>

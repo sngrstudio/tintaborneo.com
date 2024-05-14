@@ -1,0 +1,26 @@
+---
+import Separator from '~/components/separator.astro'
+import LoadingIndicator from '~/components/loading-indicator.astro'
+
+interface Props {
+  type: 'category' | 'tag' | 'user'
+  slug: string
+  amount?: number
+  cursor?: string
+  isInfinite?: boolean
+  lazyload?: boolean
+}
+
+const { type, slug, amount, cursor, isInfinite, lazyload = true } = Astro.props
+---
+
+<Separator
+  hx-get={`/parts/list?type=${type}&slug=${slug}${amount ? `&amount=${amount}` : ''}${cursor ? `&cursor=${cursor}` : ''}${isInfinite ? `&infinite=true` : ''}`}
+  hx-trigger={lazyload ? 'revealed' : 'load'}
+  hx-swap='outerHTML'
+  hx-target='#list-slot'
+  class='invisible m-0 p-0 h-[0px]'
+/>
+<div id='list-slot' class='flex flex-col items-center justify-center h-[100vh]'>
+  <LoadingIndicator />
+</div>

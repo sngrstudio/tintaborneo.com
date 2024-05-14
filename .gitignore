@@ -19,3 +19,9 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# generated icon files
+public/apple-touch-icon-*
+public/favicon.ico
+public/maskable-icon-*
+public/pwa-*

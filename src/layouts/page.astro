@@ -1,0 +1,34 @@
+---
+import type { LayoutProps } from './layout'
+import Layout from '~/layouts/layout.astro'
+
+interface Props extends LayoutProps {}
+
+const { title, description, post } = Astro.props
+---
+
+<Layout title={title} description={description} post={post}>
+  {/* head */}
+  <Fragment slot='head'>
+    <slot name='head' />
+  </Fragment>
+
+  {/* body */}
+  <main
+    class='max-w-screen-xl grid grid-cols-1 lg:grid-cols-3 lg:gap-2 min-h-[60vh] mx-auto lg:px-4'
+  >
+    <section class='md:col-span-2'>
+      <article
+        class='prose font-heading max-w-none md:prose-lg px-4 pb-8 lg:pb-0'
+      >
+        <hgroup>
+          <slot name='subtitle' />
+          <h1>{title}</h1>
+          <slot name='header' />
+        </hgroup>
+        <slot />
+      </article>
+    </section>
+    <slot name='aftercontent' />
+  </main>
+</Layout>

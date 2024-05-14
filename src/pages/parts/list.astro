@@ -1,0 +1,47 @@
+---
+import type { Post } from '~/data/graphql'
+import ArticleList from '~/components/article/list.astro'
+import ArticleListLoader from '~/components/article/list-loader.astro'
+import { fetchPosts } from '~/data/posts'
+
+const cursor = Astro.url.searchParams.get('cursor')
+const amount = Astro.url.searchParams.get('amount')
+const type = Astro.url.searchParams.get('type')
+const slug = Astro.url.searchParams.get('slug')
+const infinite = Astro.url.searchParams.get('infinite')
+
+const {
+  data: { posts }
+} = await fetchPosts({
+  author: type === 'author' && slug ? slug : undefined,
+  category: type === 'category' && slug ? slug : undefined,
+  tag: type === 'tag' && slug ? slug : undefined,
+  cursor: cursor || undefined,
+  amount: Number(amount) || undefined
+})
+
+export const partial = true
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=3600, stale-while-revalidate=86400'
+)
+---
+
+<ArticleList posts={posts?.nodes as Array<Post>} type='list' />
+{
+  infinite && posts?.pageInfo.hasNextPage && (
+    <ArticleListLoader
+      type={type as 'category' | 'tag' | 'user'}
+      slug={slug!}
+      amount={Number(amount) || 6}
+      cursor={posts.pageInfo.endCursor!}
+      isInfinite={!!infinite}
+    />
+  )
+}
