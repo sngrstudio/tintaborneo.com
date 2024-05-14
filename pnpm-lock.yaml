@@ -9,83 +9,83 @@ importers:
   .:
     dependencies:
       '@astrojs/alpinejs':
-        specifier: ^0.4.0
+        specifier: 0.4.0
         version: 0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.13.10)
       '@astrojs/node':
-        specifier: ^8.2.5
+        specifier: 8.2.5
         version: 8.2.5(astro@4.8.3(@types/node@20.12.12)(typescript@5.4.5))
       '@astrojs/react':
-        specifier: ^3.3.4
+        specifier: 3.3.4
         version: 3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.2.11(@types/node@20.12.12))
       '@astrojs/rss':
-        specifier: ^4.0.5
+        specifier: 4.0.5
         version: 4.0.5
       '@astrojs/tailwind':
-        specifier: ^5.1.0
+        specifier: 5.1.0
         version: 5.1.0(astro@4.8.3(@types/node@20.12.12)(typescript@5.4.5))(tailwindcss@3.4.3)
       '@fastify/middie':
-        specifier: ^8.3.1
+        specifier: 8.3.1
         version: 8.3.1
       '@fastify/static':
-        specifier: ^7.0.4
+        specifier: 7.0.4
         version: 7.0.4
       '@fontsource/martel-sans':
-        specifier: ^5.0.14
+        specifier: 5.0.14
         version: 5.0.14
       '@fontsource/source-serif-pro':
-        specifier: ^5.0.8
+        specifier: 5.0.8
         version: 5.0.8
       alpinejs:
-        specifier: ^3.13.10
+        specifier: 3.13.10
         version: 3.13.10
       astro:
-        specifier: ^4.8.3
+        specifier: 4.8.3
         version: 4.8.3(@types/node@20.12.12)(typescript@5.4.5)
       astro-htmx:
-        specifier: ^1.0.5
+        specifier: 1.0.5
         version: 1.0.5(astro@4.8.3(@types/node@20.12.12)(typescript@5.4.5))(htmx.org@1.9.12)
       astro-seo:
-        specifier: ^0.8.3
+        specifier: 0.8.3
         version: 0.8.3(prettier-plugin-astro@0.13.0)(prettier@3.2.5)(typescript@5.4.5)
       date-fns:
-        specifier: ^3.6.0
+        specifier: 3.6.0
         version: 3.6.0
       embla-carousel-autoplay:
-        specifier: ^8.0.4
+        specifier: 8.0.4
         version: 8.0.4(embla-carousel@8.0.4)
       embla-carousel-react:
-        specifier: ^8.0.4
+        specifier: 8.0.4
         version: 8.0.4(react@18.3.1)
       fastify:
-        specifier: ^4.27.0
+        specifier: 4.27.0
         version: 4.27.0
       graphql:
-        specifier: ^16.8.1
+        specifier: 16.8.1
         version: 16.8.1
       htmx.org:
-        specifier: ^1.9.12
+        specifier: 1.9.12
         version: 1.9.12
       postcss-preset-env:
-        specifier: ^9.5.13
+        specifier: 9.5.13
         version: 9.5.13(postcss@8.4.38)
       react:
-        specifier: ^18.3.1
+        specifier: 18.3.1
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       satori:
-        specifier: ^0.10.13
+        specifier: 0.10.13
         version: 0.10.13
       sharp:
-        specifier: ^0.33.3
+        specifier: 0.33.3
         version: 0.33.3
       tailwindcss:
-        specifier: ^3.4.3
+        specifier: 3.4.3
         version: 3.4.3
     devDependencies:
       '@astrojs/check':
-        specifier: ^0.6.0
+        specifier: 0.6.0
         version: 0.6.0(prettier-plugin-astro@0.13.0)(prettier@3.2.5)(typescript@5.4.5)
       '@graphql-codegen/cli':
         specifier: 5.0.2
@@ -94,43 +94,43 @@ importers:
         specifier: 4.0.6
         version: 4.0.6(graphql@16.8.1)
       '@iconify-json/eos-icons':
-        specifier: ^1.1.10
+        specifier: 1.1.10
         version: 1.1.10
       '@iconify-json/material-symbols':
-        specifier: ^1.1.79
+        specifier: 1.1.79
         version: 1.1.79
       '@tailwindcss/typography':
-        specifier: ^0.5.13
+        specifier: 0.5.13
         version: 0.5.13(tailwindcss@3.4.3)
       '@types/alpinejs':
-        specifier: ^3.13.10
+        specifier: 3.13.10
         version: 3.13.10
       '@types/react':
-        specifier: ^18.3.2
+        specifier: 18.3.2
         version: 18.3.2
       '@types/react-dom':
-        specifier: ^18.3.0
+        specifier: 18.3.0
         version: 18.3.0
       '@vite-pwa/assets-generator':
-        specifier: ^0.2.4
+        specifier: 0.2.4
         version: 0.2.4
       dotenv:
-        specifier: ^16.4.5
+        specifier: 16.4.5
         version: 16.4.5
       prettier:
-        specifier: ^3.2.5
+        specifier: 3.2.5
         version: 3.2.5
       prettier-config-standard:
-        specifier: ^7.0.0
+        specifier: 7.0.0
         version: 7.0.0(prettier@3.2.5)
       prettier-plugin-astro:
-        specifier: ^0.13.0
+        specifier: 0.13.0
         version: 0.13.0
       typescript:
-        specifier: ^5.4.5
+        specifier: 5.4.5
         version: 5.4.5
       unplugin-icons:
-        specifier: ^0.19.0
+        specifier: 0.19.0
         version: 0.19.0
 
 packages:
