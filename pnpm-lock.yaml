@@ -106,10 +106,10 @@ importers:
         specifier: 3.13.10
         version: 3.13.10
       '@types/react':
-        specifier: ^18.3.2
+        specifier: 18.3.2
         version: 18.3.2
       '@types/react-dom':
-        specifier: ^18.3.0
+        specifier: 18.3.0
         version: 18.3.0
       '@vite-pwa/assets-generator':
         specifier: 0.2.4
