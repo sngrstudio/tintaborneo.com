@@ -6,15 +6,15 @@ import { fetchPosts } from '~/data/posts'
 export const GET: APIRoute = async ({ site, params, redirect }) => {
   const { category: categoryId } = params
   const {
-    data: { category },
+    data: { category }
   } = await fetchCategory(categoryId!)
   if (!category) return redirect('/404')
 
   const {
-    data: { posts },
+    data: { posts }
   } = await fetchPosts({
     category: category.name!,
-    amount: 1024,
+    amount: 1024
   })
 
   const xml = `
@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ site, params, redirect }) => {
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'public, max-age=0, must-revalidate',
-      'X-Robots-Tag': 'noindex, follow',
-    },
+      'X-Robots-Tag': 'noindex, follow'
+    }
   })
 }

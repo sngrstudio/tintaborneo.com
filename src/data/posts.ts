@@ -48,8 +48,8 @@ export const fetchPost = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as PostFetched
 }
 
@@ -72,7 +72,7 @@ export const fetchPosts = async ({
   author,
   category,
   tag,
-  tagNotIn,
+  tagNotIn
 }: FetchPostsArgs) => {
   return (await fetchData({
     query: gql`
@@ -134,8 +134,8 @@ export const fetchPosts = async ({
       author,
       category,
       tag,
-      tagNotIn,
-    },
+      tagNotIn
+    }
   })) as PostsFetched
 }
 
@@ -148,7 +148,7 @@ export type FetchRelatedPostsArgs = {
 export const fetchRelatedPosts = async ({
   tagIn,
   notIn,
-  amount,
+  amount
 }: FetchRelatedPostsArgs) => {
   return (await fetchData({
     query: gql`
@@ -193,8 +193,8 @@ export const fetchRelatedPosts = async ({
     variables: {
       amount,
       tagIn,
-      notIn,
-    },
+      notIn
+    }
   })) as PostsFetched
 }
 
@@ -238,7 +238,7 @@ export const searchPosts = async ({ cursor, search }: SearchPostsArgs) => {
     `,
     variables: {
       cursor,
-      search,
-    },
+      search
+    }
   })) as PostsFetched
 }

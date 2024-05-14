@@ -16,14 +16,15 @@ const {
   isPrimary,
   withHeader = true,
   lazyload = true,
-  loadImageEagerly = false,
+  loadImageEagerly = false
 } = Astro.props
 ---
 
 <div
-  class="flex flex-col items-center justify-start h-[100vh] pt-24"
+  class='flex flex-col items-center justify-start h-[100vh] pt-24'
   hx-get={`/parts/category/?amount=12&id=${id}${withHeader ? '&header=true' : ''}${featured ? `&featured=true` : ''}${isPrimary ? '&primary=true' : ''}${loadImageEagerly ? '&loadImageEagerly=true' : ''}`}
   hx-trigger={lazyload ? 'revealed' : 'load'}
-  hx-swap="outerHTML">
+  hx-swap='outerHTML'
+>
   <LoadingIndicator />
 </div>

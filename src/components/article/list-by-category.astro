@@ -1,6 +1,6 @@
 ---
 import ArticleSection, {
-  type Props as ArticleSectionProps,
+  type Props as ArticleSectionProps
 } from './section.astro'
 import ArticleList, { type Props as ArticleListProps } from './list.astro'
 import { fetchCategory } from '~/data/taxonomies'
@@ -20,18 +20,18 @@ const {
   type,
   featured,
   withHeader,
-  loadImage = 'lazy',
+  loadImage = 'lazy'
 } = Astro.props
 
 const {
-  data: { category },
+  data: { category }
 } = await fetchCategory(categoryId)
 const {
-  data: { posts },
+  data: { posts }
 } = await fetchPosts({
   amount,
   category: categoryId,
-  tagNotIn: featured ? 'berita-utama' : undefined,
+  tagNotIn: featured ? 'berita-utama' : undefined
 })
 ---
 
@@ -39,6 +39,7 @@ const {
   title={category?.name!}
   uri={category?.uri!}
   type={type}
-  withHeader={withHeader}>
-  <ArticleList posts={posts?.nodes!} type="spotlight" loadImage={loadImage} />
+  withHeader={withHeader}
+>
+  <ArticleList posts={posts?.nodes!} type='spotlight' loadImage={loadImage} />
 </ArticleSection>

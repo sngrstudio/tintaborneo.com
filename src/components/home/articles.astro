@@ -14,7 +14,7 @@ const carouselPosts = posts.slice(0, 3)
 const otherFeaturedPosts = posts.slice(3, posts.length)
 
 const {
-  data: { menu: menuData },
+  data: { menu: menuData }
 } = await fetchMenuList('primary-navigation')
 const menu = menuData?.menuItems?.nodes
 ---
@@ -23,8 +23,8 @@ const menu = menuData?.menuItems?.nodes
 <ArticleSection>
   <ArticleList
     posts={otherFeaturedPosts as Array<Post>}
-    type="spotlight"
-    loadImage="eager"
+    type='spotlight'
+    loadImage='eager'
   />
 </ArticleSection>
 <Fragment>

@@ -17,10 +17,10 @@ const { type, slug, amount, cursor, isInfinite, lazyload = true } = Astro.props
 <Separator
   hx-get={`/parts/list?type=${type}&slug=${slug}${amount ? `&amount=${amount}` : ''}${cursor ? `&cursor=${cursor}` : ''}${isInfinite ? `&infinite=true` : ''}`}
   hx-trigger={lazyload ? 'revealed' : 'load'}
-  hx-swap="outerHTML"
-  hx-target="#list-slot"
-  class="invisible md:m-0 md:p-0 md:h-[0px]"
+  hx-swap='outerHTML'
+  hx-target='#list-slot'
+  class='invisible m-0 p-0 h-[0px]'
 />
-<div id="list-slot" class="flex flex-col items-center justify-center h-[100vh]">
+<div id='list-slot' class='flex flex-col items-center justify-center h-[100vh]'>
   <LoadingIndicator />
 </div>

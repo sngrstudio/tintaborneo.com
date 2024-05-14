@@ -5,7 +5,7 @@ import { fetchUser } from '~/data/taxonomies'
 
 const { author: authorId } = Astro.params
 const {
-  data: { user: author },
+  data: { user: author }
 } = await fetchUser(authorId!)
 if (!author) return Astro.redirect('/404')
 
@@ -22,9 +22,10 @@ Astro.response.headers.set(
 
 <ListLayout
   title={author.name!}
-  description={author.description || 'Jurnalis TintaBorneo.com'}>
+  description={author.description || 'Jurnalis TintaBorneo.com'}
+>
   <ArticleListLoader
-    type="user"
+    type='user'
     slug={author.slug!}
     amount={12}
     lazyload={false}

@@ -5,7 +5,7 @@ import { fetchPage } from '~/data/pages'
 
 const { page: pageUri } = Astro.params
 const {
-  data: { page },
+  data: { page }
 } = await fetchPage(pageUri!)
 if (!page) return Astro.redirect('/404')
 
@@ -17,18 +17,18 @@ Astro.response.headers.set(
 ---
 
 <PageLayout title={page.title!}>
-  <Fragment slot="header">
+  <Fragment slot='header'>
     {
       page.featuredImage && (
-        <figure class="-mx-4">
+        <figure class='-mx-4'>
           <Picture
-            class="w-full"
+            class='w-full'
             src={page.featuredImage.node.sourceUrl!}
             alt={page.featuredImage.node.altText || page.title!}
-            loading="eager"
+            loading='eager'
             inferSize
           />
-          <figcaption class="px-4" set:html={page.featuredImage.node.caption} />
+          <figcaption class='px-4' set:html={page.featuredImage.node.caption} />
         </figure>
       )
     }

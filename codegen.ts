@@ -6,9 +6,9 @@ const config: CodegenConfig = {
   schema: `${process.env.ADMIN_ENDPOINT}/wp/graphql`,
   generates: {
     'src/data/graphql.ts': {
-      plugins: ['typescript'],
-    },
-  },
+      plugins: ['typescript']
+    }
+  }
 }
 
 export default config

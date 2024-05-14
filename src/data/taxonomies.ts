@@ -31,8 +31,8 @@ export const fetchCategory = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as CategoryFetched
 }
 
@@ -52,8 +52,8 @@ export const fetchTag = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as TagFetched
 }
 
@@ -74,8 +74,8 @@ export const fetchUser = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as UserFetched
 }
 
@@ -96,6 +96,6 @@ export const fetchCategories = async () => {
           }
         }
       }
-    `,
+    `
   })) as CategoriesFetched
 }

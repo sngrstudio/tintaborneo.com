@@ -8,16 +8,16 @@ export default {
     extend: {
       fontFamily: {
         heading: ['"Source Serif Pro"', ...defaultTheme.fontFamily.serif],
-        subheading: ['"Martel Sans"', ...defaultTheme.fontFamily.sans],
-      },
+        subheading: ['"Martel Sans"', ...defaultTheme.fontFamily.sans]
+      }
     },
     colors: {
       'tb-primary': '#C90028',
       'tb-secondary': '#00815e',
       'tb-background': '#FCFAFA',
       'tb-text': '#262224',
-      'tb-muted': '#70696B',
-    },
+      'tb-muted': '#70696B'
+    }
   },
-  plugins: [typography],
+  plugins: [typography]
 }

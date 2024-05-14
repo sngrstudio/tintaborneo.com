@@ -11,14 +11,16 @@ const { title, type = 'secondary' } = Astro.props
   class:list={[
     'border-t-2 px-4 py-2',
     { 'border-tb-primary': type === 'primary' },
-    { 'border-tb-muted': type === 'secondary' },
-  ]}>
+    { 'border-tb-muted': type === 'secondary' }
+  ]}
+>
   <h1
     class:list={[
       'font-heading',
       { 'font-black text-4xl text-tb-primary md:text-5xl': type === 'primary' },
-      { 'font-bold text-3xl text-tb-muted': type === 'secondary' },
-    ]}>
+      { 'font-bold text-3xl text-tb-muted': type === 'secondary' }
+    ]}
+  >
     {title}
   </h1>
 </hgroup>

@@ -2,7 +2,7 @@
 import type { Post } from '~/data/graphql'
 import type { PostWithOptimizedImage } from '../home/type'
 import ArticleCard, {
-  type Props as ArticleCardProps,
+  type Props as ArticleCardProps
 } from '~/components/article/card.astro'
 
 export interface Props extends Pick<ArticleCardProps, 'loadImage'> {
@@ -16,13 +16,11 @@ const { posts, type = 'list', loadImage = 'lazy' } = Astro.props
 <Fragment>
   {
     posts.map((post: Post) => (
-      <Fragment>
-        <ArticleCard
-          post={post}
-          type={type === 'list' ? 'list' : 'normal'}
-          loadImage={loadImage}
-        />
-      </Fragment>
+      <ArticleCard
+        post={post}
+        type={type === 'list' ? 'list' : 'normal'}
+        loadImage={loadImage}
+      />
     ))
   }
 </Fragment>

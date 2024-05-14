@@ -5,25 +5,26 @@ import { Picture } from 'astro:assets'
 import { fetchMenuList } from '~/data/menu'
 
 const {
-  data: { mediaItem: logo },
+  data: { mediaItem: logo }
 } = await fetchLogo('logo-alt')
 const {
-  data: { menu: secondaryMenuData },
+  data: { menu: secondaryMenuData }
 } = await fetchMenuList('footer-links')
 
 const secondaryMenu = secondaryMenuData?.menuItems?.nodes
 const copyTexts = [
   `<b>&copy; ${new Date().getFullYear()} PT Multimedia Jagad Perkasa.</b>`,
   `Hak cipta dilindungi oleh undang-undang.`,
-  `Didesain & dikembangkan oleh <a class="underline" href="https://sngr.my.id" rel="sponsored">SNGR Studio</a>.`,
+  `Didesain & dikembangkan oleh <a class="underline" href="https://sngr.my.id" rel="sponsored">SNGR Studio</a>.`
 ]
 ---
 
 <footer
-  class="flex flex-col items-center gap-4 bg-tb-secondary text-tb-background px-4 pt-4 pb-8 mt-16">
-  <div class="flex items-center justify-center">
+  class='flex flex-col items-center gap-4 bg-tb-secondary text-tb-background px-4 pt-4 pb-8 mt-16'
+>
+  <div class='flex items-center justify-center'>
     <Picture
-      class="object-contain w-[250px] h-[50px]"
+      class='object-contain w-[250px] h-[50px]'
       src={logo?.sourceUrl!}
       width={500}
       height={100}
@@ -32,10 +33,10 @@ const copyTexts = [
     />
   </div>
   <div>
-    <ul class="flex justify-center flex-wrap gap-x-2 text-sm">
+    <ul class='flex justify-center flex-wrap gap-x-2 text-sm'>
       {
         secondaryMenu?.map((entry: MenuItem) => (
-          <li class="hover:underline">
+          <li class='hover:underline'>
             <a href={entry.uri}>{entry.label}</a>
           </li>
         ))
@@ -43,7 +44,7 @@ const copyTexts = [
     </ul>
   </div>
   <div>
-    <ul class="flex flex-wrap justify-center gap-x-2 text-sm text-center">
+    <ul class='flex flex-wrap justify-center gap-x-2 text-sm text-center'>
       {
         copyTexts.map((entry) => (
           <li>

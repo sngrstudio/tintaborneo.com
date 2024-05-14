@@ -9,7 +9,7 @@ export const getPicture = async (image: ImageTransform) => {
   return {
     avif,
     webp,
-    original,
+    original
   }
 }
 

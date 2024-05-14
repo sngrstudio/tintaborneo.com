@@ -8,11 +8,11 @@ const id = Astro.url.searchParams.get('id')
 const tagIds = Astro.url.searchParams.get('tagIds')
 
 const {
-  data: { posts },
+  data: { posts }
 } = await fetchRelatedPosts({
   tagIn: tagIds!.split(','),
   notIn: [id!],
-  amount: 8,
+  amount: 8
 })
 
 export const partial = true
@@ -28,6 +28,6 @@ Astro.response.headers.set(
 )
 ---
 
-<ArticleSection title="Berita Terkait" type="primary" withHeader singleRow>
-  <ArticleList posts={posts?.nodes as Array<Post>} type="list" />
+<ArticleSection title='Berita Terkait' type='primary' withHeader singleRow>
+  <ArticleList posts={posts?.nodes as Array<Post>} type='list' />
 </ArticleSection>

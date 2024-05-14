@@ -9,7 +9,7 @@ interface Props extends LayoutProps {}
 const { title, description, post } = Astro.props
 
 const {
-  data: { generalSettings: site },
+  data: { generalSettings: site }
 } = await fetchSiteData()
 ---
 
@@ -28,19 +28,19 @@ const {
         ? `${Astro.site?.origin}/og?post=${post?.slug}`
         : !!title
           ? `${Astro.site?.origin}/og?title=${title}`
-          : `${Astro.site?.origin}/og`,
+          : `${Astro.site?.origin}/og`
     },
     optional: {
       description:
         description || `Berita oleh ${site?.title} \u2014 ${site?.description}`,
       siteName: site?.title!,
-      locale: 'id_ID',
+      locale: 'id_ID'
     },
     image: {
       type: 'image/png',
       width: 1200,
       height: 630,
-      alt: `Kartu gambar utama untuk ${title || site?.title}`,
+      alt: `Kartu gambar utama untuk ${title || site?.title}`
     },
     article: !!post
       ? {
@@ -48,8 +48,8 @@ const {
           modifiedTime: post.date!,
           authors: [post.author?.node.name!],
           section: post.categories?.nodes.at(0)?.name!,
-          tags: post.tags?.nodes.map((t: Tag) => t.name!),
+          tags: post.tags?.nodes.map((t: Tag) => t.name!)
         }
-      : undefined,
+      : undefined
   }}
 />

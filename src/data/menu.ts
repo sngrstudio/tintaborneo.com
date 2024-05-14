@@ -46,7 +46,7 @@ export const fetchMenuList = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as MenuList
 }

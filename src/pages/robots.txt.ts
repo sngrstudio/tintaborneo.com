@@ -10,8 +10,8 @@ Sitemap: ${new URL('sitemap/sitemap-index.xml', import.meta.env.SITE).href}
 export const GET: APIRoute = () => {
   return new Response(robotsTxt, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-    },
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
   })
 }
 

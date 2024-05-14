@@ -11,7 +11,7 @@ const app = Fastify({ logger: true })
 
 // Register fastify-static with options
 await app.register(fastifyStatic, {
-  root: fileURLToPath(new URL('./dist/client', import.meta.url)),
+  root: fileURLToPath(new URL('./dist/client', import.meta.url))
 })
 
 // Register fastify-middie to use middleware

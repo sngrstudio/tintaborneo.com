@@ -14,7 +14,7 @@ export const fetchSiteData = async () => {
           description
         }
       }
-    `,
+    `
   })) as SiteDataFetched
 }
 
@@ -34,7 +34,7 @@ export const fetchLogo = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as LogoFetched
 }

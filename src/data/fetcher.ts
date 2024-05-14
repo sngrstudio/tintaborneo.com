@@ -3,7 +3,7 @@ const GRAPHQL_ENDPOINT = `${import.meta.env.DEV ? import.meta.env.ADMIN_ENDPOINT
 export const gql = String.raw
 export const fetchData = async ({
   query,
-  variables,
+  variables
 }: {
   query: ReturnType<typeof gql>
   variables?: Record<string, string | Array<string> | number | undefined>
@@ -14,8 +14,8 @@ export const fetchData = async ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query,
-        variables,
-      }),
+        variables
+      })
     })
 
     const json = await response.json()

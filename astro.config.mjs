@@ -14,18 +14,18 @@ export default defineConfig({
     domains: [
       'tintaborneo.com',
       'www.tintaborneo.com',
-      'content.tintaborneo.com',
-    ],
+      'content.tintaborneo.com'
+    ]
   },
   output: 'server',
   adapter: node({
-    mode: 'middleware',
+    mode: 'middleware'
   }),
   vite: {
     plugins: [
       Icons({
-        compiler: 'astro',
-      }),
-    ],
-  },
+        compiler: 'astro'
+      })
+    ]
+  }
 })

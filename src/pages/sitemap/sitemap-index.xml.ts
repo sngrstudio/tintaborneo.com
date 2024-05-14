@@ -4,7 +4,7 @@ import { fetchCategories } from '~/data/taxonomies'
 
 export const GET: APIRoute = async ({ site }) => {
   const {
-    data: { categories: categoriesData },
+    data: { categories: categoriesData }
   } = await fetchCategories()
   const categories = categoriesData?.nodes.filter((c: Category) => !c.parentId)
 
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'public, max-age=0, must-revalidate',
-      'X-Robots-Tag': 'noindex, follow',
-    },
+      'X-Robots-Tag': 'noindex, follow'
+    }
   })
 }

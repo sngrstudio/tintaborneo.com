@@ -5,7 +5,7 @@ import { fetchTag } from '~/data/taxonomies'
 
 const { tag: tagId } = Astro.params
 const {
-  data: { tag },
+  data: { tag }
 } = await fetchTag(tagId!)
 if (!tag) return Astro.redirect('/404')
 
@@ -22,9 +22,10 @@ Astro.response.headers.set(
 
 <ListLayout
   title={`Tag: ${tag.name}`}
-  description={`Daftar berita dengan topik ${tag.name}`}>
+  description={`Daftar berita dengan topik ${tag.name}`}
+>
   <ArticleListLoader
-    type="tag"
+    type='tag'
     slug={tag.slug!}
     amount={12}
     lazyload={false}

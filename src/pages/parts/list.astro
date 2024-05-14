@@ -11,13 +11,13 @@ const slug = Astro.url.searchParams.get('slug')
 const infinite = Astro.url.searchParams.get('infinite')
 
 const {
-  data: { posts },
+  data: { posts }
 } = await fetchPosts({
   author: type === 'author' && slug ? slug : undefined,
   category: type === 'category' && slug ? slug : undefined,
   tag: type === 'tag' && slug ? slug : undefined,
   cursor: cursor || undefined,
-  amount: Number(amount) || undefined,
+  amount: Number(amount) || undefined
 })
 
 export const partial = true
@@ -33,7 +33,7 @@ Astro.response.headers.set(
 )
 ---
 
-<ArticleList posts={posts?.nodes as Array<Post>} type="list" />
+<ArticleList posts={posts?.nodes as Array<Post>} type='list' />
 {
   infinite && posts?.pageInfo.hasNextPage && (
     <ArticleListLoader

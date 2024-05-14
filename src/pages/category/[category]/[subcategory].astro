@@ -5,7 +5,7 @@ import { fetchCategory } from '~/data/taxonomies'
 
 const { subcategory: categoryId } = Astro.params
 const {
-  data: { category },
+  data: { category }
 } = await fetchCategory(categoryId!)
 if (!category) return Astro.redirect('/404')
 
@@ -22,7 +22,7 @@ Astro.response.headers.set(
 
 <ListLayout title={category.name!} description={category.description!}>
   <ArticleListLoader
-    type="category"
+    type='category'
     slug={category.slug!}
     amount={12}
     lazyload={false}

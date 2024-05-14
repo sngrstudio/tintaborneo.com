@@ -6,13 +6,13 @@ import { fetchPosts } from '~/data/posts'
 
 export const GET: APIRoute = async ({ site }) => {
   const {
-    data: { generalSettings: siteData },
+    data: { generalSettings: siteData }
   } = await fetchSiteData()
 
   const {
-    data: { posts },
+    data: { posts }
   } = await fetchPosts({
-    amount: 100,
+    amount: 100
   })
 
   return rss({
@@ -24,9 +24,9 @@ export const GET: APIRoute = async ({ site }) => {
       pubDate: new Date(post.date!),
       link: site?.origin + post.uri!,
       content: post.content!,
-      author: post.author?.node.name!,
+      author: post.author?.node.name!
     })),
     customData: `<language>id-id</language>`,
-    stylesheet: '/rss.xsl',
+    stylesheet: '/rss.xsl'
   })
 }

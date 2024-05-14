@@ -4,18 +4,20 @@ import SearchIcon from '~icons/material-symbols/search'
 
 <template x-if="type==='search'">
   <div
-    class="flex-1 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-    x-data="{ search: '' }">
+    class='flex-1 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+    x-data="{ search: '' }"
+  >
     <form
-      class="flex w-full text-lg border-b-2 focus-within:border-tb-background"
-      x-on:submit.prevent="console.log(search)">
+      class='flex w-full text-lg border-b-2 focus-within:border-tb-background'
+      x-on:submit.prevent='console.log(search)'
+    >
       <input
-        class="flex-1 outline-none bg-[transparent] text-tb-background"
-        type="text"
-        placeholder="Cari di TintaBorneo.com"
-        x-model="search"
+        class='flex-1 outline-none bg-[transparent] text-tb-background'
+        type='text'
+        placeholder='Cari di TintaBorneo.com'
+        x-model='search'
       />
-      <button class="" type="submit">
+      <button class='' type='submit'>
         <SearchIcon />
       </button>
     </form>

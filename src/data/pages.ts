@@ -24,7 +24,7 @@ export const fetchPage = async (id: string) => {
       }
     `,
     variables: {
-      id,
-    },
+      id
+    }
   })) as PageFetched
 }

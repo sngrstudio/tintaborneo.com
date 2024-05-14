@@ -5,7 +5,7 @@ export const getDateString = (date: Date) => {
   if (date.toDateString() === currentDate.toDateString()) {
     return intlFormatDistance(date, currentDate, {
       locale: 'id',
-      unit: 'hour',
+      unit: 'hour'
     })
   } else {
     return date.toLocaleDateString('id', { dateStyle: 'full' })

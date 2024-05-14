@@ -8,7 +8,7 @@ import { fetchLogo } from '~/data/site'
 import { fetchPost } from '~/data/posts'
 
 const {
-  data: { mediaItem: logo },
+  data: { mediaItem: logo }
 } = await fetchLogo('logo')
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
@@ -28,7 +28,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
         ? postData.data.post?.excerpt!.replace(/<[^>]*>/g, '')
         : undefined,
       logo: logo!,
-      isPost: !!postData,
+      isPost: !!postData
     }),
     {
       width: !!square ? 960 : 1200,
@@ -42,7 +42,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
               process.cwd(),
               'node_modules/@fontsource/source-serif-pro/files/source-serif-pro-latin-400-normal.woff'
             )
-          ),
+          )
         },
         {
           name: 'Source Serif Pro',
@@ -52,7 +52,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
               process.cwd(),
               'node_modules/@fontsource/source-serif-pro/files/source-serif-pro-latin-700-normal.woff'
             )
-          ),
+          )
         },
         {
           name: 'Source Serif Pro',
@@ -62,7 +62,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
               process.cwd(),
               'node_modules/@fontsource/source-serif-pro/files/source-serif-pro-latin-900-normal.woff'
             )
-          ),
+          )
         },
         {
           name: 'Martel Sans',
@@ -72,9 +72,9 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
               process.cwd(),
               'node_modules/@fontsource/martel-sans/files/martel-sans-latin-700-normal.woff'
             )
-          ),
-        },
-      ],
+          )
+        }
+      ]
     }
   )
 
@@ -83,7 +83,7 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
   return new Response(png, {
     headers: {
       'Content-Type': 'image/png',
-      'x-robots-tag': 'noindex, follow',
-    },
+      'x-robots-tag': 'noindex, follow'
+    }
   })
 }

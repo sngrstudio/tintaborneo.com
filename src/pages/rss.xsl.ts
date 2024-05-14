@@ -9,8 +9,8 @@ export const GET: APIRoute = async () => {
     headers: {
       'Content-Type': 'text/xsl',
       'Cache-Control': 'public, max-age=0, must-revalidate',
-      'X-Robots-Tag': 'noindex, follow',
-    },
+      'X-Robots-Tag': 'noindex, follow'
+    }
   })
 }
 
