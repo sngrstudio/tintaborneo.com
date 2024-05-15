@@ -28,35 +28,41 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
     }
   ]}
 >
+  {
+    post.featuredImage && (
+      <div
+        class:list={[
+          'flex h-max w-full rounded-lg overflow-hidden',
+          { 'md:order-[2]': type === 'spotlight' }
+        ]}
+      >
+        <a
+          class:list={[
+            'w-full h-max',
+            { 'flex-1 -mx-4 md:mx-0': type === 'spotlight' }
+          ]}
+          href={post.uri}
+        >
+          <Picture
+            class:list='flex-1 aspect-[4/3] object-cover object-center w-full h-auto'
+            src={post.featuredImage?.node.sourceUrl!}
+            width={236}
+            height={177}
+            alt={post.featuredImage?.node.altText || post.title!}
+            widths={[128, 172, 236]}
+            sizes='(max-width: 640px) 128px, (max-width: 768px) 172px, 236px'
+            formats={['avif', 'webp']}
+            loading={loadImage}
+          />
+        </a>
+      </div>
+    )
+  }
   <div
     class:list={[
-      'flex h-max w-full rounded-lg overflow-hidden',
-      { 'md:order-[2]': type === 'spotlight' }
-    ]}
-  >
-    <a
-      class:list={[
-        'w-full h-max',
-        { 'flex-1 -mx-4 md:mx-0': type === 'spotlight' }
-      ]}
-      href={post.uri}
-    >
-      <Picture
-        class:list='flex-1 aspect-[4/3] object-cover object-center w-full h-auto'
-        src={post.featuredImage?.node.sourceUrl!}
-        width={236}
-        height={177}
-        alt={post.featuredImage?.node.altText || post.title!}
-        widths={[128, 172, 236]}
-        sizes='(max-width: 640px) 128px, (max-width: 768px) 172px, 236px'
-        formats={['avif', 'webp']}
-        loading={loadImage}
-      />
-    </a>
-  </div>
-  <div
-    class:list={[
-      'col-span-2 flex-1 flex flex-col justify-between',
+      'flex-1 flex flex-col justify-between',
+      { 'col-span-2': !!post.featuredImage },
+      { 'col-span-3': !post.featuredImage },
       {
         'gap-2 [&>p:not(.tb-time)]:line-clamp-4 md:col-span-1 md:gap-4 md:justify-center md:order-[1]':
           type === 'spotlight'
