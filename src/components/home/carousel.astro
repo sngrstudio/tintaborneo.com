@@ -1,12 +1,27 @@
 ---
 import type { PostsData } from './type'
 import CarouselComponent from './carousel-component'
+import SecondaryCarouselComponent from './secondary-carousel-component'
 
 interface Props extends PostsData {}
 
 const { posts } = Astro.props
+const primaryPosts = posts.slice(0, 8)
+const secondaryPosts = () => {
+  const secondaryPostsArray = posts.slice(8)
+  return secondaryPostsArray.reduce(
+    (result: Array<typeof secondaryPostsArray>, _, index) => {
+      if (index % 4 === 0) {
+        result.push(secondaryPostsArray.slice(index, index + 4))
+      }
+      return result
+    },
+    []
+  )
+}
 ---
 
-<section class='px-4'>
-  <CarouselComponent posts={posts} client:idle />
+<section class='grid grid-cols-1 md:grid-cols-5 gap-2 px-4'>
+  <CarouselComponent posts={primaryPosts} client:idle />
+  <SecondaryCarouselComponent posts={secondaryPosts()} client:idle />
 </section>

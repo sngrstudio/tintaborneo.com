@@ -8,3 +8,7 @@ export interface PostWithOptimizedImage extends Post {
 export interface PostsData {
   posts: Array<PostWithOptimizedImage>
 }
+
+export interface PostsCollection {
+  posts: Array<Array<PostWithOptimizedImage>>
+}
