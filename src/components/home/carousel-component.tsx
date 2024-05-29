@@ -5,17 +5,19 @@ import Autoplay from 'embla-carousel-autoplay'
 import { getDateString } from '~/utils/date'
 
 const Carousel: FC<PostsData> = ({ posts }) => {
-  const [carouselRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
+  const [carouselRef] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 5000 })
+  ])
 
   return (
     <div
-      className='overflow-hidden rounded-xl md:rounded-none'
+      className='aspect-[4/3] md:aspect-auto overflow-hidden rounded-xl md:col-span-3'
       ref={carouselRef}
     >
-      <div className='flex aspect-[4/3] md:aspect-auto md:gap-2'>
+      <div className='flex h-full md:gap-2'>
         {posts.map((entry, i) => (
           <a
-            className='relative flex-[0_0_100%] min-w-0 md:flex-auto md:rounded-xl md:overflow-hidden'
+            className='relative flex-[0_0_100%] min-w-0'
             href={entry.uri!}
             rel='preload'
             key={i}
@@ -43,8 +45,8 @@ const Carousel: FC<PostsData> = ({ posts }) => {
               </picture>
             )}
             <div className='absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-tb-text to-[#00000000] text-tb-background px-4 pb-4'>
-              <h3 className='font-heading font-bold leading-tight text-2xl md:text-xl'>
-                <span>{entry.title}</span>
+              <h3 className='font-heading font-bold leading-tight text-2xl md:text-3xl'>
+                <span className='line-clamp-3'>{entry.title}</span>
               </h3>
               <p className='text-sm'>
                 <time dateTime={entry.date!}>
