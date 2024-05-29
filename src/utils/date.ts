@@ -1,7 +1,7 @@
 import { intlFormatDistance } from 'date-fns'
 
 const isWithinWeek = (date: Date, currentDate: Date) =>
-  Math.abs(date - currentDate) / (1000 * 60 * 60 * 24) < 7
+  Math.abs(date.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24) < 7
 
 export const getDateString = (
   date: Date,
