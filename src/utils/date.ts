@@ -1,11 +1,17 @@
 import { intlFormatDistance } from 'date-fns'
 
-export const getDateString = (date: Date) => {
+const isWithinWeek = (date: Date, currentDate: Date) =>
+  Math.abs(date - currentDate) / (1000 * 60 * 60 * 24) < 7
+
+export const getDateString = (
+  date: Date,
+  options?: { format?: 'relative' | 'full' }
+) => {
   const currentDate = new Date()
-  if (date.toDateString() === currentDate.toDateString()) {
+  const format = options?.format ?? 'relative'
+  if (format === 'relative' && isWithinWeek(date, currentDate)) {
     return intlFormatDistance(date, currentDate, {
-      locale: 'id',
-      unit: 'hour'
+      locale: 'id'
     })
   } else {
     return date.toLocaleDateString('id', { dateStyle: 'full' })

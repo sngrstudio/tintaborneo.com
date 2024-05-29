@@ -67,7 +67,7 @@ Astro.response.headers.set(
     <div class='not-prose font-sans text-tb-muted'>
       <p>
         <time datetime={post.date + '+07:00'}>
-          {getDateString(new Date(post.date! + '+07:00'))}
+          {getDateString(new Date(post.date! + '+07:00'), { format: 'full' })}
         </time>
       </p>
       <p>
