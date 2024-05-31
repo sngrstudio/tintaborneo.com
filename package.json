@@ -47,6 +47,7 @@
     "@graphql-codegen/typescript": "4.0.6",
     "@iconify-json/eos-icons": "1.1.10",
     "@iconify-json/material-symbols": "1.1.80",
+    "@iconify-json/simple-icons": "^1.1.103",
     "@tailwindcss/typography": "0.5.13",
     "@types/alpinejs": "3.13.10",
     "@types/react": "18.3.2",

@@ -1,6 +1,7 @@
 ---
 import type { Tag } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
+import ShareComponent from '~/components/share.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
 import { fetchPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
@@ -112,7 +113,8 @@ Astro.response.headers.set(
   <Fragment set:html={post.content} />
 
   {/* related posts */}
-  <Fragment slot='aftercontent'>
+  <section class='flex flex-col gap-4 px-4' slot='aftercontent'>
+    <ShareComponent slug={post.slug!} />
     <div
       class='flex flex-col items-center justify-start h-[100vh] pt-24'
       hx-get={`/parts/related?id=${post.id}&tagIds=${post.tags?.nodes.map((tag: Tag) => tag.id).join(',')}`}
@@ -121,7 +123,7 @@ Astro.response.headers.set(
     >
       <LoadingIndicator />
     </div>
-  </Fragment>
+  </section>
 
   {/* Additional Head tags */}
   <Fragment slot='head'>

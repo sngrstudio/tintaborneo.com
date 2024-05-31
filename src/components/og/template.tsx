@@ -3,7 +3,7 @@ import type { MediaItem } from '~/data/graphql'
 const template = ({
   title,
   url,
-  excerpt,
+  date,
   image,
   logo,
   isPost
@@ -11,13 +11,13 @@ const template = ({
   title?: string
   url: URL
   image?: string
-  excerpt?: string
+  date?: string
   logo: MediaItem
   isPost?: boolean
 }) => {
   return (
     <div
-      tw='flex flex-col-reverse bg-[#FCFAFA] w-full h-full'
+      tw='flex flex-col-reverse bg-[#262224] text-[#FCFAFA] w-full h-full'
       style={{ fontFamily: 'Source Serif Pro' }}
     >
       {image && (
@@ -29,23 +29,25 @@ const template = ({
           style={{ objectFit: 'cover' }}
         />
       )}
-      <div tw='flex flex-1 flex-col items-center justify-between border-b-4 border-[#C90028]'>
+      <div tw='flex flex-1 flex-col items-center justify-between border-b-[8px] border-[#FCFAFA]'>
         {isPost ? (
           <div
             tw='flex flex-1 flex-col items-start justify-end gap-8 w-full px-8 py-8'
             style={{
-              backgroundImage: 'linear-gradient(to top, #FCFAFAEE, #FCFAFA00)'
+              backgroundImage: 'linear-gradient(to top, #262224, #00000000)'
             }}
           >
             <img
-              tw='bg-[#FCFAFA] p-1 mb-auto'
+              tw='mb-auto mx-auto'
               src={logo.sourceUrl!}
-              width={200}
-              height={38}
+              width={300}
+              height={54}
               style={{ objectFit: 'contain' }}
             />
-            <span tw='font-black text-6xl text-[#C90028]'>{title}</span>
-            {excerpt && <span tw='text-2xl mt-6'>{excerpt}</span>}
+            <span tw='font-black text-6xl'>{title}</span>
+            <span tw='text-3xl mt-6' style={{ fontFamily: 'Martel Sans' }}>
+              {date}
+            </span>
           </div>
         ) : (
           <div tw='flex flex-1 flex-col items-center w-full'>

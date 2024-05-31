@@ -99,6 +99,9 @@ importers:
       '@iconify-json/material-symbols':
         specifier: 1.1.80
         version: 1.1.80
+      '@iconify-json/simple-icons':
+        specifier: ^1.1.103
+        version: 1.1.103
       '@tailwindcss/typography':
         specifier: 0.5.13
         version: 0.5.13(tailwindcss@3.4.3)
@@ -1305,6 +1308,9 @@ packages:
 
   '@iconify-json/material-symbols@1.1.80':
     resolution: {integrity: sha512-JrDMmWeHxFFMp3BBSsjvDvSiYzJ0qdYmHAQYWY/L5fxVZcIoeoQvtQR0wM1iJN4UDIsnHwbpJQ/sqZ/cvph6sw==}
+
+  '@iconify-json/simple-icons@1.1.103':
+    resolution: {integrity: sha512-u5r+Sirr0CME+Q0qUr6OgjErFpTSsGyttJbkfL5BUcRwELgN9FpCj8zYXySKTqCP1ttWIgAAiTC4ZKGoN5Gehw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -6083,6 +6089,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/material-symbols@1.1.80':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/simple-icons@1.1.103':
     dependencies:
       '@iconify/types': 2.0.0
 

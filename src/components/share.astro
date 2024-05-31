@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets'
+import CopyIcon from '~icons/material-symbols/content-copy'
+import ShareIcon from '~icons/material-symbols/share'
+import WhatsappIcon from '~icons/simple-icons/whatsapp'
+import FacebookIcon from '~icons/simple-icons/facebook'
+
+interface Props {
+  slug: string
+}
+
+const { slug } = Astro.props
+---
+
+<div class='flex flex-col gap-4 bg-tb-secondary rounded-xl p-4'>
+  <h4 class='font-heading font-bold text-tb-background text-2xl text-center'>
+    Share Berita Ini
+  </h4>
+  <Picture
+    src={`/og?post=${slug}&square=true`}
+    width={350}
+    height={350}
+    alt=''
+  />
+  <div
+    class='flex gap-1 items-center bg-tb-background text-tb-muted px-2 py-1 rounded-full'
+  >
+    <span class='line-clamp-1 select-all text-sm'>{Astro.url}</span>
+    <button><CopyIcon /></button>
+  </div>
+  <div
+    class='flex justify-center gap-1 *:text-xl *:bg-tb-background *:p-1 *:rounded-full'
+  >
+    <button><ShareIcon /></button>
+    <button><WhatsappIcon /></button>
+    <button><FacebookIcon /></button>
+  </div>
+</div>
