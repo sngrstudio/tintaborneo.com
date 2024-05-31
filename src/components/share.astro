@@ -1,20 +1,25 @@
 ---
 import { Picture } from 'astro:assets'
 import CopyIcon from '~icons/material-symbols/content-copy'
-import ShareIcon from '~icons/material-symbols/share'
+// import ShareIcon from '~icons/material-symbols/share'
 import WhatsappIcon from '~icons/simple-icons/whatsapp'
-import FacebookIcon from '~icons/simple-icons/facebook'
+// import FacebookIcon from '~icons/simple-icons/facebook'
+import { fetchPost } from '~/data/posts'
 
 interface Props {
   slug: string
 }
 
 const { slug } = Astro.props
+const SITE = import.meta.env.SITE
+const {
+  data: { post }
+} = await fetchPost(slug!)
 ---
 
 <div
   class='flex flex-col gap-4 bg-tb-secondary rounded-xl p-4'
-  x-data={`{url: '${Astro.url}'}`}
+  x-data={`{url: '${SITE}${post!.uri}'}`}
 >
   <h4 class='font-heading font-bold text-tb-background text-xl text-center'>
     Share Berita Ini
@@ -22,14 +27,14 @@ const { slug } = Astro.props
   <div class='grid grid-cols-3 gap-2'>
     <div>
       <Picture
-        src={`/og?post=${slug}&square=true`}
+        src={`/og?post=${post!.slug}&square=true`}
         width={150}
         height={150}
         alt=''
       />
     </div>
     <div class='col-span-2 flex flex-col justify-center gap-1'>
-      <span class='text-sm text-tb-background'>Klik untuk Copy Link</span>
+      <span class='text-xs text-tb-background'>Klik untuk Copy Link</span>
       <div
         class='flex gap-1 items-center bg-tb-background text-tb-muted px-2 py-1 rounded-full'
         role='button'
@@ -38,14 +43,21 @@ const { slug } = Astro.props
         <span><CopyIcon /></span>
       </div>
 
-      <span class='text-sm text-tb-background'>Klik untuk share</span>
+      <span class='text-xs text-tb-background'>Klik untuk share</span>
       <div
         class='flex justify-start gap-2 *:text-lg *:bg-tb-background *:p-1 *:rounded-full'
       >
-        <button><ShareIcon /></button>
-        <button><WhatsappIcon /></button>
-        <button><FacebookIcon /></button>
+        <!-- <button><ShareIcon /></button> -->
+        <a x-bind:href='url' role='button' target='_blank'>
+          <WhatsappIcon />
+        </a>
+        <!-- <a href="#" role="button"><FacebookIcon /></a> -->
       </div>
     </div>
   </div>
 </div>
+
+<script is:inline>
+  const generateWALink = ({ url }) =>
+    `https://wa.me/?text=${encodeURIComponent(`${url}`)}`
+</script>
