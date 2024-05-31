@@ -1,0 +1,8 @@
+---
+import ShareComponent from '~/components/share.astro'
+
+const slug = Astro.url.searchParams.get('slug')
+export const partial = true
+---
+
+<ShareComponent slug={slug!} />
