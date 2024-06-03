@@ -6,10 +6,11 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fetchLogo } from '~/data/site'
 import { fetchPost } from '~/data/posts'
+import { getDateString } from '~/utils/date'
 
 const {
   data: { mediaItem: logo }
-} = await fetchLogo('logo')
+} = await fetchLogo('logo-alt')
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
   const title = url.searchParams.get('title')
@@ -24,8 +25,10 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
       image: postData
         ? postData.data.post?.featuredImage?.node.sourceUrl!
         : undefined,
-      excerpt: postData
-        ? postData.data.post?.excerpt!.replace(/<[^>]*>/g, '')
+      date: postData
+        ? getDateString(new Date(postData.data.post?.date! + '+07:00'), {
+            format: 'full'
+          })
         : undefined,
       logo: logo!,
       isPost: !!postData

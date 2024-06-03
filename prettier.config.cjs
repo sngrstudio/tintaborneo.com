@@ -7,7 +7,8 @@ module.exports = {
     {
       files: '*.astro',
       options: {
-        parser: 'astro'
+        parser: 'astro',
+        htmlWhitespaceSensitivity: 'ignore'
       }
     }
   ]
