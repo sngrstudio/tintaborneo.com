@@ -14,6 +14,7 @@ export default defineConfig({
     domains: [
       'tintaborneo.com',
       'www.tintaborneo.com',
+      'staging.tintaborneo.com',
       'content.tintaborneo.com'
     ]
   },

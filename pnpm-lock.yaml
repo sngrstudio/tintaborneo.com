@@ -13,7 +13,7 @@ importers:
         version: 0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.14.0)
       '@astrojs/node':
         specifier: 8.2.5
-        version: 8.2.5(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))
+        version: 8.2.5(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))
       '@astrojs/react':
         specifier: 3.4.0
         version: 3.4.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.2.12(@types/node@20.14.0))
@@ -22,7 +22,7 @@ importers:
         version: 4.0.6
       '@astrojs/tailwind':
         specifier: 5.1.0
-        version: 5.1.0(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))(tailwindcss@3.4.3)
+        version: 5.1.0(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))(tailwindcss@3.4.3)
       '@fastify/middie':
         specifier: 8.3.1
         version: 8.3.1
@@ -39,11 +39,11 @@ importers:
         specifier: 3.14.0
         version: 3.14.0
       astro:
-        specifier: 4.9.2
-        version: 4.9.2(@types/node@20.14.0)(typescript@5.4.5)
+        specifier: 4.8.3
+        version: 4.8.3(@types/node@20.14.0)(typescript@5.4.5)
       astro-htmx:
         specifier: 1.0.6
-        version: 1.0.6(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))(htmx.org@1.9.12)
+        version: 1.0.6(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))(htmx.org@1.9.12)
       astro-seo:
         specifier: 0.8.3
         version: 0.8.3(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)
@@ -1850,8 +1850,8 @@ packages:
   astro-seo@0.8.3:
     resolution: {integrity: sha512-gQeEh0U2yyVM0iyU8DTORK6hXMy5WH2wufrkUuNOKjI3LnYLniqgDxm1LZPQDuD6b4OHabVOi/5L88A9POCcCQ==}
 
-  astro@4.9.2:
-    resolution: {integrity: sha512-apzpRoISk6L8g99m3zKIW5SYxw2GhOju/1Gq0Ccf3SH+X2UcFXF+MTdxPOFl5yJUQg7X0qsVQDOIVf8zHRRKFg==}
+  astro@4.8.3:
+    resolution: {integrity: sha512-pgIKopkmAUXY3EJHdG7zQpudtBzYAsd94A1R7jmLpH2LFZvzHEkAdHnunmSVmgikJCNqtEo3bUCHgLnCPQaN1g==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -4852,9 +4852,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.2.5(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))':
+  '@astrojs/node@8.2.5(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))':
     dependencies:
-      astro: 4.9.2(@types/node@20.14.0)(typescript@5.4.5)
+      astro: 4.8.3(@types/node@20.14.0)(typescript@5.4.5)
       send: 0.18.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -4881,9 +4881,9 @@ snapshots:
       fast-xml-parser: 4.4.0
       kleur: 4.1.5
 
-  '@astrojs/tailwind@5.1.0(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))(tailwindcss@3.4.3)':
+  '@astrojs/tailwind@5.1.0(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))(tailwindcss@3.4.3)':
     dependencies:
-      astro: 4.9.2(@types/node@20.14.0)(typescript@5.4.5)
+      astro: 4.8.3(@types/node@20.14.0)(typescript@5.4.5)
       autoprefixer: 10.4.19(postcss@8.4.38)
       postcss: 8.4.38
       postcss-load-config: 4.0.2(postcss@8.4.38)
@@ -6635,9 +6635,9 @@ snapshots:
 
   astral-regex@2.0.0: {}
 
-  astro-htmx@1.0.6(astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5))(htmx.org@1.9.12):
+  astro-htmx@1.0.6(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))(htmx.org@1.9.12):
     dependencies:
-      astro: 4.9.2(@types/node@20.14.0)(typescript@5.4.5)
+      astro: 4.8.3(@types/node@20.14.0)(typescript@5.4.5)
       htmx.org: 1.9.12
 
   astro-seo@0.8.3(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5):
@@ -6648,7 +6648,7 @@ snapshots:
       - prettier-plugin-astro
       - typescript
 
-  astro@4.9.2(@types/node@20.14.0)(typescript@5.4.5):
+  astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5):
     dependencies:
       '@astrojs/compiler': 2.8.0
       '@astrojs/internal-helpers': 0.4.0

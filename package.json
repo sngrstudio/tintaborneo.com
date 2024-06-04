@@ -25,7 +25,7 @@
     "@fontsource/martel-sans": "5.0.14",
     "@fontsource/source-serif-pro": "5.0.8",
     "alpinejs": "3.14.0",
-    "astro": "4.9.2",
+    "astro": "4.8.3",
     "astro-htmx": "1.0.6",
     "astro-seo": "0.8.3",
     "date-fns": "3.6.0",
