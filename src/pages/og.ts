@@ -86,7 +86,10 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
   return new Response(png, {
     headers: {
       'Content-Type': 'image/png',
-      'x-robots-tag': 'noindex, follow'
+      'x-robots-tag': 'noindex, follow',
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=3600',
+      'CDN-Cache-Control':
+        'public, s-maxage=86400, stale-while-revalidate=604800'
     }
   })
 }
