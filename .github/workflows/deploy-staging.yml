@@ -8,4 +8,4 @@ jobs:
   staging:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -X POST {{ secrets.STAGING_WEBHOOK }}
+      - run: curl -X POST ${{ secrets.STAGING_WEBHOOK }}
