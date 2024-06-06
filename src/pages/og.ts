@@ -81,7 +81,12 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
     }
   )
 
-  const png = await sharp(Buffer.from(svg)).png().toBuffer()
+  const png = await sharp(Buffer.from(svg))
+    .png({
+      quality: 60,
+      force: true
+    })
+    .toBuffer()
 
   return new Response(png, {
     headers: {
