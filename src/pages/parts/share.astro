@@ -5,14 +5,14 @@ const slug = Astro.url.searchParams.get('slug')
 export const partial = true
 
 // Headers configuration
-Astro.response.headers.set(
-  'Cache-Control',
-  'public, max-age=3600, stale-while-revalidate=3600'
-)
-Astro.response.headers.set(
-  'CDN-Cache-Control',
-  'public, s-maxage=86400, stale-while-revalidate=604800'
-)
+// Astro.response.headers.set(
+//   'Cache-Control',
+//   'public, max-age=3600, stale-while-revalidate=3600'
+// )
+// Astro.response.headers.set(
+//   'CDN-Cache-Control',
+//   'public, s-maxage=86400, stale-while-revalidate=604800'
+// )
 ---
 
 <ShareComponent slug={slug!} />

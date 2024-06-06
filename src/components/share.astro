@@ -5,6 +5,8 @@ import CopyDoneIcon from '~icons/material-symbols/done'
 import ShareIcon from '~icons/material-symbols/share'
 import WhatsappIcon from '~icons/simple-icons/whatsapp'
 import FacebookIcon from '~icons/simple-icons/facebook'
+import XIcon from '~icons/simple-icons/x'
+import TelegramIcon from '~icons/simple-icons/telegram'
 
 interface Props {
   slug: string
@@ -22,6 +24,7 @@ const {
   role='group'
 >
   <button
+    title='Bagikan ke Aplikasi'
     x-show='!!navigator.share'
     x-on:click={`navigator.share({title: '${post!.title}', text: '${post!.excerpt!.replace(/<[^>]*>|&[^;]+;|\n/g, '')}', url: '${SITE + post!.uri!}'})`}
     x-cloak
@@ -30,18 +33,39 @@ const {
     <ShareIcon />
   </button>
   <button
+    title='Bagikan ke WhatsApp'
+    class='!bg-[#25D366]'
     x-on:click={`window.open('https://wa.me/?text=${encodeURIComponent(`*${post!.title}* \u2014 ${SITE + post!.uri!}`)}')`}
     x-data
   >
     <WhatsappIcon />
   </button>
   <button
+    title='Bagikan ke Facebook'
+    class='!bg-[#0866FF]'
     x-on:click={`window.open('https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE + post!.uri!)}')`}
     x-data
   >
     <FacebookIcon />
   </button>
   <button
+    title='Bagikan ke X'
+    class='!bg-[#000000]'
+    x-on:click={`window.open('https://twitter.com/intent/tweet/?url=${encodeURIComponent(SITE + post!.uri!)}&text=${encodeURIComponent(post!.title!)}')`}
+    x-data
+  >
+    <XIcon />
+  </button>
+  <button
+    title='Bagikan ke Telegram'
+    class='!bg-[#26A5E4]'
+    x-on:click={`window.open('https://t.me/share/?url=${encodeURIComponent(SITE + post!.uri!)}&text=${encodeURIComponent(post!.title!)}')`}
+    x-data
+  >
+    <TelegramIcon />
+  </button>
+  <button
+    title='Copy Paste Link'
     x-on:click='navigator.clipboard.writeText(url).then(() => { isCopied = true; setTimeout(() => { isCopied = false }, 3500) })'
     x-data={`{ url: '${SITE + post!.uri!}', isCopied: false }`}
   >
