@@ -1,12 +1,14 @@
 ---
 import { fetchPost } from '~/data/posts'
-import CopyIcon from '~icons/material-symbols/content-copy'
-import CopyDoneIcon from '~icons/material-symbols/done'
-import ShareIcon from '~icons/material-symbols/share'
 import WhatsappIcon from '~icons/simple-icons/whatsapp'
 import FacebookIcon from '~icons/simple-icons/facebook'
 import XIcon from '~icons/simple-icons/x'
 import TelegramIcon from '~icons/simple-icons/telegram'
+import ShareIcon from '~icons/material-symbols/share'
+import CopyIcon from '~icons/material-symbols/content-copy'
+import CopyDoneIcon from '~icons/material-symbols/done'
+import DownloadIcon from '~icons/material-symbols/download'
+import DownloadDoneIcon from '~icons/material-symbols/download-done'
 
 interface Props {
   slug: string
@@ -20,18 +22,9 @@ const {
 ---
 
 <div
-  class='flex justify-start items-center gap-1 *:text-lg *:text-tb-background *:bg-tb-secondary *:p-1 *:rounded-full'
+  class='flex justify-start items-center gap-1 *:text-sm *:text-tb-background *:bg-tb-secondary *:p-2 *:rounded-full'
   role='group'
 >
-  <button
-    title='Bagikan ke Aplikasi'
-    x-show='!!navigator.share'
-    x-on:click={`navigator.share({title: '${post!.title}', text: '${post!.excerpt!.replace(/<[^>]*>|&[^;]+;|\n/g, '')}', url: '${SITE + post!.uri!}'})`}
-    x-cloak
-    x-data
-  >
-    <ShareIcon />
-  </button>
   <button
     title='Bagikan ke WhatsApp'
     class='!bg-[#25D366]'
@@ -65,11 +58,34 @@ const {
     <TelegramIcon />
   </button>
   <button
+    title='Bagikan ke Aplikasi Lain'
+    x-show='!!navigator.share'
+    x-on:click={`navigator.share({title: '${post!.title}', text: '${post!.excerpt!.replace(/<[^>]*>|&[^;]+;|\n/g, '')}', url: '${SITE + post!.uri!}'})`}
+    x-cloak
+    x-data
+  >
+    <ShareIcon />
+  </button>
+  <button
     title='Copy Paste Link'
+    x-bind:class="{ '!bg-tb-muted': isCopied }"
     x-on:click='navigator.clipboard.writeText(url).then(() => { isCopied = true; setTimeout(() => { isCopied = false }, 3500) })'
     x-data={`{ url: '${SITE + post!.uri!}', isCopied: false }`}
   >
     <CopyIcon x-show='!isCopied' />
     <CopyDoneIcon x-show='isCopied' />
   </button>
+  <a
+    title='Download Gambar Cover'
+    href={`/og?post=${slug}&square=true`}
+    target='_blank'
+    role='button'
+    download
+    x-bind:class="{ '!bg-tb-muted': isDownloaded }"
+    x-on:click='isDownloaded = true; setTimeout(() => { isDownloaded = false }, 3500)'
+    x-data='{ isDownloaded: false }'
+  >
+    <DownloadIcon x-show='!isDownloaded' />
+    <DownloadDoneIcon x-show='isDownloaded' />
+  </a>
 </div>
