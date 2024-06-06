@@ -106,6 +106,13 @@ Astro.response.headers.set(
         </figure>
       )
     }
+    <div
+      class='flex flex-col items-center justify-start h-[36px]'
+      hx-get={`/parts/share?slug=${post.slug}`}
+      hx-trigger='load'
+      hx-swap='outerHTML'
+    >
+    </div>
   </Fragment>
 
   {/* post content */}
@@ -113,14 +120,6 @@ Astro.response.headers.set(
 
   {/* related posts */}
   <section class='flex flex-col gap-4 px-4' slot='aftercontent'>
-    <div
-      class='flex flex-col items-center justify-start h-[100vh] pt-24'
-      hx-get={`/parts/share?slug=${post.slug}`}
-      hx-trigger='revealed'
-      hx-swap='outerHTML'
-    >
-      <LoadingIndicator />
-    </div>
     <div
       class='flex flex-col items-center justify-start h-[100vh] pt-24'
       hx-get={`/parts/related?id=${post.id}&tagIds=${post.tags?.nodes.map((tag: Tag) => tag.id).join(',')}`}

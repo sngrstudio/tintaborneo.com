@@ -1,11 +1,14 @@
 ---
-import { Picture } from 'astro:assets'
-import CopyIcon from '~icons/material-symbols/content-copy'
-import CopyDoneIcon from '~icons/material-symbols/done'
-import ShareIcon from '~icons/material-symbols/share'
+import { fetchPost } from '~/data/posts'
 import WhatsappIcon from '~icons/simple-icons/whatsapp'
 import FacebookIcon from '~icons/simple-icons/facebook'
-import { fetchPost } from '~/data/posts'
+import XIcon from '~icons/simple-icons/x'
+import TelegramIcon from '~icons/simple-icons/telegram'
+import ShareIcon from '~icons/material-symbols/share'
+import CopyIcon from '~icons/material-symbols/content-copy'
+import CopyDoneIcon from '~icons/material-symbols/done'
+import DownloadIcon from '~icons/material-symbols/download'
+import DownloadDoneIcon from '~icons/material-symbols/download-done'
 
 interface Props {
   slug: string
@@ -18,67 +21,71 @@ const {
 } = await fetchPost(slug!)
 ---
 
-<div class='flex flex-col gap-4 bg-tb-secondary rounded-xl w-full p-4'>
-  <h4 class='font-heading font-bold text-tb-background text-xl text-center'>
-    Share Berita Ini
-  </h4>
-  <div class='flex flex-col sm:flex-row lg:flex-col gap-2 sm:gap-4 lg:gap-2'>
-    <div class='flex flex-col items-center gap-1 w-full sm:w-[250px] lg:w-full'>
-      <span class='text-sm text-tb-background'>Klik untuk Download Gambar</span>
-      <a href={`/og?post=${post!.slug}&square=true`} download>
-        <Picture
-          class='w-[150px] sm:w-[250px] lg:w-[150px]'
-          src={`${SITE}/og?post=${post!.slug}&square=true`}
-          widths={[150, 250]}
-          sizes='(min-width: 1024px) 150px, (min-width: 640px) 250px, 150px'
-          formats={['avif', 'webp']}
-          width={250}
-          height={250}
-          alt=''
-        />
-      </a>
-    </div>
-    <div
-      class='flex-1 flex flex-col justify-center items-center sm:items-start lg:items-center gap-1'
-    >
-      <span class='text-sm text-tb-background'>Klik untuk Copy Link</span>
-      <div
-        class='flex gap-1 items-center bg-tb-background text-tb-muted px-2 py-1 rounded-full'
-        role='button'
-        x-on:click='navigator.clipboard.writeText(url).then(() => { doneCopied = true; setTimeout(() => doneCopied = false, 3500)})'
-        x-data={`{ url: '${SITE + post!.uri!}', doneCopied: false }`}
-      >
-        <span class='line-clamp-1 text-sm break-all' x-text='url'></span>
-        <span x-show='!doneCopied'><CopyIcon /></span>
-        <span x-show='doneCopied'><CopyDoneIcon /></span>
-      </div>
-
-      <span class='text-sm text-tb-background mt-2'>Klik untuk share</span>
-      <div
-        class='flex justify-center sm:justify-start lg:justify-center gap-2 *:text-lg *:bg-tb-background *:p-1 *:rounded-full'
-        role='group'
-      >
-        <button
-          x-show='!!navigator.share'
-          x-on:click={`navigator.share({title: '${post!.title}', text: '${post!.excerpt!.replace(/<[^>]*>|&[^;]+;|\n/g, '')}', url: '${SITE + post!.uri!}'})`}
-          x-cloak
-          x-data
-        >
-          <ShareIcon />
-        </button>
-        <button
-          x-on:click={`window.open('https://wa.me/?text=${encodeURIComponent(`*${post!.title}* \u2014 ${SITE + post!.uri!}`)}')`}
-          x-data
-        >
-          <WhatsappIcon />
-        </button>
-        <button
-          x-on:click={`window.open('https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE + post!.uri!)}')`}
-          x-data
-        >
-          <FacebookIcon />
-        </button>
-      </div>
-    </div>
-  </div>
+<div
+  class='flex justify-start items-center gap-1 *:text-sm *:text-tb-background *:bg-tb-secondary *:p-2 *:rounded-full'
+  role='group'
+>
+  <button
+    title='Bagikan ke WhatsApp'
+    class='!bg-[#25D366]'
+    x-on:click={`window.open('https://wa.me/?text=${encodeURIComponent(`*${post!.title}* \u2014 ${SITE + post!.uri!}`)}')`}
+    x-data
+  >
+    <WhatsappIcon />
+  </button>
+  <button
+    title='Bagikan ke Facebook'
+    class='!bg-[#0866FF]'
+    x-on:click={`window.open('https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE + post!.uri!)}')`}
+    x-data
+  >
+    <FacebookIcon />
+  </button>
+  <button
+    title='Bagikan ke X'
+    class='!bg-[#000000]'
+    x-on:click={`window.open('https://twitter.com/intent/tweet/?url=${encodeURIComponent(SITE + post!.uri!)}&text=${encodeURIComponent(post!.title!)}')`}
+    x-data
+  >
+    <XIcon />
+  </button>
+  <button
+    title='Bagikan ke Telegram'
+    class='!bg-[#26A5E4]'
+    x-on:click={`window.open('https://t.me/share/?url=${encodeURIComponent(SITE + post!.uri!)}&text=${encodeURIComponent(post!.title!)}')`}
+    x-data
+  >
+    <TelegramIcon />
+  </button>
+  <button
+    title='Bagikan ke Aplikasi Lain'
+    x-show='!!navigator.share'
+    x-on:click={`navigator.share({title: '${post!.title}', text: '${post!.excerpt!.replace(/<[^>]*>|&[^;]+;|\n/g, '')}', url: '${SITE + post!.uri!}'})`}
+    x-cloak
+    x-data
+  >
+    <ShareIcon />
+  </button>
+  <button
+    title='Copy Paste Link'
+    x-bind:class="{ '!bg-tb-muted': isCopied }"
+    x-on:click='navigator.clipboard.writeText(url).then(() => { isCopied = true; setTimeout(() => { isCopied = false }, 3500) })'
+    x-data={`{ url: '${SITE + post!.uri!}', isCopied: false }`}
+  >
+    <CopyIcon x-show='!isCopied' />
+    <CopyDoneIcon x-show='isCopied' />
+  </button>
+  <a
+    title='Download Gambar Cover'
+    href={`/og?post=${slug}&square=true`}
+    target='_blank'
+    role='button'
+    download
+    x-bind:class="{ '!bg-tb-muted': isDownloaded }"
+    x-on:click='isDownloaded = true; setTimeout(() => { isDownloaded = false }, 3500)'
+    x-data='{ isDownloaded: false }'
+  >
+    <DownloadIcon x-show='!isDownloaded' />
+    <DownloadDoneIcon x-show='isDownloaded' />
+  </a>
 </div>
