@@ -10,12 +10,16 @@ import { getDateString } from '~/utils/date'
 
 const {
   data: { mediaItem: logo }
+} = await fetchLogo('logo')
+const {
+  data: { mediaItem: logoAlt }
 } = await fetchLogo('logo-alt')
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
   const title = url.searchParams.get('title')
   const postSlug = url.searchParams.get('post')
   const square = url.searchParams.get('square')
+  const whatsapp = url.searchParams.get('whatsapp')
   const postData = postSlug ? await fetchPost(postSlug) : undefined
 
   const svg = await satori(
@@ -31,11 +35,13 @@ export const GET: APIRoute = async ({ url, site: origin }) => {
           })
         : undefined,
       logo: logo!,
-      isPost: !!postData
+      logoAlt: logoAlt!,
+      isPost: !!postData,
+      mode: !!whatsapp ? 'whatsapp' : !!square ? 'square' : 'og'
     }),
     {
-      width: !!square ? 960 : 1200,
-      height: !!square ? 960 : 630,
+      width: !!whatsapp ? 600 : !!square ? 960 : 1200,
+      height: !!whatsapp ? 336 : !!square ? 960 : 630,
       fonts: [
         {
           name: 'Source Serif Pro',
