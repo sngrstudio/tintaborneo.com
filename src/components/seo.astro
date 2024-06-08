@@ -45,9 +45,9 @@ const {
 <meta
   property='og:image'
   content={!!post
-    ? `${Astro.site?.origin}/og?post=${post?.slug}?whatsapp=true`
+    ? `${Astro.site?.origin}/og?post=${post?.slug}&whatsapp=true`
     : !!title
-      ? `${Astro.site?.origin}/og?title=${title}?whatsapp=true`
+      ? `${Astro.site?.origin}/og?title=${title}&whatsapp=true`
       : `${Astro.site?.origin}/og?whatsapp=true`}
 />
 <meta property='og:image:type' content='image/png' />
