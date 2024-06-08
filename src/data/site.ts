@@ -1,12 +1,8 @@
 import type { RootQuery } from './graphql'
-import { fetchData, gql } from './fetcher'
-
-type SiteDataFetched = {
-  data: Pick<RootQuery, 'generalSettings'>
-}
+import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
 export const fetchSiteData = async () => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchSiteData {
         generalSettings {
@@ -15,15 +11,11 @@ export const fetchSiteData = async () => {
         }
       }
     `
-  })) as SiteDataFetched
-}
-
-type LogoFetched = {
-  data: Pick<RootQuery, 'mediaItem'>
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'generalSettings'>>>
 }
 
 export const fetchLogo = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchLogo($id: ID!) {
         mediaItem(id: $id, idType: SLUG) {
@@ -36,5 +28,5 @@ export const fetchLogo = async (id: string) => {
     variables: {
       id
     }
-  })) as LogoFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'mediaItem'>>>
 }

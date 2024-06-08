@@ -1,12 +1,8 @@
 import type { RootQuery } from './graphql'
-import { fetchData, gql } from './fetcher'
-
-type MenuList = {
-  data: Pick<RootQuery, 'menu'>
-}
+import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
 export const fetchMenuList = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchMenuList($id: ID!) {
         menu(id: $id, idType: LOCATION) {
@@ -48,5 +44,5 @@ export const fetchMenuList = async (id: string) => {
     variables: {
       id
     }
-  })) as MenuList
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'menu'>>>
 }
