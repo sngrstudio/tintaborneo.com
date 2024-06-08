@@ -84,6 +84,7 @@ const {
   content={description ||
     `Berita oleh ${site?.title} \u2014 ${site?.description}`}
 />
+<meta name='twitter:domain' content={Astro.site?.origin} />
 <meta
   name='twitter:image'
   content={!!post
