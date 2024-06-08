@@ -35,6 +35,7 @@ export const fetchPost = async (id: string) => {
           tags {
             nodes {
               id
+              name
             }
           }
           postAdditionalField {

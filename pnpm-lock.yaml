@@ -44,9 +44,6 @@ importers:
       astro-htmx:
         specifier: 1.0.6
         version: 1.0.6(astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5))(htmx.org@1.9.12)
-      astro-seo:
-        specifier: 0.8.3
-        version: 0.8.3(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)
       date-fns:
         specifier: 3.6.0
         version: 3.6.0
@@ -173,12 +170,6 @@ packages:
     peerDependencies:
       '@types/alpinejs': ^3.0.0
       alpinejs: ^3.0.0
-
-  '@astrojs/check@0.5.10':
-    resolution: {integrity: sha512-vliHXM9cu/viGeKiksUM4mXfO816ohWtawTl2ADPgTsd4nUMjFiyAl7xFZhF34yy4hq4qf7jvK1F2PlR3b5I5w==}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
 
   '@astrojs/check@0.7.0':
     resolution: {integrity: sha512-UTqwOeKNu9IYZmJXEeWnQuTdSd/pX58Hl4TUARsMlT97SVDL//kLBE4T/ctxRz6J573N87oE5ddtW/uOOnQTug==}
@@ -1846,9 +1837,6 @@ packages:
     peerDependencies:
       astro: '>= 3.0.0'
       htmx.org: '>= 1.9.0'
-
-  astro-seo@0.8.3:
-    resolution: {integrity: sha512-gQeEh0U2yyVM0iyU8DTORK6hXMy5WH2wufrkUuNOKjI3LnYLniqgDxm1LZPQDuD6b4OHabVOi/5L88A9POCcCQ==}
 
   astro@4.8.3:
     resolution: {integrity: sha512-pgIKopkmAUXY3EJHdG7zQpudtBzYAsd94A1R7jmLpH2LFZvzHEkAdHnunmSVmgikJCNqtEo3bUCHgLnCPQaN1g==}
@@ -4775,18 +4763,6 @@ snapshots:
       '@types/alpinejs': 3.13.10
       alpinejs: 3.14.0
 
-  '@astrojs/check@0.5.10(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)':
-    dependencies:
-      '@astrojs/language-server': 2.10.0(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)
-      chokidar: 3.6.0
-      fast-glob: 3.3.2
-      kleur: 4.1.5
-      typescript: 5.4.5
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - prettier
-      - prettier-plugin-astro
-
   '@astrojs/check@0.7.0(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)':
     dependencies:
       '@astrojs/language-server': 2.10.0(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)
@@ -6639,14 +6615,6 @@ snapshots:
     dependencies:
       astro: 4.8.3(@types/node@20.14.0)(typescript@5.4.5)
       htmx.org: 1.9.12
-
-  astro-seo@0.8.3(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5):
-    dependencies:
-      '@astrojs/check': 0.5.10(prettier-plugin-astro@0.14.0)(prettier@3.2.5)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - prettier
-      - prettier-plugin-astro
-      - typescript
 
   astro@4.8.3(@types/node@20.14.0)(typescript@5.4.5):
     dependencies:

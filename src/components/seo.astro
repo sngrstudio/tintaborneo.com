@@ -1,7 +1,6 @@
 ---
 import type { LayoutProps } from '~/layouts/layout'
-import type { Tag } from '~/data/graphql'
-import { SEO } from 'astro-seo'
+import type { Category, Tag } from '~/data/graphql'
 import { fetchSiteData } from '~/data/site'
 
 interface Props extends LayoutProps {}
@@ -13,43 +12,86 @@ const {
 } = await fetchSiteData()
 ---
 
-<SEO
-  title={title}
-  titleTemplate={`%s \u2014 ${site?.title}`}
-  titleDefault={site?.title!}
-  description={description || site?.description!}
-  canonical={Astro.site?.origin + Astro.url.pathname}
-  openGraph={{
-    basic: {
-      title: title! || site?.title!,
-      type: !!post ? 'article' : 'website',
-      url: Astro.site?.origin + Astro.url.pathname,
-      image: !!post
-        ? `${Astro.site?.origin}/og?post=${post?.slug}`
-        : !!title
-          ? `${Astro.site?.origin}/og?title=${title}`
-          : `${Astro.site?.origin}/og`
-    },
-    optional: {
-      description:
-        description || `Berita oleh ${site?.title} \u2014 ${site?.description}`,
-      siteName: site?.title!,
-      locale: 'id_ID'
-    },
-    image: {
-      type: 'image/png',
-      width: 1200,
-      height: 630,
-      alt: `Kartu gambar utama untuk ${title || site?.title}`
-    },
-    article: !!post
-      ? {
-          publishedTime: post.date!,
-          modifiedTime: post.date!,
-          authors: [post.author?.node.name!],
-          section: post.categories?.nodes.at(0)?.name!,
-          tags: post.tags?.nodes.map((t: Tag) => t.name!)
-        }
-      : undefined
-  }}
+{/* General SEO Meta */}
+<title>{title ? `${title} \u2014 ${site?.title}` : site?.title}</title>
+<meta name='description' content={description || site?.description} />
+<link rel='canonical' href={Astro.site?.origin + Astro.url.pathname} />
+<meta name='robots' content='index, follow' />
+
+{/* OpenGraph */}
+<meta property='og:title' content={title! || site?.title!} />
+<meta
+  property='og:description'
+  content={description ||
+    `Berita oleh ${site?.title} \u2014 ${site?.description}`}
 />
+<meta property='og:type' content={!!post ? 'article' : 'website'} />
+<meta property='og:url' content={Astro.site?.origin + Astro.url.pathname} />
+<meta property='og:site_name' content={site?.title!} />
+<meta property='og:locale' content='id_ID' />
+
+<meta
+  property='og:image'
+  content={!!post
+    ? `${Astro.site?.origin}/og?post=${post?.slug}`
+    : !!title
+      ? `${Astro.site?.origin}/og?title=${title}`
+      : `${Astro.site?.origin}/og`}
+/>
+<meta property='og:image:type' content='image/png' />
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='630' />
+
+<meta
+  property='og:image'
+  content={!!post
+    ? `${Astro.site?.origin}/og?post=${post?.slug}?whatsapp=true`
+    : !!title
+      ? `${Astro.site?.origin}/og?title=${title}?whatsapp=true`
+      : `${Astro.site?.origin}/og?whatsapp=true`}
+/>
+<meta property='og:image:type' content='image/png' />
+<meta property='og:image:width' content='600' />
+<meta property='og:image:height' content='336' />
+<meta property='og:image:alt' content={title! || site?.title!} />
+
+{/* Post Type Only */}
+{
+  !!post && (
+    <Fragment>
+      <meta property='article:published_time' content={post?.date!} />
+      <meta property='article:modified_time' content={post?.date!} />
+      <meta property='article:author' content={post?.author?.node.name!} />
+      <meta
+        property='article:section'
+        content={post?.categories?.nodes.at(0)?.name!}
+      />
+      {post?.categories?.nodes.map((c: Category) => (
+        <meta property='article:tag' content={c.name!} />
+      ))}
+      {post?.tags?.nodes.map((t: Tag) => (
+        <meta property='article:tag' content={t.name!} />
+      ))}
+    </Fragment>
+  )
+}
+
+{/* Twitter Meta Tags */}
+<meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:title' content={title! || site?.title!} />
+<meta
+  name='twitter:description'
+  content={description ||
+    `Berita oleh ${site?.title} \u2014 ${site?.description}`}
+/>
+<meta
+  name='twitter:image'
+  content={!!post
+    ? `${Astro.site?.origin}/og?post=${post?.slug}`
+    : !!title
+      ? `${Astro.site?.origin}/og?title=${title}`
+      : `${Astro.site?.origin}/og`}
+/>
+<meta name='twitter:image:alt' content={title! || site?.title!} />
+<meta name='twitter:image:width' content='1200' />
+<meta name='twitter:image:height' content='630' />
