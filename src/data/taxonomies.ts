@@ -1,12 +1,8 @@
 import type { RootQuery } from './graphql'
-import { fetchData, gql } from './fetcher'
-
-type CategoryFetched = {
-  data: Pick<RootQuery, 'category'>
-}
+import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
 export const fetchCategory = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchCategory($id: ID!) {
         category(id: $id, idType: SLUG) {
@@ -33,15 +29,11 @@ export const fetchCategory = async (id: string) => {
     variables: {
       id
     }
-  })) as CategoryFetched
-}
-
-type TagFetched = {
-  data: Pick<RootQuery, 'tag'>
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'category'>>>
 }
 
 export const fetchTag = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchTag($id: ID!) {
         tag(id: $id, idType: SLUG) {
@@ -54,15 +46,11 @@ export const fetchTag = async (id: string) => {
     variables: {
       id
     }
-  })) as TagFetched
-}
-
-type UserFetched = {
-  data: Pick<RootQuery, 'user'>
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
 }
 
 export const fetchUser = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchUser($id: ID!) {
         user(id: $id, idType: SLUG) {
@@ -76,15 +64,11 @@ export const fetchUser = async (id: string) => {
     variables: {
       id
     }
-  })) as UserFetched
-}
-
-type CategoriesFetched = {
-  data: Pick<RootQuery, 'categories'>
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'user'>>>
 }
 
 export const fetchCategories = async () => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchCategories {
         categories(first: 128) {
@@ -97,5 +81,5 @@ export const fetchCategories = async () => {
         }
       }
     `
-  })) as CategoriesFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'categories'>>>
 }

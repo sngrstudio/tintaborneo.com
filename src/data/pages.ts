@@ -1,12 +1,8 @@
 import type { RootQuery } from './graphql'
-import { fetchData, gql } from './fetcher'
-
-type PageFetched = {
-  data: Pick<RootQuery, 'page'>
-}
+import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
 export const fetchPage = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchPage($id: ID!) {
         page(id: $id, idType: URI) {
@@ -26,5 +22,5 @@ export const fetchPage = async (id: string) => {
     variables: {
       id
     }
-  })) as PageFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'page'>>>
 }

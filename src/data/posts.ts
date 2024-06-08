@@ -1,12 +1,8 @@
 import type { RootQuery } from './graphql'
-import { fetchData, gql } from './fetcher'
-
-type PostFetched = {
-  data: Pick<RootQuery, 'post'>
-}
+import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
 export const fetchPost = async (id: string) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchPost($id: ID!) {
         post(id: $id, idType: SLUG) {
@@ -50,11 +46,7 @@ export const fetchPost = async (id: string) => {
     variables: {
       id
     }
-  })) as PostFetched
-}
-
-type PostsFetched = {
-  data: Pick<RootQuery, 'posts'>
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'post'>>>
 }
 
 export type FetchPostsArgs = {
@@ -74,7 +66,7 @@ export const fetchPosts = async ({
   tag,
   tagNotIn
 }: FetchPostsArgs) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchPosts(
         $cursor: String = ""
@@ -136,7 +128,7 @@ export const fetchPosts = async ({
       tag,
       tagNotIn
     }
-  })) as PostsFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
 }
 
 export type FetchRelatedPostsArgs = {
@@ -150,7 +142,7 @@ export const fetchRelatedPosts = async ({
   notIn,
   amount
 }: FetchRelatedPostsArgs) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query FetchRelatedPosts($tagIn: [ID]!, $notIn: [ID]!, $amount: Int = 8) {
         posts(
@@ -195,7 +187,7 @@ export const fetchRelatedPosts = async ({
       tagIn,
       notIn
     }
-  })) as PostsFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
 }
 
 export type SearchPostsArgs = {
@@ -204,7 +196,7 @@ export type SearchPostsArgs = {
 }
 
 export const searchPosts = async ({ cursor, search }: SearchPostsArgs) => {
-  return (await fetchData({
+  return (await fetchQuery({
     query: gql`
       query SearchPosts($cursor: String = "", $search: String = "") {
         posts(
@@ -240,5 +232,5 @@ export const searchPosts = async ({ cursor, search }: SearchPostsArgs) => {
       cursor,
       search
     }
-  })) as PostsFetched
+  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
 }
