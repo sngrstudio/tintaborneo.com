@@ -5,10 +5,13 @@ import alpinejs from '@astrojs/alpinejs'
 import react from '@astrojs/react'
 import htmx from 'astro-htmx'
 import Icons from 'unplugin-icons/vite'
+import 'dotenv/config'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.tintaborneo.com',
+  site: process.env.STAGING
+    ? 'https://staging.tintaborneo.com'
+    : 'https://www.tintaborneo.com',
   integrations: [tailwind(), htmx(), alpinejs(), react()],
   image: {
     domains: [
