@@ -27,7 +27,7 @@ const featuredPosts = await Promise.all(
           src: post.featuredImage.node.sourceUrl!,
           width: 800,
           height: 600,
-          format: 'jpeg',
+          formats: ['avif', 'webp', 'jpeg'],
           widths: [250, 325, 430],
           sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
           loading: 'eager'
@@ -36,7 +36,21 @@ const featuredPosts = await Promise.all(
   }))
 )
 
-const latestPosts = latestPostsData!.nodes
+const latestPosts = await Promise.all(
+  latestPostsData!.nodes.map(async (post: Post) => ({
+    ...post,
+    optimizedImage: post.featuredImage
+      ? await getPicture({
+          src: post.featuredImage.node.sourceUrl!,
+          width: 800,
+          height: 600,
+          formats: ['avif', 'webp', 'jpeg'],
+          widths: [250, 325, 430],
+          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px'
+        })
+      : undefined
+  }))
+)
 
 // Headers configuration
 Astro.response.headers.set(
@@ -58,6 +72,24 @@ Astro.response.headers.set(
   <Fragment slot='head'>
     {
       featuredPosts.map((entry) => (
+        <Fragment>
+          {entry.optimizedImage && (
+            <Fragment>
+              <link
+                rel='preload'
+                href={entry.optimizedImage.avif.src}
+                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+                imagesizes={entry.optimizedImage.avif.attributes.sizes}
+                type='image/avif'
+                as='image'
+              />
+            </Fragment>
+          )}
+        </Fragment>
+      ))
+    }
+    {
+      latestPosts.map((entry) => (
         <Fragment>
           {entry.optimizedImage && (
             <Fragment>

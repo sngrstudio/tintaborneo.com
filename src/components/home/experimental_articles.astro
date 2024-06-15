@@ -2,7 +2,6 @@
 import type { Experimental_PostsData as PostsData } from './type'
 import PrimaryCarousel from './carousel-component'
 import SecondaryCarousel from './secondary-carousel-component'
-import { Debug } from 'astro:components'
 
 interface Props {
   featuredPosts: PostsData
@@ -10,7 +9,7 @@ interface Props {
 }
 
 const { featuredPosts, latestPosts } = Astro.props
-const secondaryCarouselPosts = latestPosts.slice(8).reduce(
+const secondaryCarouselPosts = latestPosts.reduce(
   (result: Array<typeof latestPosts>, _, index) => {
     if (index % 4 === 0) {
       result.push(latestPosts.slice(index, index + 4))
@@ -25,4 +24,3 @@ const secondaryCarouselPosts = latestPosts.slice(8).reduce(
   <PrimaryCarousel posts={featuredPosts} client:load />
   <SecondaryCarousel posts={secondaryCarouselPosts} client:load />
 </section>
-<Debug {secondaryCarouselPosts} />
