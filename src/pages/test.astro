@@ -1,8 +1,25 @@
 ---
 import { Debug } from 'astro:components'
-import { getTagId } from '~/data/experimental_posts.ts'
+import {
+  getTagId,
+  getFeaturedPosts,
+  getLatestPosts
+} from '~/data/experimental_posts.ts'
 
-const test = await getTagId('berita-utama')
+const {
+  data: { tag }
+} = await getTagId('berita-utama')
+const {
+  data: { posts: featuredPosts }
+} = await getFeaturedPosts({ tagIn: [tag!.id] })
+const {
+  data: { posts: latestPosts }
+} = await getLatestPosts({ tagNotIn: [tag!.id] })
+
+const test = {
+  featuredPosts,
+  latestPosts
+}
 ---
 
 <Debug {test} />

@@ -1,6 +1,7 @@
 import type { RootQuery } from './graphql'
 import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
 
+type TagResult = FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
 type PostsResult = FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
 
 export const getTagId = async (id: string) => {
@@ -9,14 +10,22 @@ export const getTagId = async (id: string) => {
     variables: {
       id
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
+  })) as TagResult
 }
 
-export const getLatestPosts = async ({notIn, tagNotIn}: {notIn?: string[], tagNotIn?: string[]}) => {
+export const getFeaturedPosts = async ({ tagIn }: { tagIn?: string[] }) => {
+  return (await fetchQuery({
+    queryId: 'get-featured-posts',
+    variables: {
+      tagIn
+    }
+  })) as PostsResult
+}
+
+export const getLatestPosts = async ({ tagNotIn }: { tagNotIn?: string[] }) => {
   return (await fetchQuery({
     queryId: 'get-latest-posts',
     variables: {
-      notIn,
       tagNotIn
     }
   })) as PostsResult

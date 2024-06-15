@@ -1,19 +1,26 @@
 ---
 import type { Post } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
-import HomeArticles from '~/components/home/articles.astro'
+import HomeArticles from '~/components/home/experimental_articles.astro'
 import { getPicture } from '~/utils/image'
-import { fetchPosts } from '~/data/posts'
+import {
+  getTagId,
+  getFeaturedPosts,
+  getLatestPosts
+} from '~/data/experimental_posts.ts'
 
 const {
-  data: { posts: postsData }
-} = await fetchPosts({
-  tag: 'berita-utama',
-  amount: 24
-})
+  data: { tag }
+} = await getTagId('berita-utama')
+const {
+  data: { posts: featuredPostsData }
+} = await getFeaturedPosts({ tagIn: [tag!.id] })
+const {
+  data: { posts: latestPostsData }
+} = await getLatestPosts({ tagNotIn: [tag!.id] })
 
-const posts = await Promise.all(
-  postsData!.nodes.map(async (post: Post) => ({
+const featuredPosts = await Promise.all(
+  featuredPostsData!.nodes.map(async (post: Post) => ({
     ...post,
     optimizedImage: post.featuredImage
       ? await getPicture({
@@ -29,6 +36,8 @@ const posts = await Promise.all(
   }))
 )
 
+const latestPosts = latestPostsData!.nodes
+
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
@@ -42,13 +51,13 @@ Astro.response.headers.set(
 
 <Layout>
   <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
-    <HomeArticles posts={posts} />
+    <HomeArticles featuredPosts={featuredPosts} latestPosts={latestPosts} />
   </main>
 
   {/* Preloading images */}
   <Fragment slot='head'>
     {
-      posts.map((entry) => (
+      featuredPosts.map((entry) => (
         <Fragment>
           {entry.optimizedImage && (
             <Fragment>
@@ -58,22 +67,6 @@ Astro.response.headers.set(
                 imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
                 imagesizes={entry.optimizedImage.avif.attributes.sizes}
                 type='image/avif'
-                as='image'
-              />
-              <link
-                rel='preload'
-                href={entry.optimizedImage.webp.src}
-                imagesrcset={entry.optimizedImage.webp.srcSet.attribute}
-                imagesizes={entry.optimizedImage.webp.attributes.sizes}
-                type='image/webp'
-                as='image'
-              />
-              <link
-                rel='preload'
-                href={entry.optimizedImage.original.src}
-                imagesrcset={entry.optimizedImage.original.srcSet.attribute}
-                imagesizes={entry.optimizedImage.original.attributes.sizes}
-                type='image/jpeg'
                 as='image'
               />
             </Fragment>

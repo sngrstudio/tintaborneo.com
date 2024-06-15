@@ -12,3 +12,5 @@ export interface PostsData {
 export interface PostsCollection {
   posts: Array<Array<PostWithOptimizedImage>>
 }
+
+export type Experimental_PostsData = Array<PostWithOptimizedImage>
