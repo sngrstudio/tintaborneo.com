@@ -45,6 +45,9 @@ const Carousel: FC<PostsData> = ({ posts }) => {
               </picture>
             )}
             <div className='absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-tb-text to-[#00000000] text-tb-background px-4 pb-4'>
+              <span className='font-subheading font-bold uppercase text-sm'>
+                Berita Utama
+              </span>
               <h3 className='font-heading font-bold leading-tight text-2xl md:text-3xl'>
                 <span className='line-clamp-3'>{entry.title}</span>
               </h3>
