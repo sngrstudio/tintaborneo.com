@@ -1,12 +1,21 @@
 ---
-import ArticleListByCategory from '~/components/article/list-by-category.astro'
+import ArticleSection from '~/components/article/section.astro'
+import ArticleList from '~/components/article/list.astro'
+import { getCategoryId } from '~/data/experimental_taxonomies'
+import { getCategoryPosts } from '~/data/experimental_posts'
 
-const id = Astro.url.searchParams.get('id')
-const amount = Astro.url.searchParams.get('amount')
-const isPrimary = Astro.url.searchParams.get('primary')
-const featured = Astro.url.searchParams.get('featured')
-const withHeader = Astro.url.searchParams.get('header')
-const loadImageEagerly = Astro.url.searchParams.get('loadImageEagerly')
+const categoryId = Astro.url.searchParams.get('categoryId')
+const filter = Astro.url.searchParams.get('filter')
+
+const {
+  data: { category }
+} = await getCategoryId(categoryId!)
+const {
+  data: { posts }
+} = await getCategoryPosts({
+  categoryName: categoryId!,
+  notIn: filter ? filter.split(',') : []
+})
 
 export const partial = true
 
@@ -21,11 +30,11 @@ Astro.response.headers.set(
 )
 ---
 
-<ArticleListByCategory
-  categoryId={id!}
-  amount={Number(amount)}
-  type={isPrimary ? 'primary' : 'secondary'}
-  featured={!!featured}
-  withHeader={!!withHeader}
-  loadImage={!!loadImageEagerly ? 'eager' : 'lazy'}
-/>
+<ArticleSection
+  title={category?.name!}
+  uri={category?.uri!}
+  type='primary'
+  withHeader
+>
+  <ArticleList posts={posts?.nodes!} type='spotlight' />
+</ArticleSection>

@@ -3,11 +3,8 @@ import type { Post } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
 import HomeArticles from '~/components/home/experimental_articles.astro'
 import { getPicture } from '~/utils/image'
-import {
-  getTagId,
-  getFeaturedPosts,
-  getLatestPosts
-} from '~/data/experimental_posts.ts'
+import { getTagId } from '~/data/experimental_taxonomies'
+import { getFeaturedPosts, getLatestPosts } from '~/data/experimental_posts'
 
 const {
   data: { tag }
