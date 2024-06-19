@@ -9,7 +9,7 @@ const { title, type = 'secondary' } = Astro.props
 
 <hgroup
   class:list={[
-    'border-t-2 px-4 py-2',
+    'border-t-2 px-4 py-2 mb-4',
     { 'border-tb-primary': type === 'primary' },
     { 'border-tb-muted': type === 'secondary' }
   ]}

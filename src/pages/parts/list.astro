@@ -1,23 +1,19 @@
 ---
-import type { Post } from '~/data/graphql'
+import ArticleSection from '~/components/article/section.astro'
 import ArticleList from '~/components/article/list.astro'
-import ArticleListLoader from '~/components/article/list-loader.astro'
-import { fetchPosts } from '~/data/posts'
+import LoadingIndicator from '~/components/loading-indicator.astro'
+import { getLatestPosts } from '~/data/experimental_posts'
 
+const category = Astro.url.searchParams.get('category')
+const filter = Astro.url.searchParams.get('filter')
 const cursor = Astro.url.searchParams.get('cursor')
-const amount = Astro.url.searchParams.get('amount')
-const type = Astro.url.searchParams.get('type')
-const slug = Astro.url.searchParams.get('slug')
-const infinite = Astro.url.searchParams.get('infinite')
 
 const {
   data: { posts }
-} = await fetchPosts({
-  author: type === 'author' && slug ? slug : undefined,
-  category: type === 'category' && slug ? slug : undefined,
-  tag: type === 'tag' && slug ? slug : undefined,
-  cursor: cursor || undefined,
-  amount: Number(amount) || undefined
+} = await getLatestPosts({
+  tagNotIn: filter?.split(',') || [],
+  categoryName: category || '',
+  after: cursor || undefined
 })
 
 export const partial = true
@@ -33,15 +29,22 @@ Astro.response.headers.set(
 )
 ---
 
-<ArticleList posts={posts?.nodes as Array<Post>} type='list' />
-{
-  infinite && posts?.pageInfo.hasNextPage && (
-    <ArticleListLoader
-      type={type as 'category' | 'tag' | 'user'}
-      slug={slug!}
-      amount={Number(amount) || 6}
-      cursor={posts.pageInfo.endCursor!}
-      isInfinite={!!infinite}
-    />
-  )
-}
+<ArticleSection>
+  <ArticleList posts={posts?.nodes!} type='spotlight' />
+</ArticleSection>
+
+{/* Posts loader */}
+<Fragment>
+  {
+    posts?.pageInfo.hasNextPage && (
+      <div
+        class='flex flex-col items-center justify-start h-[80vh] pt-24'
+        hx-get={`/parts/list/?category=${category}&filter=${filter}&cursor=${posts?.pageInfo.endCursor}`}
+        hx-trigger='revealed'
+        hx-swap='outerHTML'
+      >
+        <LoadingIndicator />
+      </div>
+    )
+  }
+</Fragment>

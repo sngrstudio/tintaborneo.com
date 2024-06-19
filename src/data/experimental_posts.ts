@@ -3,21 +3,30 @@ import { fetchQuery, type FetchQueryResult } from './experimental_fetch'
 
 type PostsResult = FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
 
-export const getFeaturedPosts = async ({ tagIn }: { tagIn: string[] }) => {
+export const getFeaturedPosts = async ({
+  tagIn,
+  categoryName
+}: {
+  tagIn: string[]
+  categoryName?: string
+}) => {
   return (await fetchQuery({
     queryId: 'get-featured-posts',
     variables: {
-      tagIn
+      tagIn,
+      categoryName
     }
   })) as PostsResult
 }
 
 export const getLatestPosts = async ({
   tagNotIn,
+  categoryName,
   first,
   after
 }: {
   tagNotIn?: string[]
+  categoryName?: string
   first?: number
   after?: string
 }) => {
@@ -25,6 +34,7 @@ export const getLatestPosts = async ({
     queryId: 'get-latest-posts',
     variables: {
       tagNotIn,
+      categoryName,
       first,
       after
     }
