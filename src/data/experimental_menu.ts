@@ -1,13 +1,13 @@
-import type { RootQuery } from './graphql'
-import { fetchQuery, type FetchQueryResult } from './experimental_fetch'
+import { type RootQuery, MenuLocationEnum } from './graphql'
+import { fetchQuery, type FetchQueryResult } from './fetch'
 
 type MenuResult = FetchQueryResult<Required<Pick<RootQuery, 'menuItems'>>>
 
-export const getMenu = async (id: string) => {
+export const getMenu = async (location: MenuLocationEnum) => {
   return (await fetchQuery({
     queryId: 'get-menu',
     variables: {
-      location: id
+      location
     }
   })) as MenuResult
 }

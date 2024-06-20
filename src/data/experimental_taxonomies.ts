@@ -1,5 +1,5 @@
 import type { RootQuery } from './graphql'
-import { fetchQuery, type FetchQueryResult } from './experimental_fetch'
+import { fetchQuery, type FetchQueryResult } from './fetch'
 
 type TagResult = FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
 type CategoryResult = FetchQueryResult<Required<Pick<RootQuery, 'category'>>>

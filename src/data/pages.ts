@@ -1,5 +1,5 @@
 import type { RootQuery } from './graphql'
-import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
+import { fetchQuery, gql, type FetchQueryResult } from './fetch'
 
 export const fetchPage = async (id: string) => {
   return (await fetchQuery({
