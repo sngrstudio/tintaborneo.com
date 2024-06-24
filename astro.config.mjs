@@ -20,7 +20,7 @@ export default defineConfig({
   },
   output: 'server',
   adapter: cloudflare({
-    imageService: 'compile',
+    imageService: 'cloudflare'
   }),
   vite: {
     plugins: [
