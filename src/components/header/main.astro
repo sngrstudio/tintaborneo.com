@@ -1,5 +1,5 @@
 ---
-import Picture from 'astro/components/Picture.astro'
+import { Picture } from 'astro:assets'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
 import { getLogo } from '~/data/site'
@@ -7,7 +7,7 @@ import { getLogo } from '~/data/site'
 const logo = await getLogo('logo')
 ---
 
-<div class='flex justify-between'>
+<div class='flex items-center justify-between py-1' hx-boost='true'>
   {/* Menu Button */}
   <div>
     <button>
@@ -16,7 +16,7 @@ const logo = await getLogo('logo')
   </div>
 
   {/* Main Logo */}
-  <a href='/'>
+  <a href='/' role='button'>
     <Picture
       class='object-contain w-[200px] h-[40px]'
       src={logo.sourceUrl!}
