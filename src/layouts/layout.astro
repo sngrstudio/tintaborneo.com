@@ -15,6 +15,13 @@ const { title, description } = Astro.props
   </Fragment>
 
   {/* <body /> */}
+  <header
+    class='h-[56px]'
+    hx-get='/parts/header'
+    hx-trigger='load'
+    hx-swap='outerHTML'
+  >
+  </header>
   <slot />
 </BaseLayout>
 

@@ -20,5 +20,5 @@ export const getLogo = async (id: string) => {
       id
     }
   })) as LogoResult
-  return res.data.mediaItem
+  return res.data.mediaItem!
 }
