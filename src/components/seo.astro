@@ -1,7 +1,7 @@
 ---
 import type { LayoutProps } from '~/layouts/layout'
 import type { Category, Tag } from '~/data/graphql'
-import { fetchSiteData } from '~/data/site'
+import { getSiteInfo } from '~/data/site'
 
 interface Props extends LayoutProps {}
 
@@ -9,7 +9,7 @@ const { title, description, post } = Astro.props
 
 const {
   data: { generalSettings: site }
-} = await fetchSiteData()
+} = await getSiteInfo()
 ---
 
 {/* General SEO Meta */}

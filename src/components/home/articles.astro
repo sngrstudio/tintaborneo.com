@@ -1,26 +1,27 @@
 ---
-import type { MenuItem } from '~/data/graphql'
+import { type MenuItem, MenuLocationEnum } from '~/data/graphql'
 import type { PostsData } from './type'
 import ArticleCarousel from './carousel.astro'
 import ArticleListByCategoryLoader from '../article/list-by-category-loader.astro'
-import { fetchMenuList } from '~/data/menu'
+import { getMenu } from '~/data/menu'
 
 export interface Props extends PostsData {}
 
 const { posts } = Astro.props
 
 const {
-  data: { menu: menuData }
-} = await fetchMenuList('primary-navigation')
-const menu = menuData?.menuItems?.nodes
+  data: { menuItems }
+} = await getMenu(MenuLocationEnum.PrimaryNavigation)
+const menu = menuItems?.nodes
 ---
 
 <ArticleCarousel posts={posts} />
 <Fragment>
   {
     menu?.map((entry: MenuItem) => (
+      // @ts-ignore
       <ArticleListByCategoryLoader
-        id={entry.connectedObject?.slug!}
+        id={entry.connectedNode?.node.slug}
         isPrimary
       />
     ))

@@ -1,8 +1,8 @@
 ---
 import ArticleSection from '~/components/article/section.astro'
 import ArticleList from '~/components/article/list.astro'
-import { getCategoryId } from '~/data/experimental_taxonomies'
-import { getCategoryPosts } from '~/data/experimental_posts'
+import { getCategoryId } from '~/data/taxonomies'
+import { getCategoryPosts } from '~/data/posts'
 
 const categoryId = Astro.url.searchParams.get('categoryId')
 const filter = Astro.url.searchParams.get('filter')

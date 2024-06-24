@@ -4,23 +4,23 @@ import template from '~/components/og/template'
 import sharp from 'sharp'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { fetchLogo } from '~/data/site'
-import { fetchPost } from '~/data/posts'
+import { getLogo } from '~/data/site'
+import { getPost } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 
 const {
   data: { mediaItem: logo }
-} = await fetchLogo('logo')
+} = await getLogo('logo')
 const {
   data: { mediaItem: logoAlt }
-} = await fetchLogo('logo-alt')
+} = await getLogo('logo-alt')
 
 export const GET: APIRoute = async ({ url, site: origin }) => {
   const title = url.searchParams.get('title')
   const postSlug = url.searchParams.get('post')
   const square = url.searchParams.get('square')
   const whatsapp = url.searchParams.get('whatsapp')
-  const postData = postSlug ? await fetchPost(postSlug) : undefined
+  const postData = postSlug ? await getPost(postSlug) : undefined
 
   const svg = await satori(
     template({

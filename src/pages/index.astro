@@ -4,9 +4,9 @@ import Layout from '~/layouts/layout.astro'
 import HomeArticles from '~/components/home/experimental_articles.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
 import { getPicture } from '~/utils/image'
-import { getTagId } from '~/data/experimental_taxonomies'
-import { getFeaturedPosts, getLatestPosts } from '~/data/experimental_posts'
-import { getMenu } from '~/data/experimental_menu'
+import { getTagId } from '~/data/taxonomies'
+import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
+import { getMenu } from '~/data/menu'
 
 const {
   data: { tag }

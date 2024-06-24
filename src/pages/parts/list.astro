@@ -2,7 +2,7 @@
 import ArticleSection from '~/components/article/section.astro'
 import ArticleList from '~/components/article/list.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
-import { getLatestPosts } from '~/data/experimental_posts'
+import { getLatestPosts } from '~/data/posts'
 
 const category = Astro.url.searchParams.get('category')
 const filter = Astro.url.searchParams.get('filter')

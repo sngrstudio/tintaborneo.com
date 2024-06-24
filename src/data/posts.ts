@@ -1,237 +1,90 @@
 import type { RootQuery } from './graphql'
-import { fetchQuery, gql, type FetchQueryResult } from './fetch'
+import { fetchQuery, type FetchQueryResult } from './fetch'
 
-export const fetchPost = async (id: string) => {
+type PostResult = FetchQueryResult<Required<Pick<RootQuery, 'post'>>>
+type PostsResult = FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
+
+export const getPost = async (id: string) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchPost($id: ID!) {
-        post(id: $id, idType: SLUG) {
-          id
-          title
-          date
-          uri
-          slug
-          excerpt
-          content
-          featuredImage {
-            node {
-              sourceUrl
-              caption
-              altText
-            }
-          }
-          author {
-            node {
-              name
-              uri
-            }
-          }
-          categories {
-            nodes {
-              name
-              uri
-            }
-          }
-          tags {
-            nodes {
-              id
-              name
-            }
-          }
-          postAdditionalField {
-            city
-          }
-        }
-      }
-    `,
+    queryId: 'get-post',
     variables: {
       id
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'post'>>>
+  })) as PostResult
 }
 
-export type FetchPostsArgs = {
-  cursor?: string
-  amount?: number
-  author?: string
-  category?: string
-  tag?: string
-  tagNotIn?: string | string[]
-}
-
-export const fetchPosts = async ({
-  cursor,
-  amount,
-  author,
-  category,
-  tag,
-  tagNotIn
-}: FetchPostsArgs) => {
+export const getFeaturedPosts = async ({
+  tagIn,
+  categoryName
+}: {
+  tagIn: string[]
+  categoryName?: string
+}) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchPosts(
-        $cursor: String = ""
-        $amount: Int = 8
-        $author: String = ""
-        $category: String = ""
-        $tag: String = ""
-        $tagNotIn: [ID] = ""
-      ) {
-        posts(
-          after: $cursor
-          first: $amount
-          where: {
-            authorName: $author
-            categoryName: $category
-            tag: $tag
-            orderby: { field: DATE, order: DESC }
-            status: PUBLISH
-            tagNotIn: $tagNotIn
-          }
-        ) {
-          nodes {
-            title
-            excerpt
-            uri
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                caption
-              }
-            }
-            categories {
-              nodes {
-                name
-                uri
-              }
-            }
-            tags {
-              nodes {
-                name
-                uri
-              }
-            }
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-        }
-      }
-    `,
+    queryId: 'get-featured-posts',
     variables: {
-      cursor,
-      amount,
-      author,
-      category,
-      tag,
-      tagNotIn
+      tagIn,
+      categoryName
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
+  })) as PostsResult
 }
 
-export type FetchRelatedPostsArgs = {
-  amount?: number
+export const getLatestPosts = async ({
+  tagNotIn,
+  categoryName,
+  first,
+  after
+}: {
+  tagNotIn?: string[]
+  categoryName?: string
+  first?: number
+  after?: string
+}) => {
+  return (await fetchQuery({
+    queryId: 'get-latest-posts',
+    variables: {
+      tagNotIn,
+      categoryName,
+      first,
+      after
+    }
+  })) as PostsResult
+}
+
+export const getCategoryPosts = async ({
+  categoryName,
+  first,
+  after,
+  notIn
+}: {
+  categoryName: string
+  first?: number
+  after?: string
+  notIn?: string[]
+}) => {
+  return (await fetchQuery({
+    queryId: 'get-category-posts',
+    variables: {
+      categoryName,
+      first,
+      after,
+      notIn
+    }
+  })) as PostsResult
+}
+
+export const getRelatedPosts = async ({
+  tagIn,
+  notIn
+}: {
   tagIn: string[]
   notIn: string[]
-}
-
-export const fetchRelatedPosts = async ({
-  tagIn,
-  notIn,
-  amount
-}: FetchRelatedPostsArgs) => {
+}) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchRelatedPosts($tagIn: [ID]!, $notIn: [ID]!, $amount: Int = 8) {
-        posts(
-          first: $amount
-          where: {
-            orderby: { field: DATE, order: DESC }
-            status: PUBLISH
-            tagIn: $tagIn
-            notIn: $notIn
-          }
-        ) {
-          nodes {
-            title
-            excerpt
-            uri
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                caption
-              }
-            }
-            categories {
-              nodes {
-                name
-                uri
-              }
-            }
-            tags {
-              nodes {
-                name
-                uri
-              }
-            }
-          }
-        }
-      }
-    `,
+    queryId: 'get-featured-posts',
     variables: {
-      amount,
       tagIn,
       notIn
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
-}
-
-export type SearchPostsArgs = {
-  cursor?: string
-  search?: string
-}
-
-export const searchPosts = async ({ cursor, search }: SearchPostsArgs) => {
-  return (await fetchQuery({
-    query: gql`
-      query SearchPosts($cursor: String = "", $search: String = "") {
-        posts(
-          after: $cursor
-          where: {
-            orderby: { field: DATE, order: DESC }
-            status: PUBLISH
-            search: $search
-          }
-          first: 12
-        ) {
-          nodes {
-            title
-            excerpt
-            uri
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-                caption
-              }
-            }
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-        }
-      }
-    `,
-    variables: {
-      cursor,
-      search
-    }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
+  })) as PostsResult
 }

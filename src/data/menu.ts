@@ -1,48 +1,13 @@
-import type { RootQuery } from './graphql'
-import { fetchQuery, gql, type FetchQueryResult } from './fetch'
+import { type RootQuery, MenuLocationEnum } from './graphql'
+import { fetchQuery, type FetchQueryResult } from './fetch'
 
-export const fetchMenuList = async (id: string) => {
+type MenuResult = FetchQueryResult<Required<Pick<RootQuery, 'menuItems'>>>
+
+export const getMenu = async (location: MenuLocationEnum) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchMenuList($id: ID!) {
-        menu(id: $id, idType: LOCATION) {
-          menuItems(first: 50) {
-            nodes {
-              label
-              uri
-              order
-              parentId
-              connectedNode {
-                node {
-                  ... on Category {
-                    slug
-                    posts {
-                      nodes {
-                        uri
-                      }
-                    }
-                  }
-                }
-              }
-              connectedObject {
-                ... on Category {
-                  slug
-                }
-              }
-              childItems(first: 50) {
-                nodes {
-                  label
-                  uri
-                  order
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
+    queryId: 'get-menu',
     variables: {
-      id
+      location
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'menu'>>>
+  })) as MenuResult
 }

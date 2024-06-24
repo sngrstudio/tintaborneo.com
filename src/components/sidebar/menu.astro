@@ -1,13 +1,13 @@
 ---
-import type { MenuItem } from '~/data/graphql'
+import { type MenuItem, MenuLocationEnum } from '~/data/graphql'
 import ExpandIcon from '~icons/material-symbols/expand-more'
 import CollapseIcon from '~icons/material-symbols/expand-less'
-import { fetchMenuList } from '~/data/menu'
+import { getMenu } from '~/data/menu'
 
 const {
-  data: { menu: menuData }
-} = await fetchMenuList('sidebar-navigation')
-const menu = menuData?.menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
+  data: { menuItems }
+} = await getMenu(MenuLocationEnum.SidebarNavigation)
+const menu = menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
 ---
 
 <template x-if="type==='menu'">

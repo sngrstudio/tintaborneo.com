@@ -5,8 +5,8 @@ import PageHeader from '~/components/page-header.astro'
 import HomeArticles from '~/components/home/experimental_articles.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
 import { getPicture } from '~/utils/image'
-import { getCategoryId, getTagId } from '~/data/experimental_taxonomies'
-import { getFeaturedPosts, getLatestPosts } from '~/data/experimental_posts'
+import { getCategoryId, getTagId } from '~/data/taxonomies'
+import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
 
 const { category: categoryParam } = Astro.params
 
