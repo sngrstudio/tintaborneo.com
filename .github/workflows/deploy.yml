@@ -16,7 +16,7 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
       - run: pnpm install --frozen-lockfile
-      - run: touch .env && echo ADMIN_ENDPOINT=${{ secrets.ADMIN_ENDPOINT }} >> .env
+      - run: echo ADMIN_ENDPOINT=${{ secrets.ADMIN_ENDPOINT }} > .env
       - run: pnpm run build
       - uses: cloudflare/wrangler-action@v3
         with:
