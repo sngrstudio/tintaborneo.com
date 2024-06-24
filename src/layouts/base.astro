@@ -1,13 +1,12 @@
+---
+import Head from './head.astro'
+---
+
 <html lang='id'>
-  <head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width' />
-    <meta name='generator' content={Astro.generator} />
+  <Head>
     <slot name='head' />
-  </head>
-  <body
-    class='min-h-screen bg-tb-background text-tb-text select-none pt-[72px] md:pt-[128px]'
-  >
+  </Head>
+  <body>
     <slot />
   </body>
 </html>

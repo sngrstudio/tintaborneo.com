@@ -1,50 +1,22 @@
 ---
-import type { LayoutProps } from './layout'
 import BaseLayout from './base.astro'
-import Header from '~/components/header.astro'
-import Footer from '~/components/footer.astro'
-import Sidebar from '~/components/sidebar/sidebar.astro'
-import SEO from '~/components/seo.astro'
-import Analytics from '~/components/analytics.astro'
+import SEO, { type Props as SEOProps } from './seo.astro'
 
-import '@fontsource/source-serif-pro/400.css'
-import '@fontsource/source-serif-pro/700.css'
-import '@fontsource/source-serif-pro/900.css'
-import '@fontsource/martel-sans/400.css'
-import '@fontsource/martel-sans/700.css'
+interface Props extends SEOProps {}
 
-interface Props extends LayoutProps {}
-
-const { title, description, post } = Astro.props
+const { title, description } = Astro.props
 ---
 
 <BaseLayout>
-  {/* <head/> */}
+  {/* <head /> */}
   <Fragment slot='head'>
-    <SEO title={title} description={description} post={post} />
-    <link rel='icon' href='/favicon.ico' sizes='48x48' />
-    <link rel='icon' href='/icon.svg' sizes='any' type='image/svg+xml' />
-    <link rel='apple-touch-icon' href='/apple-touch-icon-180x180.png' />
-    <link rel='sitemap' href='/sitemap/sitemap-index.xml' />
-    <link rel='alternate' type='application/rss+xml' href='/rss.xml' />
+    <SEO title={title} description={description} />
     <slot name='head' />
-    <Analytics />
   </Fragment>
 
-  {/* <body/> */}
-  <Fragment>
-    <Header />
-    <slot />
-    <Sidebar />
-    <Footer />
-  </Fragment>
+  {/* <body /> */}
+  <slot />
 </BaseLayout>
-
-<style is:global>
-  [x-cloak] {
-    display: none !important;
-  }
-</style>
 
 <script>
   import 'htmx.org'

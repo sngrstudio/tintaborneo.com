@@ -5,7 +5,6 @@
       "extensions": [
         "astro-build.astro-vscode",
         "bradlc.vscode-tailwindcss",
-        "ms-azuretools.vscode-docker",
         "GitHub.vscode-github-actions",
         "mhutchie.git-graph",
         "sourcegraph.cody-ai"
