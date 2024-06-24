@@ -15,12 +15,13 @@ const { posts, type = 'list', loadImage = 'lazy' } = Astro.props
 
 <Fragment>
   {
-    posts.map((post: Post) => (
-      <ArticleCard
-        post={post}
-        type={type === 'list' ? 'list' : 'normal'}
-        loadImage={loadImage}
-      />
-    ))
+    posts.length > 0 &&
+      posts.map((post: Post) => (
+        <ArticleCard
+          post={post}
+          type={type === 'list' ? 'list' : 'normal'}
+          loadImage={loadImage}
+        />
+      ))
   }
 </Fragment>

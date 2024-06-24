@@ -1,5 +1,5 @@
 ---
-import { fetchPost } from '~/data/posts'
+import { getPost } from '~/data/posts'
 import WhatsappIcon from '~icons/simple-icons/whatsapp'
 import FacebookIcon from '~icons/simple-icons/facebook'
 import XIcon from '~icons/simple-icons/x'
@@ -18,7 +18,7 @@ const { slug } = Astro.props
 const SITE = import.meta.env.SITE || process.env.SITE
 const {
   data: { post }
-} = await fetchPost(slug!)
+} = await getPost(slug!)
 ---
 
 <div

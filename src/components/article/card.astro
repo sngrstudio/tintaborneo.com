@@ -85,7 +85,9 @@ const { post, type = 'normal', loadImage = 'lazy' } = Astro.props
         { 'text-base md:text-xl': type === 'list' }
       ]}
     >
-      <a href={post.uri}>{post.title}</a>
+      <a href={post.uri}>
+        {post.title}
+      </a>
     </h3>
     <Fragment set:html={post.excerpt} />
     <p class='tb-time font-sans text-sm md:mt-auto'>

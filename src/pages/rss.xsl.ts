@@ -9,6 +9,7 @@ export const GET: APIRoute = async () => {
     headers: {
       'Content-Type': 'text/xsl',
       'Cache-Control': 'public, max-age=0, must-revalidate',
+      'Cdn-Cache-Control': 'public, s-maxage=31536000, must-revalidate',
       'X-Robots-Tag': 'noindex, follow'
     }
   })

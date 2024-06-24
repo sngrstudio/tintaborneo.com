@@ -1,18 +1,18 @@
 ---
-import type { MenuItem } from '~/data/graphql'
-import { fetchLogo } from '~/data/site'
-import { fetchMenuList } from '~/data/menu'
+import { type MenuItem, MenuLocationEnum } from '~/data/graphql'
+import { getLogo } from '~/data/site'
 import { Picture } from 'astro:assets'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
+import { getMenu } from '~/data/menu'
 
 const {
   data: { mediaItem: logo }
-} = await fetchLogo('logo')
+} = await getLogo('logo')
 const {
-  data: { menu: menuData }
-} = await fetchMenuList('primary-navigation')
-const menu = menuData?.menuItems?.nodes
+  data: { menuItems }
+} = await getMenu(MenuLocationEnum.PrimaryNavigation)
+const menu = menuItems?.nodes
 ---
 
 <header

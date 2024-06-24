@@ -1,85 +1,23 @@
 import type { RootQuery } from './graphql'
-import { fetchQuery, gql, type FetchQueryResult } from './experimental_fetch'
+import { fetchQuery, type FetchQueryResult } from './fetch'
 
-export const fetchCategory = async (id: string) => {
+type TagResult = FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
+type CategoryResult = FetchQueryResult<Required<Pick<RootQuery, 'category'>>>
+
+export const getTagId = async (id: string) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchCategory($id: ID!) {
-        category(id: $id, idType: SLUG) {
-          id
-          name
-          description
-          slug
-          uri
-          children {
-            nodes {
-              name
-              slug
-              uri
-              posts {
-                nodes {
-                  uri
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
+    queryId: 'get-tag-id',
     variables: {
       id
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'category'>>>
+  })) as TagResult
 }
 
-export const fetchTag = async (id: string) => {
+export const getCategoryId = async (id: string) => {
   return (await fetchQuery({
-    query: gql`
-      query FetchTag($id: ID!) {
-        tag(id: $id, idType: SLUG) {
-          name
-          slug
-          uri
-        }
-      }
-    `,
+    queryId: 'get-category-id',
     variables: {
       id
     }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
-}
-
-export const fetchUser = async (id: string) => {
-  return (await fetchQuery({
-    query: gql`
-      query FetchUser($id: ID!) {
-        user(id: $id, idType: SLUG) {
-          name
-          description
-          slug
-          uri
-        }
-      }
-    `,
-    variables: {
-      id
-    }
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'user'>>>
-}
-
-export const fetchCategories = async () => {
-  return (await fetchQuery({
-    query: gql`
-      query FetchCategories {
-        categories(first: 128) {
-          nodes {
-            name
-            slug
-            uri
-            parentId
-          }
-        }
-      }
-    `
-  })) as FetchQueryResult<Required<Pick<RootQuery, 'categories'>>>
+  })) as CategoryResult
 }

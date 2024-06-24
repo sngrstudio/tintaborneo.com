@@ -1,17 +1,17 @@
 ---
-import type { MenuItem } from '~/data/graphql'
-import { fetchLogo } from '~/data/site'
+import { type MenuItem, MenuLocationEnum } from '~/data/graphql'
+import { getLogo } from '~/data/site'
 import { Picture } from 'astro:assets'
-import { fetchMenuList } from '~/data/menu'
+import { getMenu } from '~/data/menu'
 
 const {
   data: { mediaItem: logo }
-} = await fetchLogo('logo-alt')
+} = await getLogo('logo-alt')
 const {
-  data: { menu: secondaryMenuData }
-} = await fetchMenuList('footer-links')
+  data: { menuItems }
+} = await getMenu(MenuLocationEnum.FooterLinks)
 
-const secondaryMenu = secondaryMenuData?.menuItems?.nodes
+const secondaryMenu = menuItems?.nodes
 const copyTexts = [
   `<b>&copy; ${new Date().getFullYear()} PT Multimedia Jagad Perkasa.</b>`,
   `Hak cipta dilindungi oleh undang-undang.`,

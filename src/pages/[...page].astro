@@ -1,18 +1,18 @@
 ---
 import PageLayout from '~/layouts/page.astro'
 import { Picture } from 'astro:assets'
-import { fetchPage } from '~/data/pages'
+import { getPage } from '~/data/pages'
 
 const { page: pageUri } = Astro.params
 const {
   data: { page }
-} = await fetchPage(pageUri!)
+} = await getPage(pageUri!)
 if (!page) return Astro.redirect('/404')
 
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
-  'public, max-age=0, must-revalidate'
+  'public, max-age=31536000, must-revalidate'
 )
 ---
 
