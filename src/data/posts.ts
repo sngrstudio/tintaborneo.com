@@ -31,11 +31,13 @@ export const getFeaturedPosts = async ({
 
 export const getLatestPosts = async ({
   tagNotIn,
+  notIn,
   categoryName,
   first,
   after
 }: {
   tagNotIn?: string[]
+  notIn?: string[]
   categoryName?: string
   first?: number
   after?: string
@@ -44,6 +46,7 @@ export const getLatestPosts = async ({
     queryId: 'get-latest-posts',
     variables: {
       tagNotIn,
+      notIn,
       categoryName,
       first,
       after

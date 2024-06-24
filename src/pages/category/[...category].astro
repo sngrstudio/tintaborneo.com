@@ -27,12 +27,15 @@ const {
 } = await getFeaturedPosts({ tagIn: [tag!.id], categoryName: categorySlug })
 const {
   data: { posts: latestPostsData }
-} = await getLatestPosts({ tagNotIn: [tag!.id], categoryName: categorySlug })
+} = await getLatestPosts({
+  categoryName: categorySlug,
+  notIn: featuredPostsData?.nodes.map((post) => post.id)
+})
 const {
   data: { posts: moreLatestPostsData }
 } = await getLatestPosts({
-  tagNotIn: [tag!.id],
   categoryName: categorySlug,
+  notIn: featuredPostsData?.nodes.map((post) => post.id),
   after: latestPostsData?.pageInfo.endCursor!,
   first: 8
 })
@@ -89,10 +92,7 @@ Astro.response.headers.set(
 
 <Layout>
   <PageHeader title={category?.name!} type='primary' />
-  <main
-    class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'
-    hx-boost='true'
-  >
+  <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
     <HomeArticles
       featuredPosts={featuredPosts}
       latestPosts={latestPosts}
