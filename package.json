@@ -4,15 +4,17 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm check && pnpm gen-icons && astro build",
-    "check": "conc \"prettier --check .\" \"astro check\" \"tsc --noEmit\"",
+    "build": "conc npm:check:* && conc npm:gen-icons && astro build",
+    "check:astro": "astro check",
+    "check:format": "prettier --check .",
+    "check:ts": "tsc --noEmit",
     "codegen": "graphql-codegen --config codegen.ts",
     "dev": "astro dev",
     "format": "prettier --write .",
     "gen-icons": "pwa-assets-generator --manifest=false --preset minimal-2023 public/icon.svg",
     "preinstall": "npx only-allow pnpm",
-    "preview": "astro preview",
-    "start": "astro dev"
+    "preview": "conc npm:build && wrangler pages dev ./dist",
+    "start": "conc npm:dev"
   },
   "dependencies": {
     "@astrojs/alpinejs": "0.4.0",
