@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { Experimental_PostsData as PostsData } from './type'
+import type { PostsData } from './type'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { getDateString } from '~/utils/date'

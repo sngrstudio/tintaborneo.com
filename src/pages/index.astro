@@ -1,7 +1,7 @@
 ---
 import { type Post, type MenuItem, MenuLocationEnum } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
-import HomeArticles from '~/components/home/experimental_articles.astro'
+import HomeArticles from '~/components/home/articles.astro'
 import LoadingIndicator from '~/components/loading-indicator.astro'
 import { getPicture } from '~/utils/image'
 import { getTagId } from '~/data/taxonomies'
@@ -79,7 +79,10 @@ Astro.response.headers.set(
 ---
 
 <Layout>
-  <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
+  <main
+    class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'
+    hx-boost='true'
+  >
     <HomeArticles
       featuredPosts={featuredPosts}
       latestPosts={latestPosts}

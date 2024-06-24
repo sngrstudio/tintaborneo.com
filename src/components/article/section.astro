@@ -1,5 +1,7 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<'section'> {
   title?: string
   uri?: string
   type?: 'primary' | 'secondary'
@@ -7,7 +9,7 @@ export interface Props {
   singleRow?: boolean
 }
 
-const { title, uri, type, withHeader, singleRow } = Astro.props
+const { title, uri, type, withHeader, singleRow, ...attrs } = Astro.props
 ---
 
 <section
@@ -15,6 +17,7 @@ const { title, uri, type, withHeader, singleRow } = Astro.props
     'grid grid-cols-1 gap-3 content-start px-4',
     { 'md:grid-cols-4 md:gap-4': !singleRow }
   ]}
+  {...attrs}
 >
   {
     withHeader && (

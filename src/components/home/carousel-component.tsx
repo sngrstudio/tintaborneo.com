@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { getDateString } from '~/utils/date'
 
-const Carousel: FC<PostsData> = ({ posts }) => {
+const Carousel: FC<{ posts: PostsData }> = ({ posts }) => {
   const [carouselRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 })
   ])
