@@ -3,13 +3,12 @@ import node from '@astrojs/node'
 import tailwind from '@astrojs/tailwind'
 import alpinejs from '@astrojs/alpinejs'
 import react from '@astrojs/react'
-import htmx from 'astro-htmx'
 import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.tintaborneo.com',
-  integrations: [tailwind(), htmx(), alpinejs(), react()],
+  integrations: [tailwind(), alpinejs(), react()],
   image: {
     domains: [
       'tintaborneo.com',

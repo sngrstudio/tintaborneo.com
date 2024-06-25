@@ -1,28 +1,41 @@
 ---
-import type { MenuItem } from '~/data/graphql'
 import type { PostsData } from './type'
-import ArticleCarousel from './carousel.astro'
-import ArticleListByCategoryLoader from '../article/list-by-category-loader.astro'
-import { fetchMenuList } from '~/data/menu'
+import PrimaryCarousel from './carousel-component'
+import SecondaryCarousel from './secondary-carousel-component'
+import ArticleList from '~/components/article/list.astro'
 
-export interface Props extends PostsData {}
+interface Props {
+  featuredPosts: PostsData
+  latestPosts: PostsData
+  moreLatestPosts?: PostsData
+}
 
-const { posts } = Astro.props
-
-const {
-  data: { menu: menuData }
-} = await fetchMenuList('primary-navigation')
-const menu = menuData?.menuItems?.nodes
+const { featuredPosts, latestPosts, moreLatestPosts } = Astro.props
+const secondaryCarouselPosts = latestPosts.reduce(
+  (result: Array<typeof latestPosts>, _, index) => {
+    if (index % 4 === 0) {
+      result.push(latestPosts.slice(index, index + 4))
+    }
+    return result
+  },
+  []
+)
 ---
 
-<ArticleCarousel posts={posts} />
-<Fragment>
-  {
-    menu?.map((entry: MenuItem) => (
-      <ArticleListByCategoryLoader
-        id={entry.connectedObject?.slug!}
-        isPrimary
-      />
-    ))
-  }
-</Fragment>
+{/* Carousels */}
+<section class='grid grid-cols-1 md:grid-cols-5 gap-2 px-4'>
+  <PrimaryCarousel posts={featuredPosts} client:load />
+  <SecondaryCarousel posts={secondaryCarouselPosts} client:load />
+</section>
+
+{/* Latest News */}
+{
+  moreLatestPosts && (
+    <section
+      class='grid grid-cols-1 gap-3 md:grid-cols-4 md:gap-4 content-start px-4'
+      hx-ext='preload'
+    >
+      <ArticleList posts={moreLatestPosts} type='spotlight' />
+    </section>
+  )
+}

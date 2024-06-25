@@ -5,10 +5,4 @@ export interface PostWithOptimizedImage extends Post {
   optimizedImage?: GetPictureResult
 }
 
-export interface PostsData {
-  posts: Array<PostWithOptimizedImage>
-}
-
-export interface PostsCollection {
-  posts: Array<Array<PostWithOptimizedImage>>
-}
+export type PostsData = Array<PostWithOptimizedImage>

@@ -1,15 +1,16 @@
 ---
-import type { Tag } from '~/data/graphql'
+import type { Tag, Post } from '~/data/graphql'
 import PageLayout from '~/layouts/page.astro'
-import LoadingIndicator from '~/components/loading-indicator.astro'
-import { fetchPost } from '~/data/posts'
+import ArticleList from '~/components/article/list.astro'
+import ArticleSection from '~/components/article/section.astro'
+import { getPost, getRelatedPosts } from '~/data/posts'
 import { getDateString } from '~/utils/date'
 import { getPicture } from '~/utils/image'
 
 const { slug } = Astro.params
 const {
   data: { post: postData }
-} = await fetchPost(slug!)
+} = await getPost(slug!)
 if (!postData) return Astro.redirect('/404')
 
 const post = {
@@ -25,6 +26,13 @@ const post = {
       })
     : undefined
 }
+
+const {
+  data: { posts: relatedPosts }
+} = await getRelatedPosts({
+  tagIn: post!.tags!.nodes.map((tag: Tag) => tag.id),
+  notIn: [post.id]
+})
 
 const JSONLD = {
   '@context': 'https://schema.org',
@@ -119,16 +127,15 @@ Astro.response.headers.set(
   <Fragment set:html={post.content} />
 
   {/* related posts */}
-  <section class='flex flex-col gap-4 px-4' slot='aftercontent'>
-    <div
-      class='flex flex-col items-center justify-start h-[100vh] pt-24'
-      hx-get={`/parts/related?id=${post.id}&tagIds=${post.tags?.nodes.map((tag: Tag) => tag.id).join(',')}`}
-      hx-trigger='revealed'
-      hx-swap='outerHTML'
-    >
-      <LoadingIndicator />
-    </div>
-  </section>
+  <ArticleSection
+    title='Berita Terkait'
+    type='primary'
+    withHeader
+    singleRow
+    slot='aftercontent'
+  >
+    <ArticleList posts={relatedPosts?.nodes as Array<Post>} type='list' />
+  </ArticleSection>
 
   {/* Additional Head tags */}
   <Fragment slot='head'>
@@ -139,32 +146,14 @@ Astro.response.headers.set(
     />
     {
       post.optimizedImage && (
-        <>
-          <link
-            rel='preload'
-            href={post.optimizedImage.avif.src}
-            imagesrcset={post.optimizedImage.avif.srcSet.attribute}
-            imagesizes={post.optimizedImage.avif.attributes.sizes}
-            type='image/avif'
-            as='image'
-          />
-          <link
-            rel='preload'
-            href={post.optimizedImage.webp.src}
-            imagesrcset={post.optimizedImage.webp.srcSet.attribute}
-            imagesizes={post.optimizedImage.webp.attributes.sizes}
-            type='image/webp'
-            as='image'
-          />
-          <link
-            rel='preload'
-            href={post.optimizedImage.original.src}
-            imagesrcset={post.optimizedImage.original.srcSet.attribute}
-            imagesizes={post.optimizedImage.original.attributes.sizes}
-            type='image/jpeg'
-            as='image'
-          />
-        </>
+        <link
+          rel='preload'
+          href={post.optimizedImage.avif.src}
+          imagesrcset={post.optimizedImage.avif.srcSet.attribute}
+          imagesizes={post.optimizedImage.avif.attributes.sizes}
+          type='image/avif'
+          as='image'
+        />
       )
     }
   </Fragment>

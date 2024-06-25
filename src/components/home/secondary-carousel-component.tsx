@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { PostsCollection } from './type'
+import type { PostsData } from './type'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { getDateString } from '~/utils/date'
 
-const Carousel: FC<PostsCollection> = ({ posts }) => {
+const Carousel: FC<{ posts: Array<PostsData> }> = ({ posts }) => {
   const [carouselRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 4000 })
   ])
