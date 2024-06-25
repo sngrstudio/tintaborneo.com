@@ -1,0 +1,18 @@
+---
+import { MenuLocationEnum } from '~/data/graphql'
+import { getMenu } from '~/data/menu'
+
+const menu = await getMenu(MenuLocationEnum.FooterLinks)
+---
+
+<div>
+  <ul class='flex justify-center flex-wrap gap-x-2 text-sm'>
+    {
+      menu.map((entry) => (
+        <li class='hover:underline'>
+          <a href={entry.uri}>{entry.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

@@ -13,7 +13,7 @@ export interface Props extends SEOProps {}
 const { title, description } = Astro.props
 ---
 
-<BaseLayout class='min-h-screen pt-[64px] md:pt-[96px]'>
+<BaseLayout class='min-h-screen'>
   {/* <head /> */}
   <Fragment slot='head'>
     <SEO title={title} description={description} />
@@ -22,8 +22,15 @@ const { title, description } = Astro.props
 
   {/* <body /> */}
   <Header />
+  <slot />
+  <footer
+    class='h-[210px]'
+    hx-get='/parts/footer'
+    hx-trigger='revealed'
+    hx-swap='outerHTML'
+  >
+  </footer>
 </BaseLayout>
-<slot />
 
 <script>
   import 'htmx.org'
