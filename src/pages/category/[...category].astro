@@ -1,0 +1,158 @@
+---
+import type { Post } from '~/data/graphql'
+import Layout from '~/layouts/layout.astro'
+import PageHeader from '~/components/page-header.astro'
+import HomeArticles from '~/components/home/articles.astro'
+import LoadingIndicator from '~/components/loading-indicator.astro'
+import { getPicture } from '~/utils/image'
+import { getCategoryId, getTagId } from '~/data/taxonomies'
+import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
+
+const { category: categoryParam } = Astro.params
+
+if (!categoryParam) {
+  return Astro.redirect('/404')
+}
+
+const categorySlug = categoryParam.split('/').at(-1)
+
+const {
+  data: { category }
+} = await getCategoryId(categorySlug || '')
+const {
+  data: { tag }
+} = await getTagId('berita-utama')
+const {
+  data: { posts: featuredPostsData }
+} = await getFeaturedPosts({ tagIn: [tag!.id], categoryName: categorySlug })
+const {
+  data: { posts: latestPostsData }
+} = await getLatestPosts({
+  categoryName: categorySlug,
+  notIn: featuredPostsData?.nodes.map((post) => post.id)
+})
+const {
+  data: { posts: moreLatestPostsData }
+} = await getLatestPosts({
+  categoryName: categorySlug,
+  notIn: featuredPostsData?.nodes.map((post) => post.id),
+  after: latestPostsData?.pageInfo.endCursor!,
+  first: 8
+})
+
+const featuredPosts = await Promise.all(
+  featuredPostsData!.nodes.map(async (post: Post) => ({
+    ...post,
+    optimizedImage: post.featuredImage
+      ? await getPicture({
+          src: post.featuredImage.node.sourceUrl!,
+          width: 800,
+          height: 600,
+          format: 'jpeg',
+          widths: [250, 325, 430],
+          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
+          loading: 'eager'
+        })
+      : undefined
+  }))
+)
+
+const latestPosts = await Promise.all(
+  latestPostsData!.nodes.map(async (post: Post) => ({
+    ...post,
+    optimizedImage: post.featuredImage
+      ? await getPicture({
+          src: post.featuredImage.node.sourceUrl!,
+          width: 800,
+          height: 600,
+          format: 'jpeg',
+          widths: [250, 325, 430],
+          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px'
+        })
+      : undefined
+  }))
+)
+
+const filteredNewsId = ([] as string[])
+  .concat(featuredPosts.map((entry) => entry.id))
+  .concat(latestPosts.map((entry) => entry.id))
+  .concat(moreLatestPostsData!.nodes!.map((entry) => entry.id))
+  .join(',')
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=300, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=3600, stale-while-revalidate=3600'
+)
+---
+
+<Layout>
+  <PageHeader title={category?.name!} type='primary' />
+  <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
+    <HomeArticles
+      featuredPosts={featuredPosts}
+      latestPosts={latestPosts}
+      moreLatestPosts={moreLatestPostsData?.nodes!}
+    />
+
+    {/* Posts loader */}
+    <Fragment>
+      {
+        moreLatestPostsData?.pageInfo.hasNextPage && (
+          <div
+            class='flex flex-col items-center justify-start h-[80vh] pt-24'
+            hx-get={`/parts/list/?category=${categorySlug}&filter=${filteredNewsId}&cursor=${moreLatestPostsData?.pageInfo.endCursor}`}
+            hx-trigger='revealed'
+            hx-swap='outerHTML'
+          >
+            <LoadingIndicator />
+          </div>
+        )
+      }
+    </Fragment>
+  </main>
+
+  {/* Preloading images */}
+  <Fragment slot='head'>
+    {
+      featuredPosts.map((entry) => (
+        <Fragment>
+          {entry.optimizedImage && (
+            <Fragment>
+              <link
+                rel='preload'
+                href={entry.optimizedImage.avif.src}
+                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+                imagesizes={entry.optimizedImage.avif.attributes.sizes}
+                type='image/avif'
+                as='image'
+              />
+            </Fragment>
+          )}
+        </Fragment>
+      ))
+    }
+    {
+      latestPosts.map((entry) => (
+        <Fragment>
+          {entry.optimizedImage && (
+            <Fragment>
+              <link
+                rel='preload'
+                href={entry.optimizedImage.avif.src}
+                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
+                imagesizes={entry.optimizedImage.avif.attributes.sizes}
+                type='image/avif'
+                as='image'
+              />
+            </Fragment>
+          )}
+        </Fragment>
+      ))
+    }
+  </Fragment>
+</Layout>

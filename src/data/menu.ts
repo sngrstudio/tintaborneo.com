@@ -10,6 +10,5 @@ export const getMenu = async (location: MenuLocationEnum) => {
       location
     }
   })) as MenuResult
-
   return res.data.menuItems!.nodes as Array<MenuItem>
 }
