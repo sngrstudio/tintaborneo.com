@@ -9,12 +9,7 @@ export const GET: APIRoute = async ({ site }) => {
     first: 100
   })
 
-  const posts = postsData!.nodes.filter((p: Post) => {
-    return (
-      new Date().getTime() - new Date(p.date!).getTime() <
-      1000 * 60 * 60 * 24 * 2
-    )
-  })
+  const posts = postsData!.nodes
 
   const xml = `
     <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
