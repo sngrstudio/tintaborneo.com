@@ -1,0 +1,24 @@
+---
+import type { InferGetStaticPropsType } from 'astro'
+import PageLayout from '~/layouts/page.astro'
+import { getPages } from '~/data/page'
+
+export const getStaticPaths = async () => {
+  const data = await getPages()
+  return data.map((page) => ({
+    params: { page: page.uri! },
+    props: { page }
+  }))
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { page } = Astro.props
+export const prerender = true
+---
+
+<PageLayout title={page.title!} description={''}>
+  <article>
+    <Fragment set:html={page.content} />
+  </article>
+</PageLayout>

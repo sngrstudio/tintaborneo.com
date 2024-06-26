@@ -11,5 +11,5 @@
       ]
     }
   },
-  "postCreateCommand": "corepack prepare && corepack enable && echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .env && pnpm install"
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .env && bun install"
 }

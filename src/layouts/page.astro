@@ -1,0 +1,19 @@
+---
+import Layout, { type Props as LayoutProps } from './layout.astro'
+
+interface Props extends LayoutProps {}
+
+const { title, description } = Astro.props
+---
+
+<Layout title={title} description={description}>
+  {/* <head /> */}
+  <Fragment slot='head'>
+    <slot name='head' />
+  </Fragment>
+
+  {/* <body /> */}
+  <main class='flex flex-col min-h-screen pt-[64px] md:pt-[96px]'>
+    <slot />
+  </main>
+</Layout>

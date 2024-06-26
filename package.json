@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "conc npm:check:* && conc npm:gen-icons && astro build",
+    "build": "conc bun:check:* && conc bun:gen-icons && astro build",
     "check:astro": "astro check",
     "check:format": "prettier --check .",
     "check:ts": "tsc --noEmit",
@@ -12,8 +12,8 @@
     "dev": "astro dev",
     "format": "prettier --write .",
     "gen-icons": "pwa-assets-generator --manifest=false --preset minimal-2023 public/icon.svg",
-    "preview": "conc npm:build && wrangler pages dev ./dist",
-    "start": "conc npm:dev"
+    "preview": "conc bun:build && wrangler pages dev ./dist",
+    "start": "conc bun:dev"
   },
   "dependencies": {
     "@astrojs/alpinejs": "0.4.0",
