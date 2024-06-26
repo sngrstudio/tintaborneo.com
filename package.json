@@ -12,7 +12,6 @@
     "dev": "astro dev",
     "format": "prettier --write .",
     "gen-icons": "pwa-assets-generator --manifest=false --preset minimal-2023 public/icon.svg",
-    "preinstall": "npx only-allow pnpm",
     "preview": "conc npm:build && wrangler pages dev ./dist",
     "start": "conc npm:dev"
   },

@@ -9,14 +9,9 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
         env:
           ADMIN_ENDPOINT: ${{ secrets.ADMIN_ENDPOINT }}
       - uses: cloudflare/wrangler-action@v3

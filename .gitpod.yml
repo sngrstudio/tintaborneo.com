@@ -1,10 +1,11 @@
+image: gitpod/workspace-bun
+
 tasks:
-  - before: corepack prepare && corepack enable
-    init: |
+  - init: |
       echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .env
-      pnpm install
+      bun install
     command: |
-      echo "Run \"pnpm dev\" to start dev server"
+      echo "Run \"bun dev\" to start dev server"
 
 vscode:
   extensions:
