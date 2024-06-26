@@ -1,0 +1,23 @@
+---
+import RelatedCard from './card.astro'
+import { getRelatedPosts } from '~/data/post'
+
+interface Props {
+  id: string
+  tags: Array<string>
+}
+
+const title = 'Berita Terkait'
+const { id, tags } = Astro.props
+const relatedPosts = await getRelatedPosts({ tagIn: tags, notIn: [id] })
+---
+
+<h4
+  class='font-subheading font-bold uppercase text-2xl text-tb-primary border-t-2 border-tb-primary w-full pt-2 mb-4'
+>
+  {title}
+</h4>
+
+<ul class='flex flex-col gap-4'>
+  {relatedPosts.map((post) => <RelatedCard post={post} />)}
+</ul>
