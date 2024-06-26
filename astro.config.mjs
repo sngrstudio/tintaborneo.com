@@ -9,19 +9,18 @@ import cloudflare from '@astrojs/cloudflare'
 export default defineConfig({
   site: 'https://next.tintaborneo.com',
   integrations: [tailwind(), alpinejs(), react()],
+  output: 'server',
+  adapter: cloudflare({
+    imageService: 'cloudflare'
+  }),
   image: {
     domains: [
       'tintaborneo.com',
       'www.tintaborneo.com',
       'staging.tintaborneo.com',
-      'content.tintaborneo.com',
       'next.tintaborneo.com'
     ]
   },
-  output: 'server',
-  adapter: cloudflare({
-    imageService: 'cloudflare'
-  }),
   vite: {
     plugins: [
       Icons({

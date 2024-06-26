@@ -1,9 +1,14 @@
 ---
+import type { GetPictureResult } from '~/utils/picture'
 import Layout, { type Props as LayoutProps } from './layout.astro'
+import Image from '~/components/post/image.astro'
 
-interface Props extends LayoutProps {}
+interface Props extends LayoutProps {
+  image?: GetPictureResult
+  isPost?: boolean
+}
 
-const { title, description } = Astro.props
+const { title, description, image, isPost } = Astro.props
 ---
 
 <Layout title={title} description={description}>
@@ -13,7 +18,49 @@ const { title, description } = Astro.props
   </Fragment>
 
   {/* <body /> */}
-  <main class='flex flex-col min-h-screen pt-[64px] md:pt-[96px]'>
-    <slot />
+  <main
+    class='max-w-screen-xl min-h-screen pt-[64px] md:pt-[96px] px-4 mx-auto'
+  >
+    {/* <MainArticle /> */}
+    <section class='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <article
+        class='sm:col-span-2 lg:col-span-3 prose font-heading pt-12 max-w-screen-xl'
+      >
+        {/* <ArticleHeader /> */}
+        <hgroup>
+          <h1>{title}</h1>
+
+          {/* <HeaderSlot /> */}
+          <slot name='header' />
+
+          {/* <ArticleImage /> */}
+          <Fragment>
+            {
+              image && (
+                <figure class='w-full -mx-4 md:m-0'>
+                  <Image image={image} class='w-max md:w-full object-cover' />
+                  {image.caption && (
+                    <figcaption class='px-4 md:p-0'>{image.caption}</figcaption>
+                  )}
+                </figure>
+              )
+            }
+          </Fragment>
+        </hgroup>
+
+        {/* <Content /> */}
+        <slot />
+      </article>
+
+      {/* <Aside /> */}
+      <aside class='lg:pt-12'>
+        <slot name='aside' />
+      </aside>
+    </section>
+
+    {/* <SidebarIfExist /> */}
+    <Fragment>
+      {isPost && <section />}
+    </Fragment>
   </main>
 </Layout>

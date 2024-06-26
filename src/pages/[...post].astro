@@ -1,0 +1,33 @@
+---
+import { getPost } from '~/data/post'
+import PageLayout from '~/layouts/page.astro'
+import { getPicture } from '~/utils/picture'
+
+const { post: postUri } = Astro.params
+
+if (!postUri) return Astro.redirect('/404')
+
+const postData = await getPost(postUri.split('/').at(-1)!)
+const post = {
+  ...postData,
+  optimizedImage: postData.featuredImage
+    ? await getPicture({
+        src: postData.featuredImage.node.sourceUrl!,
+        inferSize: true,
+        widths: [430, 736],
+        sizes: '(max-width: 640px) 430px, 736px',
+        loading: 'eager',
+        caption: postData.featuredImage.node.caption || undefined
+      })
+    : undefined
+}
+---
+
+<PageLayout
+  title={post.title!}
+  description={''}
+  image={post.optimizedImage}
+  isPost
+>
+  <Fragment set:html={post.content} />
+</PageLayout>

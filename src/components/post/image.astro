@@ -1,0 +1,36 @@
+---
+import type { GetPictureResult } from '~/utils/picture'
+
+interface Props {
+  image: GetPictureResult
+  class?: string
+}
+
+const {
+  image: { sources, caption },
+  class: className
+} = Astro.props
+const original = sources.at(-1)!
+---
+
+<picture>
+  {
+    sources.map((format) => (
+      <source
+        srcset={format.srcSet.attribute}
+        sizes={format.attributes.sizes}
+        type={format.options.format}
+      />
+    ))
+  }
+  <img
+    src={original.src}
+    srcset={original.srcSet.attribute}
+    sizes={original.attributes.sizes}
+    width={original.attributes.width}
+    height={original.attributes.height}
+    alt={caption || ''}
+    class={className}
+    {...original.attributes}
+  />
+</picture>
