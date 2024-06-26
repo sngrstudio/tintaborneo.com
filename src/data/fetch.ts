@@ -1,4 +1,4 @@
-const GRAPHQL_ENDPOINT = `${import.meta.env.DEV ? import.meta.env.ADMIN_ENDPOINT : process.env.ADMIN_ENDPOINT}/wp/graphql`
+const GRAPHQL_ENDPOINT = `${import.meta.env.ADMIN_ENDPOINT}/wp/graphql`
 
 export const gql = String.raw
 
