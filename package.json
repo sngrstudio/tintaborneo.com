@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.7.0",
+    "@cloudflare/workers-types": "^4.20240620.0",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.7",
     "@iconify-json/eos-icons": "1.1.10",
@@ -54,7 +55,7 @@
     "prettier": "3.3.2",
     "prettier-config-standard": "7.0.0",
     "prettier-plugin-astro": "0.14.0",
-    "typescript": "5.5.2",
+    "typescript": "^5.5.2",
     "unplugin-icons": "0.19.0",
     "wrangler": "3.61.0"
   }
