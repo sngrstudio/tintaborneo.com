@@ -2,16 +2,16 @@
 import type { HTMLAttributes } from 'astro/types'
 import Head from './head.astro'
 
-interface Props extends HTMLAttributes<'body'> {}
+export interface Props extends HTMLAttributes<'body'> {}
 
-const { class: className, ...attrs } = Astro.props
+const { ...attrs } = Astro.props
 ---
 
 <html lang='id'>
   <Head>
     <slot name='head' />
   </Head>
-  <body class={className} {...attrs}>
+  <body {...attrs}>
     <slot />
   </body>
 </html>

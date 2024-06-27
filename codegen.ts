@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: `${process.env.ADMIN_ENDPOINT}/wp/graphql`,
   generates: {
-    'src/data/graphql.ts': {
+    '.graphql/types.ts': {
       plugins: ['typescript']
     }
   }

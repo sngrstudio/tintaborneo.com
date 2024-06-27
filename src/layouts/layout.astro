@@ -1,42 +1,13 @@
 ---
 import BaseLayout from './base.astro'
-import SEO, { type Props as SEOProps } from './seo.astro'
-import HeaderLoader from '~/components/header/loader.astro'
-import FooterLoader from '~/components/footer/loader.astro'
-import '@fontsource/source-serif-pro/400.css'
-import '@fontsource/source-serif-pro/700.css'
-import '@fontsource/source-serif-pro/900.css'
-import '@fontsource/martel-sans/400.css'
-import '@fontsource/martel-sans/700.css'
-
-export interface Props extends SEOProps {}
-
-const { title, description } = Astro.props
 ---
 
-<BaseLayout class='bg-tb-background min-h-screen'>
-  {/* <head /> */}
+<BaseLayout>
+  {/* <Head /> */}
   <Fragment slot='head'>
-    <SEO title={title} description={description} />
     <slot name='head' />
   </Fragment>
 
-  {/* <body /> */}
-  <HeaderLoader />
+  {/* <Body /> */}
   <slot />
-  <FooterLoader />
 </BaseLayout>
-
-<script>
-  import 'htmx.org'
-</script>
-
-<style is:global>
-  [x-cloak] {
-    display: none !important;
-  }
-</style>
-
-<script>
-  import 'htmx.org'
-</script>
