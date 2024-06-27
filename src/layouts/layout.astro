@@ -1,7 +1,8 @@
 ---
 import BaseLayout from './base.astro'
 import SEO, { type Props as SEOProps } from './seo.astro'
-import Header from '~/components/header/header.astro'
+import HeaderLoader from '~/components/header/loader.astro'
+import FooterLoader from '~/components/footer/loader.astro'
 import '@fontsource/source-serif-pro/400.css'
 import '@fontsource/source-serif-pro/700.css'
 import '@fontsource/source-serif-pro/900.css'
@@ -21,15 +22,9 @@ const { title, description } = Astro.props
   </Fragment>
 
   {/* <body /> */}
-  <Header />
+  <HeaderLoader />
   <slot />
-  <footer
-    class='h-[210px]'
-    hx-get='/parts/footer'
-    hx-trigger='revealed'
-    hx-swap='outerHTML'
-  >
-  </footer>
+  <FooterLoader />
 </BaseLayout>
 
 <script>

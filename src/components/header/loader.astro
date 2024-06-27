@@ -1,0 +1,23 @@
+---
+import { MenuLocationEnum } from '~/data/graphql'
+import { getMenu } from '~/data/menu'
+
+const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
+---
+
+<header
+  class='fixed top-0 inset-x-0 h-[64px] md:h-[96px] invisible'
+  hx-get='/parts/header'
+  hx-trigger='load'
+  hx-swap='outerHTML'
+>
+  <ul>
+    {
+      menu.map((item) => (
+        <li>
+          <a href={item.uri}>{item.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</header>
