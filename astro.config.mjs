@@ -11,7 +11,10 @@ export default defineConfig({
   integrations: [tailwind(), alpinejs(), react()],
   output: 'server',
   adapter: cloudflare({
-    imageService: 'cloudflare'
+    imageService: 'cloudflare',
+    platformProxy: {
+      enabled: true
+    }
   }),
   image: {
     domains: [

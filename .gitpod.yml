@@ -2,7 +2,7 @@ image: gitpod/workspace-bun
 
 tasks:
   - init: |
-      echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .env
+      echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .dev.vars
       bun install
     command: |
       echo "Run \"bun dev\" to start dev server"
