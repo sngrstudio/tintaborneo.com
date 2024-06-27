@@ -2,7 +2,9 @@
 import { Debug } from 'astro:components'
 import { fetchDynamicQuery } from '~/data/fetch'
 
-const _test = await fetchDynamicQuery('get-post', { id: 'gerak-cepat-selesaikan-tpp-halikinnor-kumpulkan-semua-kepala-opd' })
+const _test = await fetchDynamicQuery('get-post', {
+  id: 'gerak-cepat-selesaikan-tpp-halikinnor-kumpulkan-semua-kepala-opd'
+})
 ---
 
 <Debug {_test} />
