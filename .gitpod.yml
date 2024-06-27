@@ -1,11 +1,11 @@
-image: gitpod/workspace-bun
+image: gitpod/workspace-full
 
 tasks:
   - init: |
       echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .dev.vars
-      bun install
+      pnpm install --frozen-lockfile
     command: |
-      echo "Run \"bun dev\" to start dev server"
+      echo "Run \"pnpm dev\" to start dev server"
 
 vscode:
   extensions:
