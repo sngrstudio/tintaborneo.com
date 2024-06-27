@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 
 export const GET: APIRoute = async ({ locals, url }) => {
-  // @ts-ignore
+  //@ts-ignore
   const { env } = locals.runtime
 
   const query = url.searchParams.get('query')
