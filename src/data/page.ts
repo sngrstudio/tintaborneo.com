@@ -5,7 +5,8 @@ type PageResult = FetchQueryResult<Required<Pick<RootQuery, 'pages'>>>
 
 export const getPages = async () => {
   const res = (await fetchQuery({
-    queryId: 'get-pages'
+    queryId: 'get-pages',
+    mode: 'static'
   })) as PageResult
 
   return res.data.pages?.nodes as Array<Page>

@@ -8,7 +8,8 @@ export const getMenu = async (location: MenuLocationEnum) => {
     queryId: 'get-menu',
     variables: {
       location
-    }
+    },
+    mode: 'static'
   })) as MenuResult
   return res.data.menuItems!.nodes as Array<MenuItem>
 }
