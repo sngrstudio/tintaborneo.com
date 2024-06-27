@@ -3,6 +3,7 @@ image: gitpod/workspace-full
 tasks:
   - init: |
       echo "ADMIN_ENDPOINT=${ADMIN_ENDPOINT}" > .dev.vars
+      corepack prepare && corepack enable
       pnpm install --frozen-lockfile
     command: |
       echo "Run \"pnpm dev\" to start dev server"
