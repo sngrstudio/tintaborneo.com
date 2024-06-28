@@ -1,0 +1,13 @@
+---
+import { getPost } from '~/data/posts'
+
+const { post: postUri } = Astro.params
+
+const postSlug = postUri?.split('/').at(-1)
+const post = await getPost(postSlug!)
+
+if (!post) return Astro.redirect('/404')
+---
+
+<h1>{post.title}</h1>
+<Fragment set:html={post.content} />

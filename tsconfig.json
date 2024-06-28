@@ -4,12 +4,12 @@
     "types": ["unplugin-icons/types/astro"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~/graphql/*": ["./.graphql/*"]
     },
     "allowJs": true,
     "jsx": "react-jsx",
     "exactOptionalPropertyTypes": false,
     "jsxImportSource": "react"
-  },
-  "exclude": ["functions/**/*"]
+  }
 }
