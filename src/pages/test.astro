@@ -1,5 +1,4 @@
 ---
-import { Debug } from 'astro:components'
 import { fetchDynamicQuery } from '~/data/fetch'
 
 const _test = await fetchDynamicQuery('get-post', {
@@ -7,4 +6,4 @@ const _test = await fetchDynamicQuery('get-post', {
 })
 ---
 
-<Debug {_test} />
+<pre>{JSON.stringify(_test)}</pre>
