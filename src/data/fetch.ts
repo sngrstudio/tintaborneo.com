@@ -1,5 +1,3 @@
-const STATIC = import.meta.env.STATIC
-const STATIC_ENDPOINT = import.meta.env.ADMIN_ENDPOINT
 const SSR_ENDPOINT = import.meta.env.PROD
   ? import.meta.env.SITE
   : 'http://localhost:4321'
@@ -17,13 +15,13 @@ export const fetchQuery = async (
     const response = await fetch(
       new URL(
         [
-          STATIC ? '/wp/graphql' : '/api/data',
+          '/api/data',
           `?queryId=${queryId}`,
           variables
             ? `&variables=${encodeURIComponent(JSON.stringify(variables))}`
             : ''
         ].join(''),
-        STATIC ? STATIC_ENDPOINT : SSR_ENDPOINT
+        SSR_ENDPOINT
       )
     )
     const data = (await response.json()) as unknown

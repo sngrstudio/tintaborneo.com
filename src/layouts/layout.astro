@@ -1,7 +1,7 @@
 ---
 import BaseLayout from './base.astro'
 import SEO, { type Props as SEOProps } from './seo.astro'
-import HeaderLoader from '~/components/header/loader.astro'
+import Header from '~/components/header/header.astro'
 import '@fontsource/source-serif-pro/400.css'
 import '@fontsource/source-serif-pro/700.css'
 import '@fontsource/source-serif-pro/900.css'
@@ -21,7 +21,7 @@ const { title, description } = Astro.props
   </Fragment>
 
   {/* <Body /> */}
-  <HeaderLoader />
+  <Header />
   <slot />
 </BaseLayout>
 
