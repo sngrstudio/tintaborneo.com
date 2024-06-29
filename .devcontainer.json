@@ -11,5 +11,5 @@
       ]
     }
   },
-  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .env && pnpm install --frozen-lockfile"
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
 }
