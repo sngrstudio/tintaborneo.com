@@ -1,6 +1,8 @@
 ---
 import PageLayout from '~/layouts/page.astro'
 import Infobox from '~/components/post/infobox.astro'
+import Related from '~/components/post/related.astro'
+import Share from '~/components/post/share.astro'
 import { Picture } from 'astro:assets'
 import { getPost } from '~/data/posts'
 
@@ -28,6 +30,7 @@ if (!post) return Astro.redirect('/404')
       post.featuredImage && (
         <figure>
           <Picture
+            class='w-full rounded-xl'
             src={post.featuredImage.node.sourceUrl!}
             inferSize
             loading={'eager'}
@@ -42,5 +45,14 @@ if (!post) return Astro.redirect('/404')
         </figure>
       )
     }
+    <Share post={post} />
+  </Fragment>
+
+  {/* Related Posts */}
+  <Fragment slot='aside'>
+    <Related
+      notIn={[post.id]}
+      tagIn={post.tags?.nodes.map((tag) => tag.id) || []}
+    />
   </Fragment>
 </PageLayout>

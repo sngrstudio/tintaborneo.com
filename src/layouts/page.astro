@@ -8,8 +8,23 @@ const { title, description } = Astro.props
 
 <Layout title={title} description={description}>
   <main class='pt-[96px] px-4'>
-    <section class:list={['', { '': Astro.slots.has('aside') }]}>
-      <article class='prose max-w-none font-heading'>
+    <section
+      class:list={[
+        {
+          'grid grid-cols-1 sm:grid-cols-3 md:grid-cols-7 gap-4 max-w-screen-xl mx-auto':
+            Astro.slots.has('aside')
+        },
+        {
+          'max-w-screen-lg mx-auto': !Astro.slots.has('aside')
+        }
+      ]}
+    >
+      <article
+        class:list={[
+          'prose max-w-none font-heading',
+          { 'sm:col-span-2 md:col-span-5': Astro.slots.has('aside') }
+        ]}
+      >
         {/* Headings */}
         <hgroup class='not-prose flex flex-col gap-4 mb-4'>
           <h1 class='font-black text-4xl'>{title}</h1>
@@ -25,7 +40,7 @@ const { title, description } = Astro.props
       <Fragment>
         {
           Astro.slots.has('aside') && (
-            <aside>
+            <aside class='md:col-span-2 mt-8 sm:mt-0'>
               <slot name='aside' />
             </aside>
           )

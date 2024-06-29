@@ -28,3 +28,9 @@ const { title, description } = Astro.props
 <script>
   import 'htmx.org'
 </script>
+
+<style is:global>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

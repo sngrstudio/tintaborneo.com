@@ -17,10 +17,11 @@ const logo = await getLogo('logo')
     <li>
       <a href='/'>
         <Picture
-          class='w-[200px]'
+          class='object-contain w-[200px] h-auto'
           src={logo.sourceUrl!}
           widths={[400]}
           inferSize
+          sizes='400px'
           loading='eager'
           alt=''
         />
