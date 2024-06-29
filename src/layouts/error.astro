@@ -1,0 +1,20 @@
+---
+import Layout, { type Props as LayoutProps } from './layout.astro'
+
+interface Props extends Required<Pick<LayoutProps, 'title'>> {
+  message: string
+}
+
+const { title, message } = Astro.props
+---
+
+<Layout title={title} description={message}>
+  <main class='pt-[90px] px-4'>
+    <section
+      class='flex flex-col gap-2 items-center justify-center min-h-[80vh]'
+    >
+      <h1 class='font-heading font-black text-4xl text-tb-primary'>{title}</h1>
+      <p class='text-lg'>{message}</p>
+    </section>
+  </main>
+</Layout>

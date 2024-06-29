@@ -13,7 +13,7 @@ export interface Props extends SEOProps {}
 const { title, description } = Astro.props
 ---
 
-<BaseLayout class='bg-tb-background min-h-screen pb-16'>
+<BaseLayout class='bg-tb-background text-tb-text min-h-screen pb-16'>
   {/* <Head /> */}
   <Fragment slot='head'>
     <SEO title={title} description={description} />
