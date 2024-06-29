@@ -1,0 +1,35 @@
+---
+import { Picture } from 'astro:assets'
+import { getLogo } from '~/data/site'
+import MenuIcon from '~icons/material-symbols/menu'
+import SearchIcon from '~icons/material-symbols/search'
+
+const logo = await getLogo('logo')
+---
+
+<nav>
+  <ul class='flex flex-row justify-between items-center px-4'>
+    <li>
+      <button>
+        <MenuIcon />
+      </button>
+    </li>
+    <li>
+      <a href='/'>
+        <Picture
+          class='w-[200px]'
+          src={logo.sourceUrl!}
+          widths={[400]}
+          inferSize
+          loading='eager'
+          alt=''
+        />
+      </a>
+    </li>
+    <li>
+      <button>
+        <SearchIcon />
+      </button>
+    </li>
+  </ul>
+</nav>
