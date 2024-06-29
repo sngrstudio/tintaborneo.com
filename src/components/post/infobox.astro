@@ -1,0 +1,24 @@
+---
+import type { Post } from '~/graphql/types'
+import { getDateString } from '~/utils/date'
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+<div class='flex gap-2'>
+  <time class='italic' datetime={post.date}>
+    {getDateString(new Date(post.date!))}
+  </time>
+  <span>|</span>
+  {
+    post.author && (
+      <div>
+        Oleh <a href={post.author.node.uri}>{post.author.node.name}</a>
+      </div>
+    )
+  }
+</div>

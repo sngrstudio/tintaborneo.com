@@ -1,0 +1,36 @@
+---
+import Layout, { type Props as LayoutProps } from './layout.astro'
+
+interface Props extends LayoutProps {}
+
+const { title, description } = Astro.props
+---
+
+<Layout title={title} description={description}>
+  <main class='pt-[96px] px-4'>
+    <section class:list={['', { '': Astro.slots.has('aside') }]}>
+      <article class='prose max-w-none font-heading'>
+        {/* Headings */}
+        <hgroup class='not-prose flex flex-col gap-4 mb-4'>
+          <h1 class='font-black text-4xl'>{title}</h1>
+          <slot name='heading' />
+          <hr class='text-tb-muted' />
+        </hgroup>
+
+        {/* Content */}
+        <slot />
+      </article>
+
+      {/* Aside */}
+      <Fragment>
+        {
+          Astro.slots.has('aside') && (
+            <aside>
+              <slot name='aside' />
+            </aside>
+          )
+        }
+      </Fragment>
+    </section>
+  </main>
+</Layout>

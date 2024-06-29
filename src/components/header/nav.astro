@@ -1,0 +1,20 @@
+---
+import { getMenu } from '~/data/site'
+import { MenuLocationEnum } from '~/graphql/types'
+
+const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
+---
+
+<nav>
+  <ul
+    class='flex justify-start md:justify-center gap-2 overflow-x-scroll font-subheading font-bold text-tb-primary px-4 py-1'
+  >
+    {
+      menu.map((item) => (
+        <li>
+          <a href={item.uri}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
