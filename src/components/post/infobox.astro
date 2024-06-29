@@ -9,7 +9,7 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<div class='flex gap-2'>
+<div class='flex gap-2 font-sans text-sm'>
   <time class='italic' datetime={post.date}>
     {getDateString(new Date(post.date!))}
   </time>
@@ -17,7 +17,10 @@ const { post } = Astro.props
   {
     post.author && (
       <div>
-        Oleh <a href={post.author.node.uri}>{post.author.node.name}</a>
+        Oleh{' '}
+        <a class='font-bold hover:underline' href={post.author.node.uri}>
+          {post.author.node.name}
+        </a>
       </div>
     )
   }
