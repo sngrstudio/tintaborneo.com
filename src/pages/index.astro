@@ -1,9 +1,22 @@
 ---
+import { getTag } from '~/data/taxonomies'
+import { getLatestPosts } from '~/data/posts'
 import Layout from '~/layouts/layout.astro'
+
+const tag = await getTag('berita-utama')
+const posts = await getLatestPosts({ tagNotIn: [tag?.id!] })
 ---
 
 <Layout>
-  <main class='pt-[90px]'>
-    <h1>TintaBorneo Next</h1>
+  <main class='pt-[90px] px-4'>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={post.uri}>{post.title}</a>
+          </li>
+        ))
+      }
+    </ul>
   </main>
 </Layout>
