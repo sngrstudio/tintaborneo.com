@@ -8,23 +8,25 @@ interface Props extends HTMLAttributes<'div'> {
   posts: Array<Post>
 }
 
-const { posts, class: className, ...attrs } = Astro.props
+const { posts, class: className } = Astro.props
 ---
 
 <div
-  class:list={['__featured_posts_carousel overflow-hidden', className]}
-  {...attrs}
+  class:list={[
+    '__featured_posts_carousel aspect-[4/3] md:aspect-auto overflow-hidden',
+    className
+  ]}
 >
-  <div class='flex items-stretch'>
+  <div class='flex h-full'>
     {
       posts.map((post) => (
         <a
-          class='aspect-[4/3] md:aspect-[unset] min-w-0 flex-[0_0_100%] relative overflow-hidden bg-tb-muted w-full h-fit rounded-2xl mr-4'
+          class='relative flex-[0_0_100%] min-w-0 rounded-xl overflow-hidden bg-tb-muted mr-2'
           href={post.uri}
         >
           {post.featuredImage && (
             <Picture
-              class='object-cover w-full h-full'
+              class='object-cover w-full aspect-[4/3]'
               src={post.featuredImage.node.sourceUrl!}
               widths={[677]}
               width={400}
@@ -59,5 +61,6 @@ const { posts, class: className, ...attrs } = Astro.props
   const node = document.querySelector(
     '.__featured_posts_carousel'
   ) as HTMLElement
+
   Carousel(node, { loop: true }, [Autoplay({ delay: 7000 })])
 </script>

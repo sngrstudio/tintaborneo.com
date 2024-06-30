@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/layout.astro'
+import CarouselSection from '~/components/home/section.astro'
 import FeaturedPosts from '~/components/home/featured.astro'
 import LatestPosts from '~/components/home/latest.astro'
 import { getTag } from '~/data/taxonomies'
@@ -15,12 +16,9 @@ const latestPosts = await getLatestPosts({
 
 <Layout>
   <main class='pt-[96px] px-4'>
-    <section
-      class='grid md:grid-cols-3 gap-2 items-stretch max-w-screen-lg mx-auto'
-      hx-boost='true'
-    >
+    <CarouselSection>
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
-      <LatestPosts posts={latestPosts.nodes} class='flex' />
-    </section>
+      <LatestPosts posts={latestPosts.nodes} />
+    </CarouselSection>
   </main>
 </Layout>
