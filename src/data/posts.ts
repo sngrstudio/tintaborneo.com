@@ -1,4 +1,4 @@
-import type { RootQuery, Post } from '~/graphql/types'
+import type { RootQuery } from '~/graphql/types'
 import { fetchQuery, type FetchQueryResult } from './fetch'
 
 type PostResult = FetchQueryResult<Pick<RootQuery, 'post'>>
@@ -28,7 +28,18 @@ export const getLatestPosts = async ({
       first,
       after
     })) as PostsResult
-  ).data.posts?.nodes as Array<Post>
+  ).data.posts!
+
+export const getFeaturedPosts = async ({
+  categoryName
+}: {
+  categoryName?: string
+} = {}) =>
+  (
+    (await fetchQuery('get-featured-posts-2', {
+      categoryName
+    })) as PostsResult
+  ).data.posts!
 
 export const getRelatedPosts = async ({
   notIn,
@@ -38,4 +49,4 @@ export const getRelatedPosts = async ({
   tagIn: Array<string>
 }) =>
   ((await fetchQuery('get-related-posts', { notIn, tagIn })) as PostsResult)
-    .data.posts?.nodes as Array<Post>
+    .data.posts!

@@ -38,12 +38,12 @@ importers:
       date-fns:
         specifier: 3.6.0
         version: 3.6.0
+      embla-carousel:
+        specifier: ^8.1.5
+        version: 8.1.5
       embla-carousel-autoplay:
         specifier: 8.1.5
         version: 8.1.5(embla-carousel@8.1.5)
-      embla-carousel-react:
-        specifier: 8.1.5
-        version: 8.1.5(react@18.3.1)
       graphql:
         specifier: 16.9.0
         version: 16.9.0
@@ -2440,16 +2440,6 @@ packages:
 
   embla-carousel-autoplay@8.1.5:
     resolution: {integrity: sha512-9pHIezRqiO9yism7wRFwmM1j/W9c9hBNX4hq3F4aTPbK84M0M57ryG8QUwhbsTGJbDoBBVTm//YEd0T6i/5YgA==}
-    peerDependencies:
-      embla-carousel: 8.1.5
-
-  embla-carousel-react@8.1.5:
-    resolution: {integrity: sha512-xFmfxgJd7mpWDHQ4iyK1Qs+5BTTwu4bkn+mSROKiUH9nKpPHTeilQ+rpeQDCHRrAPeshD67aBk0/p6FxWxXsng==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.1 || ^18.0.0
-
-  embla-carousel-reactive-utils@8.1.5:
-    resolution: {integrity: sha512-76uZTrSaEGGta+qpiGkMFlLK0I7N04TdjZ2obrBhyggYIFDWlxk1CriIEmt2lisLNsa1IYXM85kr863JoCMSyg==}
     peerDependencies:
       embla-carousel: 8.1.5
 
@@ -7298,16 +7288,6 @@ snapshots:
   electron-to-chromium@1.4.812: {}
 
   embla-carousel-autoplay@8.1.5(embla-carousel@8.1.5):
-    dependencies:
-      embla-carousel: 8.1.5
-
-  embla-carousel-react@8.1.5(react@18.3.1):
-    dependencies:
-      embla-carousel: 8.1.5
-      embla-carousel-reactive-utils: 8.1.5(embla-carousel@8.1.5)
-      react: 18.3.1
-
-  embla-carousel-reactive-utils@8.1.5(embla-carousel@8.1.5):
     dependencies:
       embla-carousel: 8.1.5
 

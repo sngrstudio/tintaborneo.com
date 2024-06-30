@@ -11,7 +11,7 @@ const { post } = Astro.props
 
 <div class='flex gap-2 font-sans text-sm'>
   <time class='italic' datetime={post.date}>
-    {getDateString(new Date(post.date!))}
+    {getDateString(new Date(post.date!), { format: 'full' })}
   </time>
   <span>|</span>
   {

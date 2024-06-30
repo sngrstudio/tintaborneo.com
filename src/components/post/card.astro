@@ -15,12 +15,12 @@ const { post } = Astro.props
     post.featuredImage && (
       <a class='shrink-0' href={post.uri}>
         <Picture
-          class='object-cover w-[160px] sm:w-[120px] rounded-xl'
+          class='object-cover w-[160px] sm:w-[96px] lg:w-[120px] rounded-xl'
           src={post.featuredImage.node.sourceUrl!}
           width={400}
           height={300}
-          widths={[120, 160]}
-          sizes='(min-width: 640px) 120px, 160px'
+          widths={[96, 120, 160]}
+          sizes='(min-width: 1024px) 120px, (min-width: 640px) 96px, 160px'
           alt={post.title || ''}
         />
       </a>
@@ -33,6 +33,8 @@ const { post } = Astro.props
     >
       {post.title}
     </a>
-    <time datetime={post.date}>{getDateString(new Date(post.date!))}</time>
+    <time class='text-sm' datetime={post.date}>
+      {getDateString(new Date(post.date!))}
+    </time>
   </div>
 </li>

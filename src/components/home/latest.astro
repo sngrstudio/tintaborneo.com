@@ -1,0 +1,69 @@
+---
+import type { Post } from '~/graphql/types'
+import { Picture } from 'astro:assets'
+import type { HTMLAttributes } from 'astro/types'
+import { getDateString } from '~/utils/date'
+
+interface Props extends HTMLAttributes<'div'> {
+  posts: Array<Post>
+}
+
+const { posts: postsData, class: className, ...attrs } = Astro.props
+const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
+  if (index % 4 === 0) {
+    result.push(postsData.slice(index, index + 4))
+  }
+  return result
+}, [])
+---
+
+<div
+  class:list={['__latest_posts_carousel overflow-hidden', className]}
+  ,
+  {...attrs}
+>
+  <div class='flex items-stretch'>
+    {
+      posts.map((block) => (
+        <div class='grid grid-cols-2 gap-2 items-stretch h-full min-w-0 flex-[0_0_100%] mr-4'>
+          {block.map((post) => (
+            <a
+              class='aspect-[3/4] md:aspect-auto relative overflow-hidden bg-tb-muted rounded-2xl w-full h-full'
+              href={post.uri}
+            >
+              {post.featuredImage && (
+                <Picture
+                  class='object-cover w-full h-full'
+                  src={post.featuredImage.node.sourceUrl!}
+                  widths={[324]}
+                  width={300}
+                  height={400}
+                  loading='eager'
+                  alt={post.title || ''}
+                />
+              )}
+              <div class='absolute inset-0 flex flex-col gap-1 justify-end bg-gradient-to-t from-tb-text to-tb-text/[.0] text-tb-background px-2 pb-4'>
+                <h3 class='font-heading font-bold text-lg line-clamp-3 leading-tight'>
+                  {post.title}
+                </h3>
+                <p class='text-sm italic'>
+                  <time datetime={post.date}>
+                    {getDateString(new Date(post.date!))}
+                  </time>
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import Carousel from 'embla-carousel'
+  import Autoplay from 'embla-carousel-autoplay'
+
+  const node = document.querySelector('.__latest_posts_carousel') as HTMLElement
+  Carousel(node, { loop: true }, [Autoplay({ delay: 5000 })])
+</script>
