@@ -18,7 +18,11 @@ const { post } = Astro.props
     post.author && (
       <div>
         Oleh{' '}
-        <a class='font-bold hover:underline' href={post.author.node.uri}>
+        <a
+          class='font-bold hover:underline'
+          href={post.author.node.uri}
+          hx-boost='true'
+        >
           {post.author.node.name}
         </a>
       </div>

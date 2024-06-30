@@ -31,6 +31,7 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
             <a
               class='relative overflow-hidden bg-tb-muted rounded-2xl aspect-[3/4] md:aspect-auto'
               href={post.uri}
+              data-astro-prefetch
             >
               {post.featuredImage && (
                 <Picture

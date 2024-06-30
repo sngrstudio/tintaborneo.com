@@ -30,6 +30,10 @@ const { title, description } = Astro.props
 </script>
 
 <style is:global>
+  @view-transition {
+    navigation: auto; /* experimental: view transition */
+  }
+
   [x-cloak] {
     display: none !important;
   }

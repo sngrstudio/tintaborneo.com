@@ -17,12 +17,12 @@ export default defineConfig({
     }
   }),
   image: {
-    domains: [
-      'tintaborneo.com',
-      'www.tintaborneo.com',
-      'staging.tintaborneo.com',
-      'next.tintaborneo.com'
-    ]
+    domains: ['tintaborneo.com', 'www.tintaborneo.com', 'next.tintaborneo.com']
+  },
+  prefetch: true,
+  experimental: {
+    clientPrerender: true,
+    directRenderScript: true
   },
   vite: {
     plugins: [

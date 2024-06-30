@@ -23,6 +23,7 @@ const { posts, class: className } = Astro.props
         <a
           class='relative flex-[0_0_100%] min-w-0 rounded-xl overflow-hidden bg-tb-muted mr-2'
           href={post.uri}
+          data-astro-prefetch
         >
           {post.featuredImage && (
             <Picture
