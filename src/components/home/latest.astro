@@ -37,6 +37,7 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
                 <Picture
                   class='object-cover w-full h-full'
                   src={post.featuredImage.node.sourceUrl!}
+                  formats={['avif', 'webp']}
                   widths={[324]}
                   width={300}
                   height={400}

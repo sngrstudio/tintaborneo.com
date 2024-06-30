@@ -15,6 +15,14 @@ const { title, message } = Astro.props
     >
       <h1 class='font-heading font-black text-4xl text-tb-primary'>{title}</h1>
       <p class='text-lg'>{message}</p>
+      <a
+        class='hover:underline text-tb-primary'
+        href='/'
+        role='button'
+        data-astro-prefetch
+      >
+        Beranda
+      </a>
     </section>
   </main>
 </Layout>

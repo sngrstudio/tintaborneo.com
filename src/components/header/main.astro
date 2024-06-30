@@ -19,6 +19,7 @@ const logo = await getLogo('logo')
         <Picture
           class='object-contain w-[200px] h-auto'
           src={logo.sourceUrl!}
+          formats={['avif', 'webp']}
           widths={[400]}
           inferSize
           sizes='400px'

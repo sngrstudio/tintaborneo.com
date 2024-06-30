@@ -3,13 +3,10 @@ import Layout from '~/layouts/layout.astro'
 import CarouselSection from '~/components/home/section.astro'
 import FeaturedPosts from '~/components/home/featured.astro'
 import LatestPosts from '~/components/home/latest.astro'
-import { getTag } from '~/data/taxonomies'
 import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
 
-const tag = await getTag('berita-utama')
 const featuredPosts = await getFeaturedPosts()
 const latestPosts = await getLatestPosts({
-  tagNotIn: [tag?.id!],
   notIn: featuredPosts.nodes.map((post) => post.id)
 })
 ---

@@ -17,6 +17,7 @@ const { post } = Astro.props
         <Picture
           class='object-cover w-[160px] sm:w-[96px] lg:w-[120px] rounded-xl'
           src={post.featuredImage.node.sourceUrl!}
+          formats={['avif', 'webp']}
           width={400}
           height={300}
           widths={[96, 120, 160]}

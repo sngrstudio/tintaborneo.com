@@ -32,6 +32,7 @@ if (!post) return Astro.redirect('/404')
           <Picture
             class='w-full rounded-xl'
             src={post.featuredImage.node.sourceUrl!}
+            formats={['avif', 'webp']}
             widths={[380, 560, 910]}
             inferSize
             sizes='(min-width: 1024px) 910px, (min-width: 768px) 560px, 380px'
