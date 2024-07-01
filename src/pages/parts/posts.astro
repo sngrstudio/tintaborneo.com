@@ -26,11 +26,11 @@ Astro.response.headers.set(
 )
 ---
 
-<section class='max-w-screen-lg mx-auto'>
+<section class='max-w-screen-lg mx-auto w-full'>
   <h2
     class='font-subheading font-bold text-2xl text-tb-primary uppercase border-t-2 border-tb-primary pt-2 mb-4'
   >
-    {category?.name}
+    <a href={category?.uri}>{category?.name}</a>
   </h2>
   <ListPosts posts={posts.nodes} />
 </section>
