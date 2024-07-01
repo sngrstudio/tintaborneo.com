@@ -1,0 +1,11 @@
+---
+import FooterComp from '~/components/footer/footer.astro'
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=31536000, must-revalidate'
+)
+---
+
+<FooterComp />

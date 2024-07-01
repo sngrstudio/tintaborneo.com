@@ -9,9 +9,6 @@ interface Props {
 const { posts } = Astro.props
 ---
 
-<ul
-  class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-y-6'
-  hx-boost='true'
->
+<ul class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-y-6'>
   {posts.map((post) => <ListCard post={post} />)}
 </ul>

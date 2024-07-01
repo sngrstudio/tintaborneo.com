@@ -13,7 +13,7 @@ const { post } = Astro.props
 <li class='flex sm:flex-col gap-2'>
   {
     post.featuredImage && (
-      <a href={post.uri}>
+      <a href={post.uri} data-astro-prefetch>
         <Picture
           class='object-cover w-[160px] sm:w-full h-full aspect-[4/3] rounded-xl'
           src={post.featuredImage.node.sourceUrl!}

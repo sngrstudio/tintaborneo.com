@@ -17,18 +17,20 @@ const posts = await getRelatedPosts({ notIn, tagIn })
 >
   Berita Terkait
 </h2>
-<ul class='flex flex-col gap-2' hx-boost='true'>
+<ul class='flex flex-col gap-2'>
   {
     posts.nodes.map((post: Post, _i) =>
       _i !== posts.nodes.length - 1 ? (
         <RelatedCard post={post} />
       ) : (
-        <RelatedCard
-          post={post}
-          hx-get={`/parts/related?id=${notIn.at(0)}&tags=${tagIn.join(',')}${posts.pageInfo.hasNextPage ? `&cursor=${posts.pageInfo.endCursor}` : ''}`}
-          hx-trigger='revealed'
-          hx-swap='afterend'
-        />
+        <>
+          <RelatedCard post={post} />
+          <li
+            hx-get={`/parts/related?id=${notIn.at(0)}&tags=${tagIn.join(',')}${posts.pageInfo.hasNextPage ? `&cursor=${posts.pageInfo.endCursor}` : ''}`}
+            hx-trigger='revealed'
+            hx-swap='outerHTML'
+          />
+        </>
       )
     )
   }

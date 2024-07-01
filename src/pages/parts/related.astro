@@ -12,6 +12,16 @@ const posts = await getRelatedPosts({
   tagIn: tags!.split(','),
   after: cursor!
 })
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=86400, stale-while-revalidate=86400'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+)
 ---
 
 <Fragment>

@@ -1,0 +1,69 @@
+---
+import ExpandIcon from '~icons/material-symbols/expand-more'
+import CollapseIcon from '~icons/material-symbols/expand-less'
+import { getMenu } from '~/data/site'
+import { MenuLocationEnum, type MenuItem } from '~/graphql/types'
+
+const menu = await getMenu(MenuLocationEnum.SidebarNavigation).then((res) =>
+  res.filter((i) => !i.parentId)
+)
+---
+
+<template x-if="type==='menu'">
+  <div
+    class='flex-1 flex flex-col h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+  >
+    <ul class='flex-1 flex flex-col gap-2 md:gap-2' hx-boost='true'>
+      {
+        menu.map((entry) => (
+          <li class='font-subheading font-bold text-xl w-max md:text-2xl'>
+            {entry.childItems?.nodes.length! > 0 ? (
+              <details
+                x-data='{open: false}'
+                x-bind:open='open'
+                x-on:click.outside='open=false'
+                x-on:mouseover='open=true'
+                x-on:mouseout='open=false'
+                x-cloak
+              >
+                <summary
+                  class='flex gap-1 list-none'
+                  x-on:click='open=!open'
+                  role='button'
+                >
+                  <a
+                    x-bind:href={`open ? '${entry.uri}' : ''`}
+                    data-astro-prefetch
+                  >
+                    {entry.label}
+                  </a>
+                  <span>
+                    <ExpandIcon x-show='!open' x-cloak />
+                    <CollapseIcon x-show='open' x-cloak />
+                  </span>
+                </summary>
+                <ul class='flex flex-col gap-1 md:gap-1 pl-4 mt-1 md:mt-2'>
+                  {entry.childItems?.nodes.map((child: MenuItem) => (
+                    <li class='text-xl md:text-lg'>
+                      <a
+                        href={child.uri}
+                        x-on:click='isOpen=false'
+                        data-astro-prefetch
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a href={entry.uri} x-on:click='isOpen=false' data-astro-prefetch>
+                {entry.label}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</template>

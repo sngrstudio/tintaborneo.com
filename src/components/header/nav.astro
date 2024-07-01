@@ -7,7 +7,7 @@ const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
 
 <nav>
   <ul
-    class='flex justify-start md:justify-center gap-2 overflow-x-scroll font-subheading font-bold text-tb-primary px-4 py-1'
+    class='flex justify-start md:justify-center gap-2 overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] font-subheading font-bold text-tb-primary px-4 py-1'
   >
     {
       menu.map((item) => (

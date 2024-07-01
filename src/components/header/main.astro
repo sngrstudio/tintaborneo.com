@@ -10,7 +10,11 @@ const logo = await getLogo('logo')
 <div>
   <ul class='flex flex-row justify-between items-center px-4 mb-1'>
     <li>
-      <button>
+      <button
+        aria-label='Buka Menu'
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')"
+        x-data
+      >
         <MenuIcon />
       </button>
     </li>
@@ -29,7 +33,11 @@ const logo = await getLogo('logo')
       </a>
     </li>
     <li>
-      <button>
+      <button
+        aria-label='Buka Pencarian'
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')"
+        x-data
+      >
         <SearchIcon />
       </button>
     </li>
