@@ -1,0 +1,36 @@
+---
+import ListPosts from '~/components/list/list.astro'
+import { getLatestPosts } from '~/data/posts'
+import { getCategory } from '~/data/taxonomies'
+
+const categorySlug = Astro.url.searchParams.get('category')
+const filter = Astro.url.searchParams.get('filter')
+
+const category = await getCategory(categorySlug!)
+const posts = await getLatestPosts({
+  categoryName: categorySlug!,
+  notIn: filter?.split(','),
+  first: 8
+})
+
+export const partial = true
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=1800, stale-while-revalidate=3600'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=1800, stale-while-revalidate=3600'
+)
+---
+
+<section class='max-w-screen-lg mx-auto'>
+  <h2
+    class='font-subheading font-bold text-2xl text-tb-primary uppercase border-t-2 border-tb-primary pt-2 mb-4'
+  >
+    {category?.name}
+  </h2>
+  <ListPosts posts={posts.nodes} />
+</section>

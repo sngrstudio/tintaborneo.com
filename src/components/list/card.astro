@@ -1,0 +1,42 @@
+---
+import type { Post } from '~/graphql/types'
+import { Picture } from 'astro:assets'
+import { getDateString } from '~/utils/date'
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+<li class='flex sm:flex-col gap-2'>
+  {
+    post.featuredImage && (
+      <a href={post.uri}>
+        <Picture
+          class='object-cover w-[160px] sm:w-full h-full aspect-[4/3] rounded-xl'
+          src={post.featuredImage.node.sourceUrl!}
+          formats={['avif', 'webp']}
+          width={400}
+          height={300}
+          widths={[160, 250]}
+          sizes='(min-width: 640px) 250px, 160px'
+          alt={post.title || ''}
+        />
+      </a>
+    )
+  }
+  <div class='flex-1 flex flex-col justify-between sm:gap-2'>
+    <a
+      class='font-heading font-bold line-clamp-3 sm:text-lg'
+      href={post.uri}
+      data-astro-prefetch
+    >
+      {post.title}
+    </a>
+    <time class='text-sm' datetime={post.date}>
+      {getDateString(new Date(post.date!))}
+    </time>
+  </div>
+</li>

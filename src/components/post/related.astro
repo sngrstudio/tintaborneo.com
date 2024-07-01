@@ -12,11 +12,11 @@ const { notIn, tagIn } = Astro.props
 const posts = await getRelatedPosts({ notIn, tagIn })
 ---
 
-<h4
+<h2
   class='font-subheading font-bold text-2xl text-tb-primary uppercase border-t-2 border-tb-primary pt-2 mb-4'
 >
   Berita Terkait
-</h4>
+</h2>
 <ul class='flex flex-col gap-2' hx-boost='true'>
   {posts.nodes.map((post: Post) => <RelatedCard post={post} />)}
 </ul>

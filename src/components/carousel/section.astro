@@ -1,0 +1,21 @@
+<section
+  class='grid md:grid-cols-3 gap-2 items-stretch max-w-screen-lg mx-auto'
+  hx-boost='true'
+>
+  <slot />
+</section>
+
+<script>
+  import Carousel from 'embla-carousel'
+  import Autoplay from 'embla-carousel-autoplay'
+
+  const featuredPostNode = document.querySelector(
+    '.__featured_posts_carousel'
+  ) as HTMLElement
+  const latestPostNode = document.querySelector(
+    '.__latest_posts_carousel'
+  ) as HTMLElement
+
+  Carousel(featuredPostNode, { loop: true }, [Autoplay({ delay: 7700 })])
+  Carousel(latestPostNode, { loop: true }, [Autoplay({ delay: 5500 })])
+</script>

@@ -1,21 +1,62 @@
 ---
 import Layout from '~/layouts/layout.astro'
-import CarouselSection from '~/components/home/section.astro'
-import FeaturedPosts from '~/components/home/featured.astro'
-import LatestPosts from '~/components/home/latest.astro'
+import CarouselSection from '~/components/carousel/section.astro'
+import FeaturedPosts from '~/components/carousel/featured.astro'
+import LatestPosts from '~/components/carousel/latest.astro'
+import ListPosts from '~/components/list/list.astro'
+import ListLoader from '~/components/list/loader.astro'
 import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
+import { getMenu } from '~/data/site'
+import { MenuLocationEnum, type Category } from '~/graphql/types'
 
 const featuredPosts = await getFeaturedPosts()
 const latestPosts = await getLatestPosts({
   notIn: featuredPosts.nodes.map((post) => post.id)
 })
+const moreLatestPosts = latestPosts.pageInfo.hasNextPage
+  ? await getLatestPosts({
+      after: latestPosts.pageInfo.endCursor!,
+      notIn: ([] as Array<string>)
+        .concat(featuredPosts.nodes.map((post) => post.id))
+        .concat(latestPosts.nodes.map((post) => post.id))
+    })
+  : undefined
+const categories = await getMenu(MenuLocationEnum.PrimaryNavigation)
+const postLoaderFilter = ([] as Array<string>)
+  .concat(featuredPosts.nodes.map((post) => post.id))
+  .concat(latestPosts.nodes.map((post) => post.id))
+  .concat(moreLatestPosts ? moreLatestPosts.nodes.map((post) => post.id) : [])
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=0, must-revalidate'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=300, stale-while-revalidate=300'
+)
 ---
 
 <Layout>
-  <main class='pt-[96px] px-4'>
+  <main class='grid grid-cols-1 gap-6 pt-[96px] px-4'>
     <CarouselSection>
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
+    {
+      moreLatestPosts && (
+        <section class='max-w-screen-lg mx-auto'>
+          <ListPosts posts={moreLatestPosts.nodes} />
+        </section>
+      )
+    }
+    {
+      categories.map((category) => (
+        <ListLoader
+          uri={`/parts/posts?category=${(category.connectedNode?.node as Category).slug}&filter=${postLoaderFilter.join(',')}`}
+        />
+      ))
+    }
   </main>
 </Layout>

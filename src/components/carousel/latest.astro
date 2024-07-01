@@ -62,12 +62,3 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
     }
   </div>
 </div>
-
-<script>
-  import Carousel from 'embla-carousel'
-  import Autoplay from 'embla-carousel-autoplay'
-
-  const node = document.querySelector('.__latest_posts_carousel') as HTMLElement
-
-  Carousel(node, { loop: true }, [Autoplay({ delay: 5000 })])
-</script>

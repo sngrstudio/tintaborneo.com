@@ -55,14 +55,3 @@ const { posts, class: className } = Astro.props
     }
   </div>
 </div>
-
-<script>
-  import Carousel from 'embla-carousel'
-  import Autoplay from 'embla-carousel-autoplay'
-
-  const node = document.querySelector(
-    '.__featured_posts_carousel'
-  ) as HTMLElement
-
-  Carousel(node, { loop: true }, [Autoplay({ delay: 7000 })])
-</script>
