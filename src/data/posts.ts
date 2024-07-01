@@ -43,10 +43,17 @@ export const getFeaturedPosts = async ({
 
 export const getRelatedPosts = async ({
   notIn,
-  tagIn
+  tagIn,
+  after
 }: {
   notIn: Array<string>
   tagIn: Array<string>
+  after?: string
 }) =>
-  ((await fetchQuery('get-related-posts', { notIn, tagIn })) as PostsResult)
-    .data.posts!
+  (
+    (await fetchQuery('get-related-posts-2', {
+      notIn,
+      tagIn,
+      after
+    })) as PostsResult
+  ).data.posts!

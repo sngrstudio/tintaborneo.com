@@ -2,15 +2,16 @@
 import type { Post } from '~/graphql/types'
 import Picture from 'astro/components/Picture.astro'
 import { getDateString } from '~/utils/date'
+import type { HTMLAttributes } from 'astro/types'
 
-interface Props {
+interface Props extends HTMLAttributes<'li'> {
   post: Post
 }
 
-const { post } = Astro.props
+const { post, ...attrs } = Astro.props
 ---
 
-<li class='flex gap-2'>
+<li class='flex gap-2' {...attrs}>
   {
     post.featuredImage && (
       <a class='shrink-0' href={post.uri} data-astro-prefetch>

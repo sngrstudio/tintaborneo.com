@@ -1,0 +1,19 @@
+---
+import type { Post } from '~/graphql/types'
+import RelatedCard from '~/components/post/card.astro'
+import { getRelatedPosts } from '~/data/posts'
+
+const id = Astro.url.searchParams.get('id')
+const tags = Astro.url.searchParams.get('tags')
+const cursor = Astro.url.searchParams.get('cursor')
+
+const posts = await getRelatedPosts({
+  notIn: [id!],
+  tagIn: tags!.split(','),
+  after: cursor!
+})
+---
+
+<Fragment>
+  {posts.nodes.map((post: Post) => <RelatedCard post={post} />)}
+</Fragment>
