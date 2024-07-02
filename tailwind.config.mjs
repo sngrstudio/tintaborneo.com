@@ -16,7 +16,7 @@ export default {
       'tb-secondary': '#00815e',
       'tb-background': '#FCFAFA',
       'tb-text': '#262224',
-      'tb-muted': '#70696B'
+      'tb-muted': '#6d6a6b'
     }
   },
   plugins: [typography]
