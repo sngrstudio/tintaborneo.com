@@ -38,20 +38,20 @@ Astro.response.headers.set(
     <Infobox post={post} />
     {
       post.featuredImage && (
-        <figure>
+        <figure class='-mx-4 sm:mx-0'>
           <Picture
-            class='w-full rounded-xl'
+            class='w-full sm:rounded-xl'
             src={post.featuredImage.node.sourceUrl!}
             formats={['avif', 'webp']}
-            widths={[380, 560, 910]}
+            widths={[412, 560, 910]}
             inferSize
-            sizes='(min-width: 1024px) 910px, (min-width: 768px) 560px, 380px'
+            sizes='(min-width: 1024px) 910px, (min-width: 768px) 560px, 412px'
             loading={'eager'}
             alt={post.featuredImage.node.caption || post.title!}
           />
           {post.featuredImage.node.caption && (
             <figcaption
-              class='text-tb-muted italic mt-2'
+              class='px-4 sm:px-0 text-tb-muted italic mt-2'
               set:html={post.featuredImage.node.caption}
             />
           )}

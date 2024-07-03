@@ -50,18 +50,21 @@ const postLoaderFilter = ([] as Array<string>)
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
-  'public, max-age=0, must-revalidate'
+  'public, max-age=300, stale-while-revalidate=300'
 )
 Astro.response.headers.set(
   'CDN-Cache-Control',
-  'public, s-maxage=300, stale-while-revalidate=300'
+  'public, s-maxage=3600, stale-while-revalidate=3600'
 )
 ---
 
-<Layout>
+<Layout
+  title={category.name!}
+  description={`Halaman Kategori ${category.name}`}
+>
   <main class='grid grid-cols-1 gap-6 pt-[96px] px-4'>
     <h1
-      class='font-heading font-black text-4xl text-tb-primary border-t-2 border-tb-primary pt-2 mb-4 w-full max-w-screen-lg mx-auto'
+      class='font-heading font-black text-4xl text-tb-primary border-t-2 border-tb-primary pt-2 px-4 sm:px-0 mb-4 w-auto sm:w-full -mx-4 sm:max-w-screen-lg sm:mx-auto'
     >
       {category.name}
     </h1>

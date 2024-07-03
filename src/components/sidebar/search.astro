@@ -14,7 +14,7 @@
         placeholder='Cari di TintaBorneo.com'
         x-model='q'
         x-bind:hx-get="'/parts/search?' + q"
-        hx-trigger='input changed delay:500ms, search'
+        hx-trigger='input changed delay:400ms'
         hx-target='#search-result'
       />
     </form>
