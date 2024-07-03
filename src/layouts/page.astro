@@ -7,6 +7,12 @@ const { title, description, ...attrs } = Astro.props
 ---
 
 <Layout title={title} description={description} {...attrs}>
+  {/* <Head /> */}
+  <Fragment slot='head'>
+    <slot name='head' />
+  </Fragment>
+
+  {/* Main Page Content */}
   <main class='pt-[96px] px-4'>
     <section
       class:list={[

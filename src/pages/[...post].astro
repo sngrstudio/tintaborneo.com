@@ -3,6 +3,7 @@ import PageLayout from '~/layouts/page.astro'
 import Infobox from '~/components/post/infobox.astro'
 import Related from '~/components/post/related.astro'
 import Share from '~/components/post/share.astro'
+import JSONLD from '~/components/post/jsonld.astro'
 import { Picture } from 'astro:assets'
 import { getPost } from '~/data/posts'
 
@@ -67,5 +68,10 @@ Astro.response.headers.set(
       notIn={[post.id]}
       tagIn={post.tags?.nodes.map((tag) => tag.id) || []}
     />
+  </Fragment>
+
+  {/* Metadata */}
+  <Fragment slot='head'>
+    <JSONLD post={post} />
   </Fragment>
 </PageLayout>
