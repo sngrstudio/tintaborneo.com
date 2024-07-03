@@ -1,0 +1,26 @@
+---
+import type { Post } from '~/graphql/types'
+import Card from '~/components/sidebar/card.astro'
+import { getPostsBySearch } from '~/data/posts'
+
+const query = Astro.url.searchParams.get('q')
+const cursor = Astro.url.searchParams.get('cursor')
+
+const posts = await getPostsBySearch({
+  search: query || undefined,
+  after: cursor || undefined
+})
+---
+
+<Fragment>
+  {posts.nodes.map((post: Post) => <Card post={post} />)}
+  {
+    posts.pageInfo.hasNextPage && (
+      <li
+        hx-get={`/parts/search?q=${encodeURIComponent(query || '')}&after=${posts.pageInfo.endCursor}`}
+        hx-swap='outerHTML'
+        hx-trigger='revealed'
+      />
+    )
+  }
+</Fragment>

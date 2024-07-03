@@ -57,3 +57,20 @@ export const getRelatedPosts = async ({
       after
     })) as PostsResult
   ).data.posts!
+
+export const getPostsBySearch = async ({
+  search,
+  after,
+  first
+}: {
+  search?: string
+  after?: string
+  first?: number
+}) =>
+  (
+    (await fetchQuery('get-posts-by-search', {
+      search,
+      after,
+      first
+    })) as PostsResult
+  ).data.posts!

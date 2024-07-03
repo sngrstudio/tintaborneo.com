@@ -1,18 +1,30 @@
 <template x-if="type==='search'">
   <div
-    class='flex-1 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
-    x-data="{ search: '' }"
+    class='flex-1 flex flex-col gap-8 h-full overflow-hidden pb-8'
+    x-data="{ q: '' }"
   >
     <form
       class='flex w-full text-lg border-b-2 focus-within:border-tb-background'
-      x-on:submit.prevent='console.log(search)'
+      x-on:submit.prevent='console.log(q)'
     >
       <input
+        name='q'
         class='flex-1 outline-none bg-[transparent] text-tb-background'
         type='search'
         placeholder='Cari di TintaBorneo.com'
-        x-model='search'
+        x-model='q'
+        x-bind:hx-get="'/parts/search?' + q"
+        hx-trigger='input changed delay:500ms, search'
+        hx-target='#search-result'
       />
     </form>
+
+    <ul
+      id='search-result'
+      class='flex-1 flex flex-col gap-2 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+      x-show="q!==''"
+      x-cloak
+    >
+    </ul>
   </div>
 </template>
