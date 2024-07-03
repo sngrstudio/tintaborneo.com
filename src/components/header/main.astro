@@ -19,7 +19,7 @@ const logo = await getLogo('logo')
       </button>
     </li>
     <li>
-      <a href='/' role='button' aria-label='Home'>
+      <a href='/' role='button' aria-label='Home' data-astro-prefetch>
         <Picture
           class='object-contain w-[200px] h-auto'
           src={logo.sourceUrl!}

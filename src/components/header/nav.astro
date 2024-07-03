@@ -12,7 +12,9 @@ const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
     {
       menu.map((item) => (
         <li>
-          <a href={item.uri}>{item.label}</a>
+          <a href={item.uri} data-astro-prefetch>
+            {item.label}
+          </a>
         </li>
       ))
     }
