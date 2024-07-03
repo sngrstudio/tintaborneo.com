@@ -19,29 +19,28 @@ const allPosts = await getLatestPosts({
   first: 20
 })
 
-// if total posts more than 20
+// if allPosts more than 20, get featuredPosts and latestPosts
 const featuredPosts = allPosts.pageInfo.hasNextPage
   ? await getFeaturedPosts({ categoryName: slug })
   : undefined
-const latestPosts = featuredPosts
-  ? await getLatestPosts({
-      categoryName: category?.slug!,
-      notIn: featuredPosts.nodes.map((post) => post.id)
-    })
-  : undefined
-const moreLatestPosts =
-  latestPosts && latestPosts.pageInfo.hasNextPage
+const latestPosts =
+  featuredPosts && featuredPosts.nodes.length > 0
     ? await getLatestPosts({
         categoryName: category?.slug!,
-        after: latestPosts.pageInfo.endCursor!,
-        notIn: ([] as Array<string>)
-          .concat(
-            featuredPosts ? featuredPosts.nodes.map((post) => post.id) : []
-          )
-          .concat(latestPosts.nodes.map((post) => post.id)),
-        first: 8
+        notIn: featuredPosts.nodes.map((post) => post.id)
       })
     : undefined
+const moreLatestPosts = await getLatestPosts({
+  categoryName: category?.slug!,
+  after:
+    latestPosts && latestPosts.pageInfo.hasNextPage
+      ? latestPosts.pageInfo.endCursor!
+      : undefined,
+  notIn: ([] as Array<string>)
+    .concat(featuredPosts ? featuredPosts.nodes.map((post) => post.id) : [])
+    .concat(latestPosts ? latestPosts.nodes.map((post) => post.id) : []),
+  first: 8
+})
 
 const postLoaderFilter = ([] as Array<string>)
   .concat(featuredPosts ? featuredPosts.nodes.map((post) => post.id) : [])
@@ -66,11 +65,9 @@ Astro.response.headers.set(
     >
       {category.name}
     </h1>
-    {
-      /* If posts < 20, render posts immediately, otherwise render carousels and more */
-    }
     <Fragment>
       {
+        /* if posts < 20, render allPosts immediately */
         !allPosts.pageInfo.hasNextPage ? (
           <section class='max-w-screen-lg mx-auto min-h-[60vh]'>
             {allPosts.nodes.length > 0 ? (
@@ -81,29 +78,50 @@ Astro.response.headers.set(
           </section>
         ) : (
           <Fragment>
-            {featuredPosts && latestPosts && (
-              <CarouselSection>
-                <FeaturedPosts
-                  posts={featuredPosts.nodes}
-                  class='md:col-span-2'
-                />
-                <LatestPosts posts={latestPosts.nodes} />
-              </CarouselSection>
-            )}
-            {moreLatestPosts && (
-              <section class='max-w-screen-lg mx-auto'>
-                <ListPosts posts={moreLatestPosts.nodes} />
-              </section>
-            )}
-            {!category.parentId &&
-              category.children?.nodes.length &&
-              category.children.nodes
-                .filter((c) => c.count)
-                .map((child) => (
-                  <ListLoader
-                    uri={`/parts/posts?category=${child.slug}&filter=${postLoaderFilter.join(',')}`}
+            {
+              /* if has featuredPosts & latestPosts, render carousel section */
+              featuredPosts && latestPosts && (
+                <CarouselSection>
+                  <FeaturedPosts
+                    posts={featuredPosts.nodes}
+                    class='md:col-span-2'
                   />
-                ))}
+                  <LatestPosts posts={latestPosts.nodes} />
+                </CarouselSection>
+              )
+            }
+            {/* always render moreLatestPosts regardless of carousel section availability */}
+            <section class='max-w-screen-lg mx-auto'>
+              <ListPosts posts={moreLatestPosts.nodes} />
+            </section>
+            {
+              /* if category page has children, render category loader blocks */
+              !category.parentId &&
+                category.children &&
+                category.children?.nodes.length > 0 &&
+                category.children.nodes
+                  .filter((c) => c.count)
+                  .map((child) => (
+                    <ListLoader
+                      uri={`/parts/posts?category=${child.slug}&filter=${postLoaderFilter.join(',')}`}
+                    />
+                  ))
+            }
+            {
+              /*if moreLatestPosts has next page, render loader block */
+              moreLatestPosts.pageInfo.hasNextPage && (
+                <section class='max-w-screen-lg mx-auto w-full'>
+                  <h2 class='font-subheading font-bold text-2xl text-tb-primary uppercase border-t-2 border-tb-primary pt-2 mb-4'>
+                    Selengkapnya
+                  </h2>
+                  <ListLoader
+                    uri={`/parts/more?category=${category.slug}&filter=${postLoaderFilter.join(',')}&cursor=${
+                      moreLatestPosts.pageInfo.endCursor
+                    }`}
+                  />
+                </section>
+              )
+            }
           </Fragment>
         )
       }
