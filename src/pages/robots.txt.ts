@@ -3,6 +3,9 @@ import type { APIRoute } from 'astro'
 const SITE = import.meta.env.SITE
 const robotsTxt = `
 User-agent: *
+Disallow: /app/
+Disallow: /wp-json/
+Disallow: /xmlrpc.php
 Allow: /
 
 Sitemap: ${new URL('sitemap-index.xml', SITE).href}

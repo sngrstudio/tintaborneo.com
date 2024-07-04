@@ -1,0 +1,18 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: document-domain=()
+  Content-Security-Policy-Report-Only: default 'self'; object-src 'none'; frame-ancestors 'none';
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/*
+  X-Robots-Tag: noindex, nofollow
+
+/wp-json/*
+  X-Robots-Tag: noindex, nofollow
+
+/xmlrpc.php
+  X-Robots-Tag: noindex, nofollow
