@@ -1,0 +1,11 @@
+---
+// @ts-nocheck
+const { env } = Astro.locals.runtime
+---
+
+<script
+  defer
+  src='/analytics/script.js'
+  data-website-id={env.ANALYTICS_ID}
+  is:inline
+/>
