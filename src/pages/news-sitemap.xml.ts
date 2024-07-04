@@ -7,7 +7,7 @@ import { xml } from './sitemap-index.xml'
 export const GET: APIRoute = async ({ site, redirect }) => {
   const siteInfo = await getSiteInfo()
   const posts = await getLatestPosts({
-    first: 250
+    first: 100
   })
 
   if (posts.nodes.length <= 0) {

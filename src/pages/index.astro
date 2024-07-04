@@ -5,6 +5,7 @@ import FeaturedPosts from '~/components/carousel/featured.astro'
 import LatestPosts from '~/components/carousel/latest.astro'
 import ListPosts from '~/components/list/list.astro'
 import ListLoader from '~/components/list/loader.astro'
+import OGTags from '~/components/site/og-tags.astro'
 import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
 import { getMenu } from '~/data/site'
 import { MenuLocationEnum, type Category } from '~/graphql/types'
@@ -59,4 +60,9 @@ Astro.response.headers.set(
       ))
     }
   </main>
+
+  {/* Head */}
+  <Fragment slot='head'>
+    <OGTags />
+  </Fragment>
 </Layout>

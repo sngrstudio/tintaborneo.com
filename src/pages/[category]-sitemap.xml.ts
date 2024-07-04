@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ site, params, redirect }) => {
   const category = await getCategory(categorySlug!)
   const posts = await getLatestPosts({
     categoryName: category!.slug!,
-    first: 250
+    first: 100
   })
 
   if (!category || posts.nodes.length <= 0) {
