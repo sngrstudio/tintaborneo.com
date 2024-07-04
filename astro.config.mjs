@@ -7,7 +7,7 @@ import cloudflare from '@astrojs/cloudflare'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://next.tintaborneo.com',
+  site: 'https://www.tintaborneo.com',
   integrations: [tailwind(), alpinejs(), react()],
   output: 'server',
   adapter: cloudflare({
@@ -17,7 +17,7 @@ export default defineConfig({
     }
   }),
   image: {
-    domains: ['tintaborneo.com', 'www.tintaborneo.com', 'next.tintaborneo.com']
+    domains: ['tintaborneo.com', 'www.tintaborneo.com']
   },
   prefetch: true,
   experimental: {
