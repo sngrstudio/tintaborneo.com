@@ -5,13 +5,33 @@ import { MenuLocationEnum } from '~/graphql/types'
 const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
 ---
 
-<nav class='z-[9996]'>
+<nav
+  class='z-[9995] bg-tb-background/[.85] pb-1 backdrop-blur-xl'
+  x-data='{ isCollapsed: false }'
+  x-show='!isCollapsed'
+  x-on:scroll.window='isCollapsed=window.scrollY > 200'
+  x-transition:enter='transition-all ease-out duration-250'
+  x-transition:enter-start='opacity-0 translate-y-[-80%]'
+  x-transition:enter-end='opacity-100 translate-y-0'
+  x-transition:leave='transition-all ease-in duration-250'
+  x-transition:leave-start='opacity-100 translate-y-0'
+  x-transition:leave-end='opacity-0 translate-y-[-80%]'
+>
   <ul
-    class='flex justify-start gap-2 overflow-x-scroll px-4 py-1 font-subheading font-bold text-tb-primary [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center [&::-webkit-scrollbar]:hidden'
+    class='flex justify-start gap-2 overflow-x-scroll px-4 py-1 font-subheading font-bold text-tb-muted [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center [&::-webkit-scrollbar]:hidden'
   >
     {
       menu.map((item) => (
-        <li>
+        <li
+          class:list={[
+            {
+              'text-tb-primary':
+                Astro.url.pathname.startsWith(item.uri!) ||
+                Astro.url.pathname === '/'
+            }
+          ]}
+        >
+          {' '}
           <a href={item.uri} data-astro-prefetch>
             {item.label}
           </a>
