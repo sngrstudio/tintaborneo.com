@@ -9,3 +9,6 @@
 
 /xmlrpc.php
   X-Robots-Tag: noindex, nofollow
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
