@@ -20,12 +20,11 @@ export const GET: APIRoute = async ({ site }) => {
                 <loc>${encodeURI(`${site?.origin}${category.uri}`)}</loc>
               </url>
         `
-        )})
+        )
+        .join('')})
       )}
     </urlset>    
-  `
-    .replace(',', '')
-    .trim()
+  `.trim()
 
   return new Response(xmlResponse, {
     headers: {

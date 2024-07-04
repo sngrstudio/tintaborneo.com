@@ -21,11 +21,10 @@ export const GET: APIRoute = async ({ site }) => {
             xml`<sitemap>
             <loc>${encodeURI(`${site?.origin}${category.uri}sitemap.xml`)}</loc>
           </sitemap>`
-        )}
+        )
+        .join('')}
     </sitemapindex>  
-  `
-    .replace(',', '')
-    .trim()
+  `.trim()
 
   return new Response(xmlResponse, {
     headers: {

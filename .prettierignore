@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # pnpm lockfile
 pnpm-lock.yaml
+
+# special cases
+src/components/extra/analytics.astro

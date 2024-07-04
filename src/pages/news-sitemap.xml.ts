@@ -37,11 +37,10 @@ export const GET: APIRoute = async ({ site, redirect }) => {
             </news:news>
           </url>
         `
-        )}
+        )
+        .join('')}
     </urlset>    
-  `
-    .replace(',', '')
-    .trim()
+  `.trim()
 
   return new Response(xmlResponse, {
     headers: {
