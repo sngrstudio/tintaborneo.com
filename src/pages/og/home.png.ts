@@ -3,12 +3,12 @@ import type { ReactNode } from 'react'
 import satori from 'satori'
 import { html } from 'satori-html'
 import { Resvg, initWasm } from '@resvg/resvg-wasm'
+// @ts-ignore
+import resvgWasm from '~/lib/resvg.wasm'
 
 export const GET: APIRoute = async () => {
   // initialize resvg wasm
   try {
-    await initWasm('https://unpkg.com/@resvg/resvg-wasm/index_bg.wasm')
-
     const SourceSerifProFontData = await fetch(
       'https://cdn.jsdelivr.net/fontsource/fonts/source-serif-pro@latest/latin-400-normal.ttf'
     ).then((res) => res.arrayBuffer())
@@ -32,6 +32,8 @@ export const GET: APIRoute = async () => {
         }
       ]
     })
+
+    await initWasm(resvgWasm)
     const png = new Resvg(svg).render().asPng()
 
     return new Response(png, {
