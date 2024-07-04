@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets'
+import { getLogo } from '~/data/site'
+import MenuIcon from '~icons/material-symbols/menu'
+import SearchIcon from '~icons/material-symbols/search'
+
+const logo = await getLogo('logo')
+---
+
+<div class='z-[9996] bg-tb-background/[.85] pb-2 pt-2 backdrop-blur-xl'>
+  <ul class='flex flex-row items-center justify-between px-4'>
+    <li>
+      <button
+        aria-label='Buka Menu'
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'menu')"
+        x-data
+      >
+        <MenuIcon />
+      </button>
+    </li>
+    <li>
+      <a href='/' role='button' aria-label='Home' data-astro-prefetch>
+        <Picture
+          class='h-auto w-[200px] object-contain'
+          src={logo.sourceUrl!}
+          formats={['avif', 'webp']}
+          widths={[400]}
+          inferSize
+          sizes='400px'
+          loading='eager'
+          alt='Home'
+        />
+      </a>
+    </li>
+    <li>
+      <button
+        aria-label='Buka Pencarian'
+        x-on:click="$dispatch('setsidebaropen', true); $dispatch('setsidebarmenu', 'search')"
+        x-data
+      >
+        <SearchIcon />
+      </button>
+    </li>
+  </ul>
+</div>

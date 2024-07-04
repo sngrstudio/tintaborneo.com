@@ -1,73 +1,32 @@
 ---
-import { type Post, type MenuItem, MenuLocationEnum } from '~/data/graphql'
 import Layout from '~/layouts/layout.astro'
-import HomeArticles from '~/components/home/articles.astro'
-import LoadingIndicator from '~/components/loading-indicator.astro'
-import { getPicture } from '~/utils/image'
-import { getTagId } from '~/data/taxonomies'
+import CarouselSection from '~/components/carousel/section.astro'
+import FeaturedPosts from '~/components/carousel/featured.astro'
+import LatestPosts from '~/components/carousel/latest.astro'
+import ListPosts from '~/components/list/list.astro'
+import ListLoader from '~/components/list/loader.astro'
+import OGTags from '~/components/site/og-tags.astro'
 import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
-import { getMenu } from '~/data/menu'
+import { getMenu } from '~/data/site'
+import { MenuLocationEnum, type Category } from '~/graphql/types'
 
-const {
-  data: { tag }
-} = await getTagId('berita-utama')
-const {
-  data: { posts: featuredPostsData }
-} = await getFeaturedPosts({ tagIn: [tag!.id] })
-const {
-  data: { posts: latestPostsData }
-} = await getLatestPosts({
-  notIn: featuredPostsData?.nodes.map((post) => post.id)
+const featuredPosts = await getFeaturedPosts()
+const latestPosts = await getLatestPosts({
+  notIn: featuredPosts.nodes.map((post) => post.id)
 })
-const {
-  data: { posts: moreLatestPostsData }
-} = await getLatestPosts({
-  notIn: featuredPostsData?.nodes.map((post) => post.id),
-  after: latestPostsData?.pageInfo.endCursor!,
-  first: 8
-})
-const {
-  data: { menuItems }
-} = await getMenu(MenuLocationEnum.PrimaryNavigation)
-
-const featuredPosts = await Promise.all(
-  featuredPostsData!.nodes.map(async (post: Post) => ({
-    ...post,
-    optimizedImage: post.featuredImage
-      ? await getPicture({
-          src: post.featuredImage.node.sourceUrl!,
-          width: 800,
-          height: 600,
-          format: 'jpeg',
-          widths: [250, 325, 430],
-          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px',
-          loading: 'eager'
-        })
-      : undefined
-  }))
-)
-
-const latestPosts = await Promise.all(
-  latestPostsData!.nodes.map(async (post: Post) => ({
-    ...post,
-    optimizedImage: post.featuredImage
-      ? await getPicture({
-          src: post.featuredImage.node.sourceUrl!,
-          width: 800,
-          height: 600,
-          format: 'jpeg',
-          widths: [250, 325, 430],
-          sizes: '(max-width: 640px) 430px, (max-width: 768px) 250px, 325px'
-        })
-      : undefined
-  }))
-)
-
-const filteredNewsId = ([] as string[])
-  .concat(featuredPosts.map((entry) => entry.id))
-  .concat(latestPosts.map((entry) => entry.id))
-  .concat(moreLatestPostsData!.nodes!.map((entry) => entry.id))
-  .join(',')
+const moreLatestPosts = latestPosts.pageInfo.hasNextPage
+  ? await getLatestPosts({
+      after: latestPosts.pageInfo.endCursor!,
+      notIn: ([] as Array<string>)
+        .concat(featuredPosts.nodes.map((post) => post.id))
+        .concat(latestPosts.nodes.map((post) => post.id))
+    })
+  : undefined
+const categories = await getMenu(MenuLocationEnum.PrimaryNavigation)
+const postLoaderFilter = ([] as Array<string>)
+  .concat(featuredPosts.nodes.map((post) => post.id))
+  .concat(latestPosts.nodes.map((post) => post.id))
+  .concat(moreLatestPosts ? moreLatestPosts.nodes.map((post) => post.id) : [])
 
 // Headers configuration
 Astro.response.headers.set(
@@ -76,73 +35,34 @@ Astro.response.headers.set(
 )
 Astro.response.headers.set(
   'CDN-Cache-Control',
-  'public, s-maxage=30, stale-while-revalidate=60'
+  'public, s-maxage=300, stale-while-revalidate=300'
 )
 ---
 
 <Layout>
-  <main class='flex flex-col gap-6 md:max-w-screen-lg md:mx-auto md:gap-12'>
-    <HomeArticles
-      featuredPosts={featuredPosts}
-      latestPosts={latestPosts}
-      moreLatestPosts={moreLatestPostsData?.nodes!}
-    />
-
-    {/* Category Post Loaders */}
-    <Fragment>
-      {
-        menuItems?.nodes.map((item: MenuItem) => (
-          // @ts-ignore
-          <div
-            class='flex flex-col items-center justify-start h-[80vh] pt-24'
-            hx-get={`/parts/category/?categoryId=${item.connectedNode?.node.slug}&filter=${filteredNewsId}`}
-            hx-trigger='revealed'
-            hx-swap='outerHTML'
-          >
-            <LoadingIndicator />
-          </div>
-        ))
-      }
-    </Fragment>
+  <main class='grid grid-cols-1 gap-6 px-4 pt-[96px]'>
+    <CarouselSection>
+      <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
+      <LatestPosts posts={latestPosts.nodes} />
+    </CarouselSection>
+    {
+      moreLatestPosts && (
+        <section class='mx-auto max-w-screen-lg'>
+          <ListPosts posts={moreLatestPosts.nodes} />
+        </section>
+      )
+    }
+    {
+      categories.map((category) => (
+        <ListLoader
+          uri={`/parts/posts?category=${(category.connectedNode?.node as Category).slug}&filter=${postLoaderFilter.join(',')}`}
+        />
+      ))
+    }
   </main>
 
-  {/* Preloading images */}
+  {/* Head */}
   <Fragment slot='head'>
-    {
-      featuredPosts.map((entry) => (
-        <Fragment>
-          {entry.optimizedImage && (
-            <Fragment>
-              <link
-                rel='preload'
-                href={entry.optimizedImage.avif.src}
-                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
-                imagesizes={entry.optimizedImage.avif.attributes.sizes}
-                type='image/avif'
-                as='image'
-              />
-            </Fragment>
-          )}
-        </Fragment>
-      ))
-    }
-    {
-      latestPosts.map((entry) => (
-        <Fragment>
-          {entry.optimizedImage && (
-            <Fragment>
-              <link
-                rel='preload'
-                href={entry.optimizedImage.avif.src}
-                imagesrcset={entry.optimizedImage.avif.srcSet.attribute}
-                imagesizes={entry.optimizedImage.avif.attributes.sizes}
-                type='image/avif'
-                as='image'
-              />
-            </Fragment>
-          )}
-        </Fragment>
-      ))
-    }
+    <OGTags />
   </Fragment>
 </Layout>

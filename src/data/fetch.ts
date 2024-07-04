@@ -1,44 +1,33 @@
-const GRAPHQL_ENDPOINT = `${import.meta.env.DEV ? import.meta.env.ADMIN_ENDPOINT : process.env.ADMIN_ENDPOINT}/wp/graphql`
-
-export const gql = String.raw
-
-type FetchQueryParams = {
-  query?: ReturnType<typeof gql>
-  queryId?: string
-  variables?: Record<string, string | Array<string> | number | undefined>
-}
+const SSR_ENDPOINT = import.meta.env.PROD
+  ? import.meta.env.SITE
+  : 'http://localhost:4321'
 
 export type FetchQueryResult<T> = {
   data: T
   extensions: any
 }
 
-export const fetchQuery = async ({
-  query,
-  queryId,
-  variables
-}: FetchQueryParams) => {
+export const fetchQuery = async (
+  queryId: string,
+  variables?: Record<string, string | Array<string> | number | undefined>
+) => {
   try {
     const response = await fetch(
-      [
-        GRAPHQL_ENDPOINT,
-        query ? `?query=${encodeURIComponent(query)}` : '',
-        queryId ? `?queryId=${queryId}` : '',
-        variables
-          ? `&variables=${encodeURIComponent(JSON.stringify(variables))}`
-          : ''
-      ].join('')
+      new URL(
+        [
+          '/api/data',
+          `?queryId=${queryId}`,
+          variables
+            ? `&variables=${encodeURIComponent(JSON.stringify(variables))}`
+            : ''
+        ].join(''),
+        SSR_ENDPOINT
+      )
     )
-
-    const json = await response.json()
-    if (json.errors) {
-      json.errors.map((err: any) => {
-        throw new Error(err.message)
-      })
-    }
-    return json as FetchQueryResult<unknown>
+    const data = (await response.json()) as unknown
+    return data
   } catch (error) {
-    console.error(error)
+    console.error(error instanceof Error ? error.message : 'Unknown Error')
     return null
   }
 }

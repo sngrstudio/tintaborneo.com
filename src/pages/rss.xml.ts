@@ -1,23 +1,19 @@
 import type { APIRoute } from 'astro'
-import type { Post } from '~/data/graphql'
+import type { Post } from '~/graphql/types'
 import rss from '@astrojs/rss'
 import { getSiteInfo } from '~/data/site'
 import { getLatestPosts } from '~/data/posts'
 
 export const GET: APIRoute = async ({ site }) => {
-  const {
-    data: { generalSettings: siteData }
-  } = await getSiteInfo()
+  const siteData = await getSiteInfo()
 
-  const {
-    data: { posts }
-  } = await getLatestPosts({
+  const posts = await getLatestPosts({
     first: 100
   })
 
   return rss({
-    title: siteData?.title!,
-    description: siteData?.description!,
+    title: siteData.title!,
+    description: siteData.description!,
     site: site!,
     items: posts!.nodes.map((post: Post) => ({
       title: post.title!,

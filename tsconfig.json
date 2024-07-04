@@ -4,7 +4,8 @@
     "types": ["unplugin-icons/types/astro"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~/graphql/*": ["./.graphql/*"]
     },
     "allowJs": true,
     "jsx": "react-jsx",

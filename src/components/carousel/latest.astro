@@ -1,0 +1,64 @@
+---
+import type { Post } from '~/graphql/types'
+import { Picture } from 'astro:assets'
+import type { HTMLAttributes } from 'astro/types'
+import { getDateString } from '~/utils/date'
+
+interface Props extends HTMLAttributes<'div'> {
+  posts: Array<Post>
+}
+
+const { posts: postsData, class: className } = Astro.props
+const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
+  if (index % 4 === 0) {
+    result.push(postsData.slice(index, index + 4))
+  }
+  return result
+}, [])
+---
+
+<div
+  class:list={[
+    '__latest_posts_carousel flex items-stretch overflow-hidden',
+    className
+  ]}
+>
+  <div class='flex aspect-[3/4] md:aspect-auto md:gap-2'>
+    {
+      posts.map((block) => (
+        <div class='mr-2 grid flex-[0_0_100%] grid-cols-2 gap-2'>
+          {block.map((post) => (
+            <a
+              class='relative aspect-[3/4] overflow-hidden rounded-2xl bg-tb-muted md:aspect-auto'
+              href={post.uri}
+              data-astro-prefetch
+            >
+              {post.featuredImage && (
+                <Picture
+                  class='h-full w-full object-cover'
+                  src={post.featuredImage.node.sourceUrl!}
+                  formats={['avif', 'webp']}
+                  widths={[324]}
+                  width={300}
+                  height={400}
+                  loading='eager'
+                  alt={post.title || ''}
+                />
+              )}
+              <div class='absolute inset-0 flex flex-col justify-end gap-1 bg-gradient-to-t from-tb-text to-tb-text/[.0] px-2 pb-4 text-tb-background'>
+                <h3 class='line-clamp-3 font-heading text-lg font-bold leading-tight'>
+                  {post.title}
+                </h3>
+                <p class='text-sm italic'>
+                  <time datetime={post.date}>
+                    {getDateString(new Date(post.date!))}
+                  </time>
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>

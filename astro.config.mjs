@@ -1,26 +1,29 @@
 import { defineConfig } from 'astro/config'
-import node from '@astrojs/node'
 import tailwind from '@astrojs/tailwind'
 import alpinejs from '@astrojs/alpinejs'
 import react from '@astrojs/react'
 import Icons from 'unplugin-icons/vite'
+import cloudflare from '@astrojs/cloudflare'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.tintaborneo.com',
   integrations: [tailwind(), alpinejs(), react()],
-  image: {
-    domains: [
-      'tintaborneo.com',
-      'www.tintaborneo.com',
-      'staging.tintaborneo.com',
-      'content.tintaborneo.com'
-    ]
-  },
   output: 'server',
-  adapter: node({
-    mode: 'middleware'
+  adapter: cloudflare({
+    imageService: 'cloudflare',
+    platformProxy: {
+      enabled: true
+    }
   }),
+  image: {
+    domains: ['tintaborneo.com', 'www.tintaborneo.com']
+  },
+  prefetch: true,
+  experimental: {
+    clientPrerender: true,
+    directRenderScript: true
+  },
   vite: {
     plugins: [
       Icons({

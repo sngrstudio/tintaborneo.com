@@ -1,93 +1,76 @@
-import type { RootQuery } from './graphql'
+import type { RootQuery } from '~/graphql/types'
 import { fetchQuery, type FetchQueryResult } from './fetch'
 
-type PostResult = FetchQueryResult<Required<Pick<RootQuery, 'post'>>>
-type PostsResult = FetchQueryResult<Required<Pick<RootQuery, 'posts'>>>
+type PostResult = FetchQueryResult<Pick<RootQuery, 'post'>>
+type PostsResult = FetchQueryResult<Pick<RootQuery, 'posts'>>
 
-export const getPost = async (id: string) => {
-  return (await fetchQuery({
-    queryId: 'get-post',
-    variables: {
-      id
-    }
-  })) as PostResult
-}
-
-export const getFeaturedPosts = async ({
-  tagIn,
-  categoryName
-}: {
-  tagIn: string[]
-  categoryName?: string
-}) => {
-  return (await fetchQuery({
-    queryId: 'get-featured-posts',
-    variables: {
-      tagIn,
-      categoryName
-    }
-  })) as PostsResult
-}
+export const getPost = async (id: string) =>
+  ((await fetchQuery('get-post', { id })) as PostResult).data.post
 
 export const getLatestPosts = async ({
-  tagNotIn,
   notIn,
+  tagNotIn,
   categoryName,
   first,
   after
 }: {
-  tagNotIn?: string[]
-  notIn?: string[]
+  notIn?: Array<string>
+  tagNotIn?: Array<string>
   categoryName?: string
   first?: number
   after?: string
-}) => {
-  return (await fetchQuery({
-    queryId: 'get-latest-posts',
-    variables: {
-      tagNotIn,
+}) =>
+  (
+    (await fetchQuery('get-latest-posts', {
       notIn,
+      tagNotIn,
       categoryName,
       first,
       after
-    }
-  })) as PostsResult
-}
+    })) as PostsResult
+  ).data.posts!
 
-export const getCategoryPosts = async ({
-  categoryName,
-  first,
-  after,
-  notIn
+export const getFeaturedPosts = async ({
+  categoryName
 }: {
-  categoryName: string
-  first?: number
-  after?: string
-  notIn?: string[]
-}) => {
-  return (await fetchQuery({
-    queryId: 'get-category-posts',
-    variables: {
-      categoryName,
-      first,
-      after,
-      notIn
-    }
-  })) as PostsResult
-}
+  categoryName?: string
+} = {}) =>
+  (
+    (await fetchQuery('get-featured-posts-2', {
+      categoryName
+    })) as PostsResult
+  ).data.posts!
 
 export const getRelatedPosts = async ({
+  notIn,
   tagIn,
-  notIn
+  after
 }: {
-  tagIn: string[]
-  notIn: string[]
-}) => {
-  return (await fetchQuery({
-    queryId: 'get-featured-posts',
-    variables: {
+  notIn: Array<string>
+  tagIn: Array<string>
+  after?: string
+}) =>
+  (
+    (await fetchQuery('get-related-posts-2', {
+      notIn,
       tagIn,
-      notIn
-    }
-  })) as PostsResult
-}
+      after
+    })) as PostsResult
+  ).data.posts!
+
+export const getPostsBySearch = async ({
+  search,
+  after,
+  first
+}: {
+  search?: string
+  after?: string
+  first?: number
+}) =>
+  (
+    (await fetchQuery('get-posts-by-search', {
+      search,
+      after,
+      first
+    })) as PostsResult
+  ).data.posts!

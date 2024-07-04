@@ -5,12 +5,11 @@
       "extensions": [
         "astro-build.astro-vscode",
         "bradlc.vscode-tailwindcss",
-        "ms-azuretools.vscode-docker",
         "GitHub.vscode-github-actions",
         "mhutchie.git-graph",
         "sourcegraph.cody-ai"
       ]
     }
   },
-  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .env && pnpm install"
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
 }

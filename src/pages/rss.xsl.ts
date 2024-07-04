@@ -7,10 +7,7 @@ export const GET: APIRoute = async () => {
   const xsl = await fetch(XSL_SOURCE).then((res) => res.text())
   return new Response(xsl, {
     headers: {
-      'Content-Type': 'text/xsl',
-      'Cache-Control': 'public, max-age=0, must-revalidate',
-      'Cdn-Cache-Control': 'public, s-maxage=31536000, must-revalidate',
-      'X-Robots-Tag': 'noindex, follow'
+      'Content-Type': 'text/xsl'
     }
   })
 }

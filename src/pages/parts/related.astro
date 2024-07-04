@@ -1,0 +1,31 @@
+---
+import type { Post } from '~/graphql/types'
+import RelatedCard from '~/components/post/card.astro'
+import { getRelatedPosts } from '~/data/posts'
+
+const id = Astro.url.searchParams.get('id')
+const tags = Astro.url.searchParams.get('tags')
+const cursor = Astro.url.searchParams.get('cursor')
+
+const posts = await getRelatedPosts({
+  notIn: [id!],
+  tagIn: tags!.split(','),
+  after: cursor!
+})
+
+// Headers configuration
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=86400, stale-while-revalidate=86400'
+)
+Astro.response.headers.set(
+  'CDN-Cache-Control',
+  'public, s-maxage=604800, stale-while-revalidate=604800'
+)
+
+export const partial = true
+---
+
+<Fragment>
+  {posts.nodes.map((post: Post) => <RelatedCard post={post} />)}
+</Fragment>

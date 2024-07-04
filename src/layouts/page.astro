@@ -1,34 +1,55 @@
 ---
-import type { LayoutProps } from './layout'
-import Layout from '~/layouts/layout.astro'
+import Layout, { type Props as LayoutProps } from './layout.astro'
 
 interface Props extends LayoutProps {}
 
-const { title, description, post } = Astro.props
+const { title, description, ...attrs } = Astro.props
 ---
 
-<Layout title={title} description={description} post={post}>
-  {/* head */}
+<Layout title={title} description={description} {...attrs}>
+  {/* <Head /> */}
   <Fragment slot='head'>
     <slot name='head' />
   </Fragment>
 
-  {/* body */}
-  <main
-    class='max-w-screen-xl grid grid-cols-1 lg:grid-cols-3 lg:gap-2 select-text min-h-[60vh] mx-auto lg:px-4'
-  >
-    <section class='md:col-span-2'>
+  {/* Main Page Content */}
+  <main class='px-4 pt-[96px]'>
+    <section
+      class:list={[
+        'mx-auto max-w-screen-lg',
+        {
+          'grid grid-cols-1 gap-8 sm:grid-cols-3 md:grid-cols-7':
+            Astro.slots.has('aside')
+        }
+      ]}
+    >
       <article
-        class='prose font-heading max-w-none md:prose-lg px-4 pb-8 lg:pb-0'
+        class:list={[
+          'prose max-w-none font-heading',
+          { 'sm:col-span-2 md:col-span-5': Astro.slots.has('aside') }
+        ]}
       >
-        <hgroup>
-          <slot name='subtitle' />
-          <h1>{title}</h1>
-          <slot name='header' />
+        {/* Headings */}
+        <hgroup class='not-prose mb-4 flex flex-col gap-4'>
+          <h1 class='text-4xl font-black'>{title}</h1>
+          <slot name='heading' />
+          <hr class='text-tb-muted' />
         </hgroup>
+
+        {/* Content */}
         <slot />
       </article>
+
+      {/* Aside */}
+      <Fragment>
+        {
+          Astro.slots.has('aside') && (
+            <aside class='mt-8 sm:mt-0 md:col-span-2'>
+              <slot name='aside' />
+            </aside>
+          )
+        }
+      </Fragment>
     </section>
-    <slot name='aftercontent' />
   </main>
 </Layout>

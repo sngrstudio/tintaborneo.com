@@ -1,57 +1,81 @@
 ---
-import { type MenuItem, MenuLocationEnum } from '~/data/graphql'
+import { getMenu } from '~/data/site'
+import { MenuLocationEnum, type MenuItem } from '~/graphql/types'
 import ExpandIcon from '~icons/material-symbols/expand-more'
 import CollapseIcon from '~icons/material-symbols/expand-less'
-import { getMenu } from '~/data/menu'
 
-const {
-  data: { menuItems }
-} = await getMenu(MenuLocationEnum.SidebarNavigation)
-const menu = menuItems?.nodes.filter((m: MenuItem) => !m.parentId)
+const menu = await getMenu(MenuLocationEnum.SidebarNavigation).then((res) =>
+  res.filter((i) => !i.parentId)
+)
 ---
 
 <template x-if="type==='menu'">
   <div
-    class='flex-1 flex flex-col h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+    class='flex h-full w-full flex-1 flex-col overflow-y-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
   >
-    <ul class='flex-1 flex flex-col gap-2 md:gap-2' hx-boost='true'>
+    <ul class='mb-8 flex w-full flex-1 flex-col gap-2 md:gap-2'>
       {
-        menu?.map((entry: MenuItem) => (
-          <li class='font-subheading font-bold text-xl w-max md:text-2xl'>
-            {entry.childItems?.nodes.length! > 0 ? (
-              <details
-                x-data='{open: false}'
-                x-bind:open='open'
-                x-on:click.outside='open=false'
-                x-on:mouseover='open=true'
-                x-on:mouseout='open=false'
-                x-cloak
-              >
-                <summary
-                  class='flex gap-1 list-none'
-                  x-on:click='open=!open'
-                  role='button'
+        menu.map((entry) => (
+          <li
+            class='flex w-max flex-col gap-1 overflow-hidden font-subheading text-xl font-bold transition-all md:text-2xl'
+            x-data={
+              entry.childItems && entry.childItems?.nodes.length!
+                ? `{ isCollapsed: true }`
+                : false
+            }
+          >
+            {entry.childItems && entry.childItems?.nodes.length! > 0 ? (
+              <Fragment>
+                <button
+                  class='flex w-full gap-1'
+                  x-on:click='isCollapsed=!isCollapsed'
                 >
-                  <a x-bind:href={`open ? '${entry.uri}' : ''`}>
-                    {entry.label}
-                  </a>
+                  <span>{entry.label}</span>
                   <span>
-                    <ExpandIcon x-show='!open' x-cloak />
-                    <CollapseIcon x-show='open' x-cloak />
+                    <ExpandIcon x-show='isCollapsed' x-cloak />
+                    <CollapseIcon x-show='!isCollapsed' x-cloak />
                   </span>
-                </summary>
-                <ul class='flex flex-col gap-1 md:gap-1 pl-4 mt-1 md:mt-2'>
-                  {entry.childItems?.nodes.map((entry: MenuItem) => (
-                    <li class='text-xl md:text-lg'>
-                      <a href={entry.uri} x-on:click='isOpen=false'>
-                        {entry.label}
+                </button>
+                <ul
+                  class='ml-4 flex w-full flex-col gap-1'
+                  x-transition:enter='transition-all ease-out duration-200'
+                  x-transition:enter-start='opacity-0 translate-y-[-100%]'
+                  x-transition:enter-end='opacity-100 translate-y-0'
+                  x-transition:leave='transition-all ease-in duration-200'
+                  x-transition:leave-start='opacity-100 translate-y-0'
+                  x-transition:leave-end='opacity-0 translate-y-[-100%]'
+                  x-show='!isCollapsed'
+                  x-cloak
+                >
+                  {entry.childItems.nodes.map((child: MenuItem) => (
+                    <li class='font-subheading text-lg font-normal'>
+                      <a
+                        href={child.uri}
+                        x-on:click='isOpen=false'
+                        data-astro-prefetch
+                      >
+                        {child.label}
                       </a>
                     </li>
                   ))}
+                  <li class='font-subheading text-lg font-normal'>
+                    <a
+                      href={entry.uri}
+                      x-on:click='isOpen=false'
+                      data-astro-prefetch
+                    >
+                      {`Semua Berita ${entry.label}`}
+                    </a>
+                  </li>
                 </ul>
-              </details>
+              </Fragment>
             ) : (
-              <a href={entry.uri} x-on:click='isOpen=false'>
+              <a
+                class='w-full'
+                href={entry.uri}
+                x-on:click='isOpen=false'
+                data-astro-prefetch
+              >
                 {entry.label}
               </a>
             )}

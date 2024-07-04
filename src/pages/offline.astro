@@ -4,11 +4,13 @@ import ErrorLayout from '~/layouts/error.astro'
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
-  'public, max-age=31536000, immutable'
+  'public, max-age=31536000, must-revalidate'
 )
+
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
 ---
 
 <ErrorLayout
   title='Offline'
-  message='Anda sedang offline. Cek internet/paket data Anda.'
+  message='Sambungkan ke WiFi/Cek kuota internet Anda.'
 />

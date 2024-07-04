@@ -1,16 +1,10 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-interface ImportMetaEnv {
-  readonly ADMIN_ENDPOINT: string
-}
+type Runtime = import('@astrojs/cloudflare').Runtime<Env>
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-
-interface Window {
-  Alpine: import('alpinejs').Alpine
+declare namespace App {
+  interface Locals extends Runtime {}
 }
 
 import 'react'

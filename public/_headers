@@ -1,0 +1,11 @@
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/*
+  X-Robots-Tag: noindex, nofollow
+
+/wp-json/*
+  X-Robots-Tag: noindex, nofollow
+
+/xmlrpc.php
+  X-Robots-Tag: noindex, nofollow

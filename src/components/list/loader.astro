@@ -1,0 +1,33 @@
+---
+interface Props {
+  uri: string
+}
+
+const { uri } = Astro.props
+---
+
+<section
+  class='mx-auto w-full max-w-screen-lg'
+  hx-get={uri}
+  hx-swap='outerHTML'
+  hx-trigger='revealed'
+>
+  <div class='mb-4 h-[42px] animate-pulse rounded bg-tb-muted/20'></div>
+  <div
+    class='grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-y-6 md:grid-cols-4'
+  >
+    {
+      Array.from({ length: 8 }, () => (
+        <div class='flex w-full gap-2 sm:flex-col'>
+          <div class='aspect-[4/3] h-full w-[160px] shrink-0 animate-pulse rounded-xl bg-tb-muted/20 sm:w-full sm:shrink' />
+          <div class='flex w-full flex-1 flex-col justify-start gap-1'>
+            {Array.from({ length: 2 }, () => (
+              <div class='h-[24px] w-full animate-pulse rounded bg-tb-muted/20' />
+            ))}
+            <div class='mt-auto h-[12px] w-full animate-pulse rounded bg-tb-muted/20 sm:mt-4' />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

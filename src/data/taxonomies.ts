@@ -1,23 +1,17 @@
-import type { RootQuery } from './graphql'
+import type { Category, RootQuery } from '~/graphql/types'
 import { fetchQuery, type FetchQueryResult } from './fetch'
 
-type TagResult = FetchQueryResult<Required<Pick<RootQuery, 'tag'>>>
-type CategoryResult = FetchQueryResult<Required<Pick<RootQuery, 'category'>>>
+type TagResult = FetchQueryResult<Pick<RootQuery, 'tag'>>
+type CategoryResult = FetchQueryResult<Pick<RootQuery, 'category'>>
+type CategoriesResult = FetchQueryResult<Pick<RootQuery, 'categories'>>
 
-export const getTagId = async (id: string) => {
-  return (await fetchQuery({
-    queryId: 'get-tag-id',
-    variables: {
-      id
-    }
-  })) as TagResult
-}
+export const getTag = async (id: string) =>
+  ((await fetchQuery('get-tag-id', { id })) as TagResult).data.tag
 
-export const getCategoryId = async (id: string) => {
-  return (await fetchQuery({
-    queryId: 'get-category-id',
-    variables: {
-      id
-    }
-  })) as CategoryResult
-}
+export const getCategory = async (id: string) =>
+  ((await fetchQuery('get-category-id', { id })) as CategoryResult).data
+    .category
+
+export const getCategories = async () =>
+  ((await fetchQuery('get-categories')) as CategoriesResult).data.categories
+    ?.nodes as Array<Category>

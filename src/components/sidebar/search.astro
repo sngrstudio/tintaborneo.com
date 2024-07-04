@@ -1,25 +1,30 @@
----
-import SearchIcon from '~icons/material-symbols/search'
----
-
 <template x-if="type==='search'">
   <div
-    class='flex-1 h-full overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
-    x-data="{ search: '' }"
+    class='flex h-full flex-1 flex-col gap-8 overflow-hidden pb-8'
+    x-data="{ q: '' }"
   >
     <form
-      class='flex w-full text-lg border-b-2 focus-within:border-tb-background'
-      x-on:submit.prevent='console.log(search)'
+      class='flex w-full border-b-2 text-lg focus-within:border-tb-background'
+      x-on:submit.prevent='console.log(q)'
     >
       <input
-        class='flex-1 outline-none bg-[transparent] text-tb-background'
-        type='text'
+        name='q'
+        class='flex-1 bg-[transparent] text-tb-background outline-none'
+        type='search'
         placeholder='Cari di TintaBorneo.com'
-        x-model='search'
+        x-model='q'
+        x-bind:hx-get="'/parts/search?' + q"
+        hx-trigger='input changed delay:400ms'
+        hx-target='#search-result'
       />
-      <button class='' type='submit'>
-        <SearchIcon />
-      </button>
     </form>
+
+    <ul
+      id='search-result'
+      class='flex h-full flex-1 flex-col gap-2 overflow-y-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+      x-show="q!==''"
+      x-cloak
+    >
+    </ul>
   </div>
 </template>

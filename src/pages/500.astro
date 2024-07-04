@@ -1,0 +1,16 @@
+---
+import ErrorLayout from '~/layouts/error.astro'
+
+interface Props {
+  error: unknown
+}
+
+const { error } = Astro.props
+---
+
+<ErrorLayout
+  title='Error Server'
+  message={error instanceof Error
+    ? `Ada masalah di server: ${error.name}`
+    : 'Ada masalah di server, kami sedang memperbaikinya'}
+/>

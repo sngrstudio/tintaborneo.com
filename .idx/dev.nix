@@ -17,7 +17,6 @@
     extensions = [
       "astro-build.astro-vscode"
       "bradlc.vscode-tailwindcss"
-      "ms-azuretools.vscode-docker"
       "GitHub.vscode-github-actions"
       "GitHub.vscode-pull-request-github"
       "mhutchie.git-graph"
@@ -45,7 +44,7 @@
       # Runs when a workspace is first created
       onCreate = {
         # Example: install JS dependencies from NPM
-        npm-install = "pnpm install";
+        install = "pnpm install";
       };
       # Runs when the workspace is (re)started
       onStart = {
