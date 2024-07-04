@@ -17,7 +17,7 @@ jobs:
           node-version: 20
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --prefer-offline
       - run: pnpm run build
         env:
           ADMIN_ENDPOINT: ${{ secrets.ADMIN_ENDPOINT }}
