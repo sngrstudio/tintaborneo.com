@@ -1,10 +1,3 @@
-/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: no-referrer
-  Permissions-Policy: document-domain=()
-  Content-Security-Policy: default 'self'; object-src 'none'; frame-ancestors 'none';
-
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
