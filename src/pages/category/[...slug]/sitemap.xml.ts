@@ -2,12 +2,13 @@ import type { APIRoute } from 'astro'
 import type { Post } from '~/graphql/types'
 import { getLatestPosts } from '~/data/posts'
 import { getCategory } from '~/data/taxonomies'
-import { xml } from './sitemap-index.xml'
+import { xml } from '~/pages/sitemap-index.xml'
 import { getImage } from 'astro:assets'
 
 export const GET: APIRoute = async ({ site, params, redirect }) => {
-  const { category: categorySlug } = params
-  const category = await getCategory(categorySlug!)
+  const { slug } = params
+  console.log(slug?.split('/').at(-1))
+  const category = await getCategory(slug?.split('/').at(-1)!)
   const posts = await getLatestPosts({
     categoryName: category!.slug!,
     first: 100
@@ -24,7 +25,7 @@ export const GET: APIRoute = async ({ site, params, redirect }) => {
         posts.nodes.map(async (post: Post) => {
           const image = post.featuredImage
             ? await getImage({
-                src: post.featuredImage?.node.sourceUrl!,
+                src: post.featuredImage.node.sourceUrl!,
                 inferSize: true
               })
             : undefined

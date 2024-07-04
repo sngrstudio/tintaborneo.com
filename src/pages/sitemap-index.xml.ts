@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ site }) => {
         .map(
           (category) =>
             xml`<sitemap>
-            <loc>${encodeURI(`${site?.origin}/${category.slug}-sitemap.xml`)}</loc>
+            <loc>${encodeURI(`${site?.origin}${category.uri}sitemap.xml`)}</loc>
           </sitemap>`
         )}
     </sitemapindex>  
