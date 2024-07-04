@@ -16,7 +16,7 @@ const { title, description, ...attrs } = Astro.props
 ---
 
 <BaseLayout
-  class='bg-tb-background text-tb-text min-h-screen'
+  class='min-h-screen bg-tb-background text-tb-text'
   x-data='{lockScroll: false}'
   x-on:setlockscroll.window='lockScroll=$event.detail'
   x-bind:class="{'overflow-hidden': lockScroll}"

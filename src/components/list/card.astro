@@ -10,16 +10,16 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<li class='flex sm:flex-col gap-2'>
+<li class='flex gap-2 sm:flex-col'>
   <a
-    class='w-[160px] sm:w-full h-auto aspect-[4/3] bg-tb-muted/20 rounded-xl overflow-hidden'
+    class='aspect-[4/3] h-auto w-[160px] overflow-hidden rounded-xl bg-tb-muted/20 sm:w-full'
     href={post.uri}
     data-astro-prefetch
   >
     {
       post.featuredImage && (
         <Picture
-          class='object-cover w-full h-full'
+          class='h-full w-full object-cover'
           src={post.featuredImage.node.sourceUrl!}
           formats={['avif', 'webp']}
           width={400}
@@ -31,9 +31,9 @@ const { post } = Astro.props
       )
     }
   </a>
-  <div class='flex-1 flex flex-col justify-between sm:gap-2'>
+  <div class='flex flex-1 flex-col justify-between sm:gap-2'>
     <a
-      class='font-heading font-bold line-clamp-3 sm:text-lg'
+      class='line-clamp-3 font-heading font-bold sm:text-lg'
       href={post.uri}
       data-astro-prefetch
     >

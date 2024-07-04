@@ -8,7 +8,7 @@ const logo = await getLogo('logo')
 ---
 
 <div>
-  <ul class='flex flex-row justify-between items-center px-4 mb-1'>
+  <ul class='mb-1 flex flex-row items-center justify-between px-4'>
     <li>
       <button
         aria-label='Buka Menu'
@@ -21,7 +21,7 @@ const logo = await getLogo('logo')
     <li>
       <a href='/' role='button' aria-label='Home' data-astro-prefetch>
         <Picture
-          class='object-contain w-[200px] h-auto'
+          class='h-auto w-[200px] object-contain'
           src={logo.sourceUrl!}
           formats={['avif', 'webp']}
           widths={[400]}

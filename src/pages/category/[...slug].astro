@@ -63,9 +63,9 @@ Astro.response.headers.set(
   title={category.name!}
   description={`Halaman Kategori ${category.name}`}
 >
-  <main class='grid grid-cols-1 gap-6 pt-[96px] px-4'>
+  <main class='grid grid-cols-1 gap-6 px-4 pt-[96px]'>
     <h1
-      class='font-heading font-black text-4xl text-tb-primary border-t-2 border-tb-primary pt-2 px-4 sm:px-0 mb-4 w-auto sm:w-full -mx-4 sm:max-w-screen-lg sm:mx-auto'
+      class='-mx-4 mb-4 w-auto border-t-2 border-tb-primary px-4 pt-2 font-heading text-4xl font-black text-tb-primary sm:mx-auto sm:w-full sm:max-w-screen-lg sm:px-0'
     >
       {category.name}
     </h1>
@@ -73,7 +73,7 @@ Astro.response.headers.set(
       {
         /* if posts < 20, render allPosts immediately */
         !allPosts.pageInfo.hasNextPage ? (
-          <section class='max-w-screen-lg mx-auto min-h-[60vh]'>
+          <section class='mx-auto min-h-[60vh] max-w-screen-lg'>
             {allPosts.nodes.length > 0 ? (
               <ListPosts posts={allPosts.nodes} />
             ) : (
@@ -95,7 +95,7 @@ Astro.response.headers.set(
               )
             }
             {/* always render moreLatestPosts regardless of carousel section availability */}
-            <section class='max-w-screen-lg mx-auto'>
+            <section class='mx-auto max-w-screen-lg'>
               <ListPosts posts={moreLatestPosts.nodes} />
             </section>
             {
@@ -114,8 +114,8 @@ Astro.response.headers.set(
             {
               /*if moreLatestPosts has next page, render loader block */
               moreLatestPosts.pageInfo.hasNextPage && (
-                <section class='max-w-screen-lg mx-auto w-full'>
-                  <h2 class='font-subheading font-bold text-2xl text-tb-primary uppercase border-t-2 border-tb-primary pt-2 mb-4'>
+                <section class='mx-auto w-full max-w-screen-lg'>
+                  <h2 class='mb-4 border-t-2 border-tb-primary pt-2 font-subheading text-2xl font-bold uppercase text-tb-primary'>
                     Selengkapnya
                   </h2>
                   <ListLoader

@@ -13,12 +13,12 @@ const { title, description, ...attrs } = Astro.props
   </Fragment>
 
   {/* Main Page Content */}
-  <main class='pt-[96px] px-4'>
+  <main class='px-4 pt-[96px]'>
     <section
       class:list={[
-        'max-w-screen-lg mx-auto',
+        'mx-auto max-w-screen-lg',
         {
-          'grid grid-cols-1 sm:grid-cols-3 md:grid-cols-7 gap-8':
+          'grid grid-cols-1 gap-8 sm:grid-cols-3 md:grid-cols-7':
             Astro.slots.has('aside')
         }
       ]}
@@ -30,8 +30,8 @@ const { title, description, ...attrs } = Astro.props
         ]}
       >
         {/* Headings */}
-        <hgroup class='not-prose flex flex-col gap-4 mb-4'>
-          <h1 class='font-black text-4xl'>{title}</h1>
+        <hgroup class='not-prose mb-4 flex flex-col gap-4'>
+          <h1 class='text-4xl font-black'>{title}</h1>
           <slot name='heading' />
           <hr class='text-tb-muted' />
         </hgroup>
@@ -44,7 +44,7 @@ const { title, description, ...attrs } = Astro.props
       <Fragment>
         {
           Astro.slots.has('aside') && (
-            <aside class='md:col-span-2 mt-8 sm:mt-0'>
+            <aside class='mt-8 sm:mt-0 md:col-span-2'>
               <slot name='aside' />
             </aside>
           )

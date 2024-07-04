@@ -40,14 +40,14 @@ Astro.response.headers.set(
 ---
 
 <Layout>
-  <main class='grid grid-cols-1 gap-6 pt-[96px] px-4'>
+  <main class='grid grid-cols-1 gap-6 px-4 pt-[96px]'>
     <CarouselSection>
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
     {
       moreLatestPosts && (
-        <section class='max-w-screen-lg mx-auto'>
+        <section class='mx-auto max-w-screen-lg'>
           <ListPosts posts={moreLatestPosts.nodes} />
         </section>
       )

@@ -26,16 +26,16 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
   <div class='flex aspect-[3/4] md:aspect-auto md:gap-2'>
     {
       posts.map((block) => (
-        <div class='flex-[0_0_100%] grid grid-cols-2 gap-2 mr-2'>
+        <div class='mr-2 grid flex-[0_0_100%] grid-cols-2 gap-2'>
           {block.map((post) => (
             <a
-              class='relative overflow-hidden bg-tb-muted rounded-2xl aspect-[3/4] md:aspect-auto'
+              class='relative aspect-[3/4] overflow-hidden rounded-2xl bg-tb-muted md:aspect-auto'
               href={post.uri}
               data-astro-prefetch
             >
               {post.featuredImage && (
                 <Picture
-                  class='object-cover w-full h-full'
+                  class='h-full w-full object-cover'
                   src={post.featuredImage.node.sourceUrl!}
                   formats={['avif', 'webp']}
                   widths={[324]}
@@ -45,8 +45,8 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
                   alt={post.title || ''}
                 />
               )}
-              <div class='absolute inset-0 flex flex-col gap-1 justify-end bg-gradient-to-t from-tb-text to-tb-text/[.0] text-tb-background px-2 pb-4'>
-                <h3 class='font-heading font-bold text-lg line-clamp-3 leading-tight'>
+              <div class='absolute inset-0 flex flex-col justify-end gap-1 bg-gradient-to-t from-tb-text to-tb-text/[.0] px-2 pb-4 text-tb-background'>
+                <h3 class='line-clamp-3 font-heading text-lg font-bold leading-tight'>
                   {post.title}
                 </h3>
                 <p class='text-sm italic'>

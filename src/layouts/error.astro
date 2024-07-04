@@ -9,14 +9,14 @@ const { title, message } = Astro.props
 ---
 
 <Layout title={title} description={message}>
-  <main class='pt-[90px] px-4'>
+  <main class='px-4 pt-[90px]'>
     <section
-      class='flex flex-col gap-2 items-center justify-center min-h-[80vh]'
+      class='flex min-h-[80vh] flex-col items-center justify-center gap-2'
     >
-      <h1 class='font-heading font-black text-4xl text-tb-primary'>{title}</h1>
+      <h1 class='font-heading text-4xl font-black text-tb-primary'>{title}</h1>
       <p class='text-lg'>{message}</p>
       <a
-        class='hover:underline text-tb-primary'
+        class='text-tb-primary hover:underline'
         href='/'
         role='button'
         data-astro-prefetch
