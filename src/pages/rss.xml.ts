@@ -15,8 +15,8 @@ export const GET: APIRoute = async ({ site }) => {
     title: siteData.title!,
     description: siteData.description!,
     site: site!,
-    items: posts!.nodes.map((post: Post, i) => ({
-      title: `[${i + 1}]: ${post.title!}`,
+    items: posts!.nodes.map((post: Post) => ({
+      title: post.title!,
       pubDate: new Date(post.date!),
       link: site?.origin + post.uri!,
       content: post.content!,
