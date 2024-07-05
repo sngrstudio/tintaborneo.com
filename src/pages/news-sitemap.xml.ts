@@ -32,7 +32,7 @@ export const GET: APIRoute = async ({ site, redirect }) => {
                 <news:name>${siteInfo.title}</news:name>
                 <news:language>id</news:language>
               </news:publication>
-              <news:publication_date>${post.date}</news:publication_date>
+              <news:publication_date>${post.date}+07:00</news:publication_date>
               <news:title>${post.title}</news:title>
             </news:news>
           </url>
