@@ -19,17 +19,17 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
 
 <div
   class:list={[
-    '__latest_posts_carousel flex items-stretch overflow-hidden',
+    '__latest_posts_carousel flex w-full items-stretch overflow-hidden',
     className
   ]}
 >
-  <div class='flex aspect-[3/4] md:aspect-auto md:gap-2'>
+  <div class='flex aspect-[3/4] w-full md:aspect-auto md:gap-2'>
     {
       posts.map((block) => (
         <div class='mr-2 grid flex-[0_0_100%] grid-cols-2 gap-2'>
           {block.map((post) => (
             <a
-              class='relative aspect-[3/4] overflow-hidden rounded-2xl bg-tb-muted md:aspect-auto'
+              class='relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-tb-muted md:aspect-auto'
               href={post.uri}
               data-astro-prefetch
             >
