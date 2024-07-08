@@ -10,9 +10,7 @@ import { Picture } from 'astro:assets'
 import { getPost } from '~/data/posts'
 
 const { post: postUri } = Astro.params
-
-const postSlug = postUri?.split('/').at(-1)
-const post = await getPost(postSlug!)
+const post = await getPost(postUri!)
 
 if (!post) return Astro.redirect('/404')
 
