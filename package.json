@@ -16,7 +16,7 @@
     "start": "conc pnpm:dev"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "0.4.0",
+    "@alpinejs/intersect": "^3.14.1",
     "@astrojs/cloudflare": "11.0.1",
     "@astrojs/react": "3.6.0",
     "@astrojs/rss": "4.0.7",

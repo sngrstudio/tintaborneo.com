@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@astrojs/alpinejs':
-        specifier: 0.4.0
-        version: 0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.14.1)
+      '@alpinejs/intersect':
+        specifier: ^3.14.1
+        version: 3.14.1
       '@astrojs/cloudflare':
         specifier: 11.0.1
         version: 11.0.1(astro@4.11.3(@types/node@20.14.9)(typescript@5.5.2))
@@ -139,6 +139,9 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
+  '@alpinejs/intersect@3.14.1':
+    resolution: {integrity: sha512-+qlQief0QWPqjFjoylr+CfKOkwvnxldRQg/WT1PscyPAeykK+wJOJAEQCimwwaLnYHxiXdF6whti5o7GYPYNxw==}
+
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
@@ -161,12 +164,6 @@ packages:
   '@ardatan/sync-fetch@0.0.1':
     resolution: {integrity: sha512-xhlTqH0m31mnsG0tIP4ETgfSB6gXDaYYsUWTrlUV93fFQPI9dd8hE0Ot6MHLCtqgB32hwJAC3YZMWlXZw7AleA==}
     engines: {node: '>=14'}
-
-  '@astrojs/alpinejs@0.4.0':
-    resolution: {integrity: sha512-68BY1CA0XuielLW3WdX2sfh9F4sSTnFqQ//IE9AditbiYJ77HJDb4uZx07pTFDtr1jOMU7lCvH+iS9gmNafM1g==}
-    peerDependencies:
-      '@types/alpinejs': ^3.0.0
-      alpinejs: ^3.0.0
 
   '@astrojs/check@0.7.0':
     resolution: {integrity: sha512-UTqwOeKNu9IYZmJXEeWnQuTdSd/pX58Hl4TUARsMlT97SVDL//kLBE4T/ctxRz6J573N87oE5ddtW/uOOnQTug==}
@@ -4726,6 +4723,8 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
+  '@alpinejs/intersect@3.14.1': {}
+
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
@@ -4771,11 +4770,6 @@ snapshots:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
-
-  '@astrojs/alpinejs@0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.14.1)':
-    dependencies:
-      '@types/alpinejs': 3.13.10
-      alpinejs: 3.14.1
 
   '@astrojs/check@0.7.0(prettier-plugin-astro@0.14.0)(prettier@3.3.2)(typescript@5.5.2)':
     dependencies:

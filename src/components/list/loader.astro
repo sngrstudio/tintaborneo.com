@@ -10,7 +10,7 @@ const { uri } = Astro.props
   class='mx-auto w-full max-w-screen-lg'
   hx-get={uri}
   hx-swap='outerHTML'
-  hx-trigger='revealed'
+  hx-trigger='intersect once'
 >
   <div class='mb-4 h-[42px] animate-pulse rounded bg-tb-muted/20'></div>
   <div

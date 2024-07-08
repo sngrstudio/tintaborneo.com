@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
-import alpinejs from '@astrojs/alpinejs'
 import react from '@astrojs/react'
 import Icons from 'unplugin-icons/vite'
 import cloudflare from '@astrojs/cloudflare'
@@ -8,7 +7,7 @@ import cloudflare from '@astrojs/cloudflare'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.tintaborneo.com',
-  integrations: [tailwind(), alpinejs(), react()],
+  integrations: [tailwind(), react()],
   output: 'server',
   adapter: cloudflare({
     imageService: 'cloudflare',
