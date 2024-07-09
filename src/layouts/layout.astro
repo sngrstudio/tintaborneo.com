@@ -5,6 +5,7 @@ import Header from '~/components/header/header.astro'
 import Sidebar from '~/components/sidebar/sidebar.astro'
 import Footer from '~/components/footer/loader.astro'
 import Analytics from '~/components/extra/analytics.astro'
+import SourceSerifPro400Preload from '@fontsource/source-serif-pro/files/source-serif-pro-latin-400-normal.woff2?url'
 import '@fontsource/source-serif-pro/400.css'
 import '@fontsource/source-serif-pro/700.css'
 import '@fontsource/source-serif-pro/900.css'
@@ -27,6 +28,12 @@ const { title, description, ...attrs } = Astro.props
   <Fragment slot='head'>
     <SEO title={title} description={description} />
     <slot name='head' />
+    <link
+      rel='preload'
+      as='font'
+      type='font/woff2'
+      href={SourceSerifPro400Preload}
+    />
     <Analytics />
   </Fragment>
 
