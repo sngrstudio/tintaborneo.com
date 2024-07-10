@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro'
 export const GET: APIRoute = async ({ locals, url }) => {
   // @ts-ignore
   const { env } = locals.runtime
-  const cacheStorage = env.TINTABORNEO_KV
+  // const cacheStorage = env.TINTABORNEO_KV
 
   const generateCacheKey = async (queryId: string, variables?: string) => {
     const variablesHash = variables
@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
     const cacheKey = await generateCacheKey(queryId, variables || undefined)
     let data
 
-    data = await cacheStorage.get(cacheKey)
+    data = await env.TINTABORNEO_KV.get(cacheKey)
     console.log(data)
 
     if (data === null) {
@@ -43,7 +43,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
       const json = await response.json()
       if (json.errors) throw new Error(json.errors[0].message)
-      await cacheStorage.put(cacheKey, JSON.stringify(json), {
+      await env.TINTABORNEO_KV.put(cacheKey, JSON.stringify(json), {
         expirationTtl: ttl ? parseInt(ttl) : undefined
       })
       data = JSON.stringify(json)
