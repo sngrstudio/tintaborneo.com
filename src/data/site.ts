@@ -10,11 +10,16 @@ export const getSiteInfo = async () =>
   ((await fetchQuery('get-site-info')) as SiteInfoResult).data.generalSettings!
 
 export const getLogo = async (id: string) =>
-  ((await fetchQuery('get-logo', { id })) as LogoResult).data.mediaItem!
+  ((await fetchQuery('get-logo', { variables: { id } })) as LogoResult).data
+    .mediaItem!
 
 export const getMenu = async (location: MenuLocationEnum) =>
-  ((await fetchQuery('get-menu', { location })) as MenuItemsResult).data
-    .menuItems?.nodes as Array<MenuItem>
+  (
+    (await fetchQuery('get-menu', {
+      variables: { location }
+    })) as MenuItemsResult
+  ).data.menuItems?.nodes as Array<MenuItem>
 
 export const getPage = async (id: string) =>
-  ((await fetchQuery('get-page', { id })) as PageResult).data.page!
+  ((await fetchQuery('get-page', { variables: { id } })) as PageResult).data
+    .page!

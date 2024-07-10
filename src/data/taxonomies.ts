@@ -6,11 +6,15 @@ type CategoryResult = FetchQueryResult<Pick<RootQuery, 'category'>>
 type CategoriesResult = FetchQueryResult<Pick<RootQuery, 'categories'>>
 
 export const getTag = async (id: string) =>
-  ((await fetchQuery('get-tag-id', { id })) as TagResult).data.tag
+  ((await fetchQuery('get-tag-id', { variables: { id } })) as TagResult).data
+    .tag
 
 export const getCategory = async (id: string) =>
-  ((await fetchQuery('get-category-id', { id })) as CategoryResult).data
-    .category
+  (
+    (await fetchQuery('get-category-id', {
+      variables: { id }
+    })) as CategoryResult
+  ).data.category
 
 export const getCategories = async () =>
   ((await fetchQuery('get-categories')) as CategoriesResult).data.categories

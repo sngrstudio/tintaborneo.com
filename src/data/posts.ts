@@ -5,7 +5,8 @@ type PostResult = FetchQueryResult<Pick<RootQuery, 'post'>>
 type PostsResult = FetchQueryResult<Pick<RootQuery, 'posts'>>
 
 export const getPost = async (id: string) =>
-  ((await fetchQuery('get-post', { id })) as PostResult).data.post
+  ((await fetchQuery('get-post', { variables: { id } })) as PostResult).data
+    .post
 
 export const getLatestPosts = async ({
   notIn,
@@ -22,11 +23,13 @@ export const getLatestPosts = async ({
 }) =>
   (
     (await fetchQuery('get-latest-posts', {
-      notIn,
-      tagNotIn,
-      categoryName,
-      first,
-      after
+      variables: {
+        notIn,
+        tagNotIn,
+        categoryName,
+        first,
+        after
+      }
     })) as PostsResult
   ).data.posts!
 
@@ -37,7 +40,7 @@ export const getFeaturedPosts = async ({
 } = {}) =>
   (
     (await fetchQuery('get-featured-posts-2', {
-      categoryName
+      variables: { categoryName }
     })) as PostsResult
   ).data.posts!
 
@@ -52,9 +55,7 @@ export const getRelatedPosts = async ({
 }) =>
   (
     (await fetchQuery('get-related-posts-2', {
-      notIn,
-      tagIn,
-      after
+      variables: { notIn, tagIn, after }
     })) as PostsResult
   ).data.posts!
 
@@ -69,8 +70,6 @@ export const getPostsBySearch = async ({
 }) =>
   (
     (await fetchQuery('get-posts-by-search', {
-      search,
-      after,
-      first
+      variables: { search, after, first }
     })) as PostsResult
   ).data.posts!
