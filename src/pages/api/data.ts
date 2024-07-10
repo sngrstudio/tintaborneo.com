@@ -3,22 +3,53 @@ import type { APIRoute } from 'astro'
 export const GET: APIRoute = async ({ locals, url }) => {
   // @ts-ignore
   const { env } = locals.runtime
+  const cacheStorage = env.TINTABORNEO_KV
+
+  const generateCacheKey = async (queryId: string, variables?: string) => {
+    const variablesHash = variables
+      ? [
+          ...new Uint8Array(
+            await crypto.subtle.digest(
+              'SHA-1',
+              new TextEncoder().encode(variables)
+            )
+          )
+        ]
+          .map((x) => x.toString(16).padStart(2, '0'))
+          .join('')
+      : undefined
+    return `${queryId}${variablesHash ? `--${variablesHash}` : ''}${env.MODE ? `--${env.MODE}` : ''}`
+  }
+
   const queryId = url.searchParams.get('queryId')
   const variables = url.searchParams.get('variables')
+  const ttl = url.searchParams.get('ttl')
 
   try {
     if (!queryId) {
       throw new Error('No queryId provided')
     }
 
-    const response = await fetch(
-      `${env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
-    )
-    const data = await response.json()
+    const cacheKey = await generateCacheKey(queryId, variables || undefined)
+    let data
 
-    if (data.errors) throw new Error(data.errors[0].message)
+    data = await cacheStorage.get(cacheKey)
+    console.log(data)
 
-    return new Response(JSON.stringify(data), {
+    if (data === null) {
+      const response = await fetch(
+        `${env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
+      )
+
+      const json = await response.json()
+      if (json.errors) throw new Error(json.errors[0].message)
+      await cacheStorage.put(cacheKey, JSON.stringify(json), {
+        expirationTtl: ttl ? parseInt(ttl) : undefined
+      })
+      data = JSON.stringify(json)
+    }
+
+    return new Response(data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -28,7 +59,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
       JSON.stringify(
         error instanceof Error
           ? { error: error.message }
-          : { error: 'Something went wrong' }
+          : { error: 'Terjadi error yang tidak diketahui.' }
       ),
       {
         status: 500,

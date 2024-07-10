@@ -11,5 +11,8 @@
       ]
     }
   },
-  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/cloudflare-wrangler:1": {}
+  },
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && echo \"MODE=dev\" >> .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
 }
