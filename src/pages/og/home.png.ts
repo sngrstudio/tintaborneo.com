@@ -1,8 +1,8 @@
 /*
-* Last time built: 2024-07-09
-* This was happened:
-* [commonjs--resolver] [plugin vite:resolve] Cannot bundle Node.js built-in "node:path" imported from "node_modules/.pnpm/astro@4.11.5_@types+node@20.14.10_typescript@5.5.3/node_modules/astro/dist/container/index.js". Consider disabling ssr.noExternal or remove the built-in dependency.
-*/
+ * Last time built: 2024-07-09
+ * This was happened:
+ * [commonjs--resolver] [plugin vite:resolve] Cannot bundle Node.js built-in "node:path" imported from "node_modules/.pnpm/astro@4.11.5_@types+node@20.14.10_typescript@5.5.3/node_modules/astro/dist/container/index.js". Consider disabling ssr.noExternal or remove the built-in dependency.
+ */
 
 import type { APIRoute } from 'astro'
 import HomeOGTemplate from '~/components/og/home.astro'
