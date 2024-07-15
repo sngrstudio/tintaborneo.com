@@ -13,7 +13,7 @@ importers:
         version: 3.14.1
       '@astrojs/cloudflare':
         specifier: 11.0.1
-        version: 11.0.1(astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3))
+        version: 11.0.1(astro@4.11.3(@types/node@20.14.10)(typescript@5.5.3))
       '@astrojs/react':
         specifier: 3.6.0
         version: 3.6.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.3.3(@types/node@20.14.10))
@@ -22,7 +22,7 @@ importers:
         version: 4.0.7
       '@astrojs/tailwind':
         specifier: 5.1.0
-        version: 5.1.0(astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3))(tailwindcss@3.4.4)
+        version: 5.1.0(astro@4.11.3(@types/node@20.14.10)(typescript@5.5.3))(tailwindcss@3.4.4)
       '@fontsource/martel-sans':
         specifier: 5.0.14
         version: 5.0.14
@@ -36,23 +36,23 @@ importers:
         specifier: 3.14.1
         version: 3.14.1
       astro:
-        specifier: 4.11.5
-        version: 4.11.5(@types/node@20.14.10)(typescript@5.5.3)
-      date-fns:
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 4.11.3
+        version: 4.11.3(@types/node@20.14.10)(typescript@5.5.3)
       embla-carousel:
-        specifier: 8.1.6
-        version: 8.1.6
+        specifier: 8.1.5
+        version: 8.1.5
       embla-carousel-autoplay:
-        specifier: 8.1.6
-        version: 8.1.6(embla-carousel@8.1.6)
+        specifier: 8.1.5
+        version: 8.1.5(embla-carousel@8.1.5)
       graphql:
         specifier: 16.9.0
         version: 16.9.0
       htmx.org:
         specifier: 2.0.0
         version: 2.0.0
+      luxon:
+        specifier: ^3.4.4
+        version: 3.4.4
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -99,6 +99,9 @@ importers:
       '@types/alpinejs':
         specifier: 3.13.10
         version: 3.13.10
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -1800,6 +1803,9 @@ packages:
   '@types/js-yaml@4.0.9':
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
 
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
+
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
@@ -1987,8 +1993,8 @@ packages:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==}
     engines: {node: '>=8'}
 
-  astro@4.11.5:
-    resolution: {integrity: sha512-TCRhuaLwrxwMhS8S1GG+ZTdrAXigX9C8E/YUTs/r2t+owHxDgwl86IV9xH1IHrCPoqhK6civyAQNOT+GKmkb0A==}
+  astro@4.11.3:
+    resolution: {integrity: sha512-SuZbB/71XVn+WqWNCe7XOfHuqhS+k4gj8+A3wluTZQrORGaHUFRn/f8F9Tu5yESQZB1q8UKhahvHwkTV3AdVsg==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2451,13 +2457,13 @@ packages:
   electron-to-chromium@1.4.820:
     resolution: {integrity: sha512-kK/4O/YunacfboFEk/BDf7VO1HoPmDudLTJAU9NmXIOSjsV7qVIX3OrI4REZo0VmdqhcpUcncQc6N8Q3aEXlHg==}
 
-  embla-carousel-autoplay@8.1.6:
-    resolution: {integrity: sha512-e5n9f4q+DVeBPiPPT3gwzqpiqfae8aP8fQACS4OZkPFvFLdsVhnWcw+cwtewryP7snWJGKPXEMA1GOjieEKv+w==}
+  embla-carousel-autoplay@8.1.5:
+    resolution: {integrity: sha512-9pHIezRqiO9yism7wRFwmM1j/W9c9hBNX4hq3F4aTPbK84M0M57ryG8QUwhbsTGJbDoBBVTm//YEd0T6i/5YgA==}
     peerDependencies:
-      embla-carousel: 8.1.6
+      embla-carousel: 8.1.5
 
-  embla-carousel@8.1.6:
-    resolution: {integrity: sha512-9n7FVsbPAs1KD+JmO84DnEDOZMXPBQbLujjMQqvsBRN2CDWwgZ9hRSNapztdPnyJfzOIxowGmj0BUQ8ACYAPkA==}
+  embla-carousel@8.1.5:
+    resolution: {integrity: sha512-R6xTf7cNdR2UTNM6/yUPZlJFRmZSogMiRjJ5vXHO65II5MoUlrVYUAP0fHQei/py82Vf15lj+WI+QdhnzBxA2g==}
 
   emmet@2.4.7:
     resolution: {integrity: sha512-O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==}
@@ -3121,6 +3127,10 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  luxon@3.4.4:
+    resolution: {integrity: sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA==}
+    engines: {node: '>=12'}
 
   magic-string@0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
@@ -4849,12 +4859,12 @@ snapshots:
       - prettier
       - prettier-plugin-astro
 
-  '@astrojs/cloudflare@11.0.1(astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3))':
+  '@astrojs/cloudflare@11.0.1(astro@4.11.3(@types/node@20.14.10)(typescript@5.5.3))':
     dependencies:
       '@astrojs/internal-helpers': 0.3.0
       '@astrojs/underscore-redirects': 0.3.4
       '@cloudflare/workers-types': 4.20240620.0
-      astro: 4.11.5(@types/node@20.14.10)(typescript@5.5.3)
+      astro: 4.11.3(@types/node@20.14.10)(typescript@5.5.3)
       esbuild: 0.19.12
       estree-walker: 3.0.3
       magic-string: 0.30.10
@@ -4943,9 +4953,9 @@ snapshots:
       fast-xml-parser: 4.4.0
       kleur: 4.1.5
 
-  '@astrojs/tailwind@5.1.0(astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3))(tailwindcss@3.4.4)':
+  '@astrojs/tailwind@5.1.0(astro@4.11.3(@types/node@20.14.10)(typescript@5.5.3))(tailwindcss@3.4.4)':
     dependencies:
-      astro: 4.11.5(@types/node@20.14.10)(typescript@5.5.3)
+      astro: 4.11.3(@types/node@20.14.10)(typescript@5.5.3)
       autoprefixer: 10.4.19(postcss@8.4.39)
       postcss: 8.4.39
       postcss-load-config: 4.0.2(postcss@8.4.39)
@@ -6555,6 +6565,8 @@ snapshots:
 
   '@types/js-yaml@4.0.9': {}
 
+  '@types/luxon@3.4.2': {}
+
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.2
@@ -6787,7 +6799,7 @@ snapshots:
 
   astral-regex@2.0.0: {}
 
-  astro@4.11.5(@types/node@20.14.10)(typescript@5.5.3):
+  astro@4.11.3(@types/node@20.14.10)(typescript@5.5.3):
     dependencies:
       '@astrojs/compiler': 2.8.2
       '@astrojs/internal-helpers': 0.4.1
@@ -7349,11 +7361,11 @@ snapshots:
 
   electron-to-chromium@1.4.820: {}
 
-  embla-carousel-autoplay@8.1.6(embla-carousel@8.1.6):
+  embla-carousel-autoplay@8.1.5(embla-carousel@8.1.5):
     dependencies:
-      embla-carousel: 8.1.6
+      embla-carousel: 8.1.5
 
-  embla-carousel@8.1.6: {}
+  embla-carousel@8.1.5: {}
 
   emmet@2.4.7:
     dependencies:
@@ -8109,6 +8121,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  luxon@3.4.4: {}
 
   magic-string@0.25.9:
     dependencies:
