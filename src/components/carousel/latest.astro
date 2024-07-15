@@ -50,9 +50,7 @@ const posts = postsData.reduce((result: Array<typeof postsData>, _, index) => {
                   {post.title}
                 </h3>
                 <p class='text-sm italic'>
-                  <time datetime={post.date}>
-                    {getDateString(new Date(post.date!))}
-                  </time>
+                  <time datetime={post.date}>{getDateString(post.date!)}</time>
                 </p>
               </div>
             </a>
