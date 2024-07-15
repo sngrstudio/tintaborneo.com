@@ -42,7 +42,7 @@ const { post, ...attrs } = Astro.props
       {post.title}
     </a>
     <time class='text-sm' datetime={post.date}>
-      {getDateString(new Date(post.date!))}
+      {getDateString(post.date!)}
     </time>
   </div>
 </li>
