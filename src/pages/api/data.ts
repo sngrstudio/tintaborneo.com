@@ -48,6 +48,8 @@ export const GET: APIRoute = async ({ locals, url }) => {
       data = JSON.stringify(json)
     }
 
+    console.log(data)
+
     return new Response(data, {
       headers: {
         'Content-Type': 'application/json'
