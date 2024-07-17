@@ -14,6 +14,9 @@ const post = await getPost(postUri!)
 
 if (!post) return Astro.redirect('/404')
 
+// set ISR cache
+Astro.locals.cache(60)
+
 // Headers configuration
 Astro.response.headers.set(
   'Cache-Control',
