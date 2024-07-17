@@ -3,7 +3,6 @@ import type { APIRoute } from 'astro'
 export const GET: APIRoute = async ({ locals, url }) => {
   // @ts-ignore
   const { env } = locals.runtime
-  // const cacheStorage = env.TINTABORNEO_KV
 
   const generateCacheKey = async (queryId: string, variables?: string) => {
     const variablesHash = variables
@@ -18,7 +17,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
           .map((x) => x.toString(16).padStart(2, '0'))
           .join('')
       : undefined
-    return `${queryId}${variablesHash ? `--${variablesHash}` : ''}${env.MODE ? `--${env.MODE}` : ''}`
+    return `query--${queryId}${variablesHash ? `--${variablesHash}` : ''}${env.MODE ? `--${env.MODE}` : ''}`
   }
 
   const queryId = url.searchParams.get('queryId')
@@ -33,8 +32,8 @@ export const GET: APIRoute = async ({ locals, url }) => {
     const cacheKey = await generateCacheKey(queryId, variables || undefined)
     let data
 
-    data = await env.TINTABORNEO_KV.get(cacheKey)
-    console.log(data)
+    data = await env.TB_CACHING.get(cacheKey)
+    // console.log(data)
 
     if (data === null) {
       const response = await fetch(
@@ -43,7 +42,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
       const json = await response.json()
       if (json.errors) throw new Error(json.errors[0].message)
-      await env.TINTABORNEO_KV.put(cacheKey, JSON.stringify(json), {
+      await env.TB_CACHING.put(cacheKey, JSON.stringify(json), {
         expirationTtl: ttl ? parseInt(ttl) : undefined
       })
       data = JSON.stringify(json)
