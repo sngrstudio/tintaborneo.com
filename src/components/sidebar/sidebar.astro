@@ -21,7 +21,7 @@ import CloseIcon from '~icons/material-symbols/close'
   x-cloak
 >
   <div
-    class='flex h-full w-4/5 flex-col gap-4 bg-tb-muted/[.9] px-4 pt-2 text-tb-background backdrop-blur-xl md:w-1/3 lg:w-1/4'
+    class='flex h-full w-4/5 flex-col gap-4 bg-tb-primary/[.9] px-4 pt-2 text-tb-background backdrop-blur-xl md:w-1/3 lg:w-1/4'
     x-on:click.outside='isOpen=false; $dispatch("setlockscroll", isOpen)'
     x-bind:style="type==='menu' ? { '--tb-translate-value':'-100%' } : type==='search' ? { '--tb-translate-value':'100%' } : ''"
     x-transition:enter='transition-transform ease-out duration-200'

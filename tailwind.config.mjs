@@ -12,11 +12,11 @@ export default {
       }
     },
     colors: {
-      'tb-primary': '#C90028',
-      'tb-secondary': '#00815e',
-      'tb-background': '#FCFAFA',
-      'tb-text': '#262224',
-      'tb-muted': '#6d6a6b'
+      'tb-primary': '#0768DF',
+      'tb-secondary': '#E31307',
+      'tb-background': '#FBFCFF',
+      'tb-text': '#010D17',
+      'tb-muted': '#7d7e89'
     }
   },
   plugins: [typography]
