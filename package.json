@@ -16,7 +16,7 @@
     "start": "conc pnpm:dev"
   },
   "dependencies": {
-    "@alpinejs/intersect": "^3.14.1",
+    "@alpinejs/intersect": "3.14.1",
     "@astrojs/cloudflare": "11.0.1",
     "@astrojs/react": "3.6.0",
     "@astrojs/rss": "4.0.7",
@@ -29,7 +29,7 @@
     "embla-carousel-autoplay": "8.1.5",
     "graphql": "16.9.0",
     "htmx.org": "2.0.0",
-    "luxon": "^3.4.4",
+    "luxon": "3.4.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sharp": "0.33.4",
@@ -45,7 +45,7 @@
     "@iconify-json/simple-icons": "1.1.107",
     "@tailwindcss/typography": "0.5.13",
     "@types/alpinejs": "3.13.10",
-    "@types/luxon": "^3.4.2",
+    "@types/luxon": "3.4.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@vite-pwa/assets-generator": "0.2.4",
