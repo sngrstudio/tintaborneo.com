@@ -4,11 +4,11 @@ on:
     - cron: 5 0 * * *
 
 jobs:
-  test:
+  archive:
     runs-on: ubuntu-latest
     steps:
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.0'
+          ruby-version: '2.5'
       - run: gem install wayback_archiver
       - run: wayback_archiver https://www.tintaborneo.com/sitemap-index.xml
