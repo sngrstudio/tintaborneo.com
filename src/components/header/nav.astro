@@ -24,6 +24,7 @@ const menu = await getMenu(MenuLocationEnum.PrimaryNavigation)
       menu.map((item) => (
         <li
           class:list={[
+            'hover:underline',
             {
               'text-tb-primary':
                 Astro.url.pathname.startsWith(item.uri!) ||

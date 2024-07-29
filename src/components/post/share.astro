@@ -7,8 +7,6 @@ import TelegramIcon from '~icons/simple-icons/telegram'
 import ShareIcon from '~icons/material-symbols/share'
 import CopyIcon from '~icons/material-symbols/content-copy'
 import CopyDoneIcon from '~icons/material-symbols/done'
-import DownloadIcon from '~icons/material-symbols/download'
-import DownloadDoneIcon from '~icons/material-symbols/download-done'
 
 interface Props {
   post: Post
@@ -19,7 +17,7 @@ const SITE = import.meta.env.SITE
 ---
 
 <div
-  class='flex items-center justify-start gap-1 *:rounded-full *:bg-tb-secondary *:p-2 *:text-sm *:text-tb-background'
+  class='flex items-center justify-start gap-1 *:rounded-full *:bg-tb-primary *:p-2 *:text-sm *:text-tb-background'
   role='group'
 >
   <button
@@ -72,17 +70,4 @@ const SITE = import.meta.env.SITE
     <CopyIcon x-show='!isCopied' x-cloak />
     <CopyDoneIcon x-show='isCopied' x-cloak />
   </button>
-  <a
-    title='Download Gambar Cover'
-    href={`/og?post=${post.slug}&square=true`}
-    target='_blank'
-    role='button'
-    download
-    x-bind:class="{ '!bg-tb-muted': isDownloaded }"
-    x-on:click='isDownloaded = true; setTimeout(() => { isDownloaded = false }, 3500)'
-    x-data='{ isDownloaded: false }'
-  >
-    <DownloadIcon x-show='!isDownloaded' x-cloak />
-    <DownloadDoneIcon x-show='isDownloaded' x-cloak />
-  </a>
 </div>
