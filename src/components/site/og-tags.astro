@@ -44,8 +44,14 @@ const smallOgImage = image
   {
     [largeOgImage, smallOgImage].filter(Boolean).map((image) => (
       <Fragment>
-        <meta property='og:image' content={image?.src} />
-        <meta property='og:image:secure_url' content={image?.src} />
+        <meta
+          property='og:image'
+          content={new URL(image?.src!, Astro.url.origin)}
+        />
+        <meta
+          property='og:image:secure_url'
+          content={new URL(image?.src!, Astro.url.origin)}
+        />
         <meta
           property='og:image:width'
           content={image?.options.width!.toString()}
