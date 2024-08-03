@@ -21,8 +21,7 @@ export const GET: APIRoute = async ({ site }) => {
               </url>
         `
         )
-        .join('')})
-      )}
+        .join('')}
     </urlset>    
   `.trim()
 
