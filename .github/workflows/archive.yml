@@ -4,16 +4,25 @@ on:
     - cron: 5 0 * * *
 
 jobs:
-  archive:
+  extract:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        sitemaps:
-          - 'https://www.tintaborneo.com/pages-sitemap.xml'
-          - 'https://www.tintaborneo.com/news-sitemap.xml'
     steps:
-      - uses: ruby/setup-ruby@v1
+      - run: wget https://www.tintaborneo.com/sitemap-index.xml
+      - run: xmlstarlet sel -t -v '//sitemapindex/sitemap/loc' sitemap-index.xml > url.txt
+      - uses: actions/upload-artifact@v3
         with:
-          ruby-version: '3.3.4'
-      - run: gem install wayback_archiver
-      - run: wayback_archiver ${{ matrix.sitemaps }}
+          name: urls
+          path: url.txt
+
+  process:
+    needs: extract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: urls
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: wabarc/wayback
+          options: -v ${{ github.workspace }}:/work
+          run: cat /work/url.txt | wayback
