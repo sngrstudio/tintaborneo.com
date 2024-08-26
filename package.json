@@ -40,7 +40,7 @@
     "@cloudflare/workers-types": "4.20240725.0",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.9",
-    "@iconify-json/eos-icons": "1.1.10",
+    "@iconify-json/eos-icons": "1.1.11",
     "@iconify-json/material-symbols": "1.1.85",
     "@iconify-json/simple-icons": "1.1.111",
     "@tailwindcss/typography": "0.5.13",
