@@ -7,10 +7,8 @@ export const getDateString = (
   date: string,
   options?: { format?: 'relative' | 'full' }
 ) => {
-  const objectDate = DateTime.fromISO(date)
-    .setZone('Asia/Jakarta')
-    .setLocale('id')
-  const currentDate = DateTime.now().setZone('Asia/Jakarta')
+  const objectDate = DateTime.fromISO(date + '+07:00').setLocale('id')
+  const currentDate = DateTime.now()
   const format = options?.format ?? 'relative'
   if (
     format === 'relative' &&
