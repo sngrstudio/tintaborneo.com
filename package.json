@@ -48,7 +48,7 @@
     "@types/luxon": "3.4.2",
     "@types/react": "18.3.10",
     "@types/react-dom": "18.3.0",
-    "@vite-pwa/assets-generator": "0.2.4",
+    "@vite-pwa/assets-generator": "0.2.6",
     "concurrently": "8.2.2",
     "dotenv": "16.4.5",
     "postcss": "8.4.40",
