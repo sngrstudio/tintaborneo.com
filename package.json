@@ -56,7 +56,7 @@
     "prettier": "3.3.3",
     "prettier-config-standard": "7.0.0",
     "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-tailwindcss": "0.6.5",
+    "prettier-plugin-tailwindcss": "0.6.8",
     "typescript": "5.5.4",
     "unplugin-icons": "0.19.1",
     "wrangler": "3.67.1"
