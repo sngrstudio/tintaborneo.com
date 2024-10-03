@@ -51,7 +51,7 @@
     "@vite-pwa/assets-generator": "0.2.6",
     "concurrently": "8.2.2",
     "dotenv": "16.4.5",
-    "postcss": "8.4.40",
+    "postcss": "8.4.47",
     "postcss-preset-env": "9.6.0",
     "prettier": "3.3.3",
     "prettier-config-standard": "7.0.0",
