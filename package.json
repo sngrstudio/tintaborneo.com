@@ -58,7 +58,7 @@
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.6.8",
     "typescript": "5.5.4",
-    "unplugin-icons": "0.19.1",
+    "unplugin-icons": "0.19.3",
     "wrangler": "3.67.1"
   },
   "packageManager": "pnpm@9.6.0"
