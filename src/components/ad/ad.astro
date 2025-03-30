@@ -1,0 +1,20 @@
+---
+import { Picture } from 'astro:assets'
+
+interface Ad {
+  image: any
+}
+
+const { image } = Astro.props
+---
+
+<Picture
+  class='mx-auto aspect-[4/3] w-full max-w-screen-lg object-cover'
+  src={image}
+  formats={['avif', 'webp']}
+  width={4000}
+  height={3000}
+  widths={[160, 250, 1024]}
+  sizes='(min-width: 1024px) 1024px, (min-width: 640px) 250px, 160px'
+  alt={''}
+/>
