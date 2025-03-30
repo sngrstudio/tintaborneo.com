@@ -5,9 +5,7 @@
       "extensions": [
         "astro-build.astro-vscode",
         "bradlc.vscode-tailwindcss",
-        "GitHub.vscode-github-actions",
-        "mhutchie.git-graph",
-        "sourcegraph.cody-ai"
+        "GitHub.vscode-github-actions"
       ]
     }
   },
