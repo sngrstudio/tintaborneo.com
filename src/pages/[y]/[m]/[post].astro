@@ -14,6 +14,8 @@ import Ad from '~/components/ad/ad.astro' // temporary ad section
 import adBupati from '~/assets/ads/bupati.jpeg'
 import adK1Dprd from '~/assets/ads/k1-dprd.jpeg'
 import adPolairud from '~/assets/ads/polairud.jpeg'
+import adReskrim from '~/assets/ads/reskrim.jpeg'
+import adPatai from '~/assets/ads/patai.jpeg'
 /* END OF TEMPORARY AD SECTION */
 
 const { post: postUri } = Astro.params
@@ -76,6 +78,8 @@ Astro.response.headers.set(
       <Ad image={adBupati} />
       <Ad image={adK1Dprd} />
       <Ad image={adPolairud} />
+      <Ad image={adReskrim} />
+      <Ad image={adPatai} />
     </div>
     {/* TEMPORARY AD SECTION */}
     <Related
