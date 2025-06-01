@@ -13,6 +13,7 @@ import { getPost } from '~/data/posts'
 import Ad from '~/components/ad/ad.astro' // temporary ad section
 import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
 import adPersil from '~/assets/ads/persil-1.jpeg'
+import adPersil2 from '~/assets/ads/persil-2.jpeg'
 /* END OF TEMPORARY AD SECTION */
 
 const { post: postUri } = Astro.params
@@ -39,6 +40,12 @@ Astro.response.headers.set(
 >
   {/* Main Content */}
   <Fragment set:html={post.content} />
+
+  {/* TEMPORARY AD SECTION - Below Article */}
+  <div class='mb-6 flex flex-col gap-2'>
+    <Ad image={adPersil2} />
+  </div>
+  {/* END TEMPORARY AD SECTION */}
 
   {/* Headings */}
   <Fragment slot='heading'>

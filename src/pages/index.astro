@@ -14,6 +14,7 @@ import { MenuLocationEnum, type Category } from '~/graphql/types'
 import Ad from '~/components/ad/ad.astro' // temporary ad section
 import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
 import adPersil from '~/assets/ads/persil-1.jpeg'
+import adPersil2 from '~/assets/ads/persil-2.jpeg'
 /* END OF TEMPORARY AD SECTION */
 
 const featuredPosts = await getFeaturedPosts()
@@ -65,11 +66,23 @@ Astro.response.headers.set(
       )
     }
     {
-      categories.map((category) => (
-        <ListLoader
-          uri={`/parts/posts?category=${(category.connectedNode?.node as Category).slug}&filter=${postLoaderFilter.join(',')}`}
-        />
-      ))
+      categories.map((category) => {
+        const categorySlug = (category.connectedNode?.node as Category).slug
+        const isBudayaCategory = categorySlug === 'budaya'
+
+        return (
+          <>
+            {isBudayaCategory && (
+              <section class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'>
+                <Ad image={adPersil2} />
+              </section>
+            )}
+            <ListLoader
+              uri={`/parts/posts?category=${categorySlug}&filter=${postLoaderFilter.join(',')}`}
+            />
+          </>
+        )
+      })
     }
   </main>
 
