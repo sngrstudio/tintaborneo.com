@@ -10,6 +10,12 @@ import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
 import { getMenu } from '~/data/site'
 import { MenuLocationEnum, type Category } from '~/graphql/types'
 
+/* TEMPORARY AD SECTION */
+import Ad from '~/components/ad/ad.astro' // temporary ad section
+import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
+import adPersil from '~/assets/ads/persil-1.jpeg'
+/* END OF TEMPORARY AD SECTION */
+
 const featuredPosts = await getFeaturedPosts()
 const latestPosts = await getLatestPosts({
   notIn: featuredPosts.nodes.map((post) => post.id)
@@ -45,6 +51,12 @@ Astro.response.headers.set(
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
+    <section
+      class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'
+    >
+      <Ad image={adSeruyanPersil} />
+      <Ad image={adPersil} />
+    </section>
     {
       moreLatestPosts && (
         <section class='mx-auto max-w-screen-lg'>

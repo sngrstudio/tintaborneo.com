@@ -9,6 +9,12 @@ import JSONLD from '~/components/post/jsonld.astro'
 import { Picture } from 'astro:assets'
 import { getPost } from '~/data/posts'
 
+/* TEMPORARY AD SECTION */
+import Ad from '~/components/ad/ad.astro' // temporary ad section
+import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
+import adPersil from '~/assets/ads/persil-1.jpeg'
+/* END OF TEMPORARY AD SECTION */
+
 const { post: postUri } = Astro.params
 const post = await getPost(postUri!)
 
@@ -64,6 +70,12 @@ Astro.response.headers.set(
 
   {/* Related Posts */}
   <Fragment slot='aside'>
+    {/* TEMPORARY AD SECTION */}
+    <div class='mb-2 flex flex-col gap-2'>
+      <Ad image={adSeruyanPersil} />
+      <Ad image={adPersil} />
+    </div>
+    {/* TEMPORARY AD SECTION */}
     <Related
       notIn={[post.id]}
       tagIn={post.tags?.nodes.map((tag) => tag.id) || []}
