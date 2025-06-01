@@ -61,5 +61,5 @@
     "unplugin-icons": "0.19.3",
     "wrangler": "3.67.1"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@10.0.0"
 }
