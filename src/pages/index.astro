@@ -10,6 +10,15 @@ import { getFeaturedPosts, getLatestPosts } from '~/data/posts'
 import { getMenu } from '~/data/site'
 import { MenuLocationEnum, type Category } from '~/graphql/types'
 
+/* TEMPORARY AD SECTION */
+import Ad from '~/components/ad/ad.astro' // temporary ad section
+import adBupati from '~/assets/ads/bupati.jpeg'
+import adK1Dprd from '~/assets/ads/k1-dprd.jpeg'
+import adPolairud from '~/assets/ads/polairud.jpeg'
+import adReskrim from '~/assets/ads/reskrim.jpeg'
+import adPatai from '~/assets/ads/patai.jpeg'
+/* END OF TEMPORARY AD SECTION */
+
 const featuredPosts = await getFeaturedPosts()
 const latestPosts = await getLatestPosts({
   notIn: featuredPosts.nodes.map((post) => post.id)
@@ -45,6 +54,9 @@ Astro.response.headers.set(
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
+    <section class='mx-auto w-full max-w-screen-lg'>
+      <Ad image={adBupati} />
+    </section>
     {
       moreLatestPosts && (
         <section class='mx-auto max-w-screen-lg'>
@@ -52,6 +64,14 @@ Astro.response.headers.set(
         </section>
       )
     }
+    <section
+      class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'
+    >
+      <Ad image={adK1Dprd} />
+      <Ad image={adPolairud} />
+      <Ad image={adReskrim} />
+      <Ad image={adPatai} />
+    </section>
     {
       categories.map((category) => (
         <ListLoader
