@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -8,6 +8,6 @@
         "GitHub.vscode-github-actions"
       ]
     }
-  }
-  // "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
+  },
+  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
 }
