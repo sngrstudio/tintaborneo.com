@@ -9,11 +9,9 @@ const { image } = Astro.props
 ---
 
 <Picture
-  class='aspect-[4/3] w-full object-cover'
+  class='aspect-[4/3] w-full object-contain'
   src={image}
   formats={['avif', 'webp']}
-  width={4000}
-  height={3000}
   widths={[360, 1024]}
   sizes='(min-width: 640px) 1024px, 360px'
   alt={''}
