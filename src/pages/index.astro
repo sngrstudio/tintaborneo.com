@@ -15,6 +15,7 @@ import Ad from '~/components/ad/ad.astro' // temporary ad section
 import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
 import adPersil from '~/assets/ads/persil-1.jpeg'
 import adPersil2 from '~/assets/ads/persil-2.jpeg'
+import adBni from '~/assets/ads/bni-1.jpg'
 /* END OF TEMPORARY AD SECTION */
 
 const featuredPosts = await getFeaturedPosts()
@@ -55,6 +56,7 @@ Astro.response.headers.set(
     <section
       class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'
     >
+      <Ad className='sm:col-span-2' image={adBni} />
       <Ad image={adSeruyanPersil} />
       <Ad image={adPersil} />
     </section>

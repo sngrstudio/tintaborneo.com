@@ -3,16 +3,19 @@ import { Picture } from 'astro:assets'
 
 interface Ad {
   image: any
+  className?: string
 }
 
-const { image } = Astro.props
+const { image, className = '' } = Astro.props
 ---
 
-<Picture
-  class='aspect-[4/3] w-full object-contain'
-  src={image}
-  formats={['avif', 'webp']}
-  widths={[360, 1024]}
-  sizes='(min-width: 640px) 1024px, 360px'
-  alt={''}
-/>
+<div class={className}>
+  <Picture
+    class:list={['w-full object-contain sm:aspect-[4/3]']}
+    src={image}
+    formats={['avif', 'webp']}
+    widths={[360, 1024]}
+    sizes='(min-width: 640px) 1024px, 360px'
+    alt={''}
+  />
+</div>
