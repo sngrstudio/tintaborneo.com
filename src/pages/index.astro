@@ -11,11 +11,7 @@ import { getMenu } from '~/data/site'
 import { MenuLocationEnum, type Category } from '~/graphql/types'
 
 /* TEMPORARY AD SECTION */
-import Ad from '~/components/ad/ad.astro' // temporary ad section
-import adSeruyanPersil from '~/assets/ads/seruyan-persil-1.jpeg'
-import adPersil from '~/assets/ads/persil-1.jpeg'
-import adPersil2 from '~/assets/ads/persil-2.jpeg'
-import adBni from '~/assets/ads/bni-1.jpg'
+// import Ad from '~/components/ad/ad.astro' // temporary ad section
 /* END OF TEMPORARY AD SECTION */
 
 const featuredPosts = await getFeaturedPosts()
@@ -53,13 +49,15 @@ Astro.response.headers.set(
       <FeaturedPosts posts={featuredPosts.nodes} class='md:col-span-2' />
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
-    <section
+    {
+      /* <section
       class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'
     >
       <Ad className='sm:col-span-2' image={adBni} />
       <Ad image={adSeruyanPersil} />
       <Ad image={adPersil} />
-    </section>
+    </section> */
+    }
     {
       moreLatestPosts && (
         <section class='mx-auto max-w-screen-lg'>
@@ -70,15 +68,17 @@ Astro.response.headers.set(
     {
       categories.map((category) => {
         const categorySlug = (category.connectedNode?.node as Category).slug
-        const isBudayaCategory = categorySlug === 'budaya'
+        // const isBudayaCategory = categorySlug === 'budaya'
 
         return (
           <>
+            {/*
             {isBudayaCategory && (
               <section class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'>
                 <Ad image={adPersil2} />
               </section>
             )}
+            */}
             <ListLoader
               uri={`/parts/posts?category=${categorySlug}&filter=${postLoaderFilter.join(',')}`}
             />
