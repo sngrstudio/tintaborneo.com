@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tintaborneo-com",
+  "main": "./dist/_worker.js/index.js",
+  // Update to today's date
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "env": {
+    "production": {
+      "vars": {
+        "ANALYTICS_ID": "99a90c23-b75d-4433-ada6-76e301533d3a",
+        "ANALYTICS_ENDPOINT": "https://analytics.sngrcreative.xyz/script.js"
+      }
+    }
+  }
+}
