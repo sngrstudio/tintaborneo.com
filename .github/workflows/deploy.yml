@@ -22,13 +22,7 @@ jobs:
         env:
           ADMIN_ENDPOINT: ${{ secrets.ADMIN_ENDPOINT }}
       - uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
-        if: github.event_name == 'pull_request'
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      - uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy --env=production
+          command: pages deploy dist --project-name=tintaborneo-com
