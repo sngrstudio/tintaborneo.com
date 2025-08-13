@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.3",
-    "@cloudflare/workers-types": "4.20240725.0",
+    "@cloudflare/workers-types": "4.20250813.0",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.9",
     "@iconify-json/eos-icons": "1.1.11",
@@ -59,7 +59,7 @@
     "prettier-plugin-tailwindcss": "0.6.8",
     "typescript": "5.5.4",
     "unplugin-icons": "0.19.3",
-    "wrangler": "3.67.1"
+    "wrangler": "4.29.1"
   },
   "packageManager": "pnpm@10.0.0",
   "pnpm": {
