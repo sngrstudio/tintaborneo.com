@@ -11,7 +11,16 @@ import { getMenu } from '~/data/site'
 import { MenuLocationEnum, type Category } from '~/graphql/types'
 
 /* TEMPORARY AD SECTION */
-// import Ad from '~/components/ad/ad.astro' // temporary ad section
+import Ad from '~/components/ad/ad.astro' // temporary ad section
+
+// Ad images (aside first order)
+import adDirpolairud from '~/assets/ads/dirpolairud.jpg'
+import adKapolres from '~/assets/ads/kapolres.jpg'
+import adAngga from '~/assets/ads/angga.jpg'
+import adKasatReskrim from '~/assets/ads/kasat-reskrim.jpg'
+import adKasatNarkoba from '~/assets/ads/kasat-narkoba.jpg'
+import adKasatLantas from '~/assets/ads/kasat-lantas.jpg'
+import adLurahPasirPutih from '~/assets/ads/lurah-pasir-putih.jpg'
 /* END OF TEMPORARY AD SECTION */
 
 const featuredPosts = await getFeaturedPosts()
@@ -50,13 +59,13 @@ Astro.response.headers.set(
       <LatestPosts posts={latestPosts.nodes} />
     </CarouselSection>
     {
-      /* <section
-      class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'
-    >
-      <Ad className='sm:col-span-2' image={adBni} />
-      <Ad image={adSeruyanPersil} />
-      <Ad image={adPersil} />
-    </section> */
+      (
+        <section class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'>
+          <Ad className='sm:col-span-2' image={adDirpolairud} />
+          <Ad image={adKapolres} />
+          <Ad image={adAngga} />
+        </section>
+      )
     }
     {
       moreLatestPosts && (
@@ -68,17 +77,18 @@ Astro.response.headers.set(
     {
       categories.map((category) => {
         const categorySlug = (category.connectedNode?.node as Category).slug
-        // const isBudayaCategory = categorySlug === 'budaya'
 
         return (
           <>
-            {/*
-            {isBudayaCategory && (
+            {/* Inline category ads */}
+            {categorySlug === 'hukrim' && (
               <section class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'>
-                <Ad image={adPersil2} />
+                <Ad image={adKasatReskrim} />
+                <Ad image={adKasatNarkoba} />
+                <Ad image={adKasatLantas} />
+                <Ad image={adLurahPasirPutih} />
               </section>
             )}
-            */}
             <ListLoader
               uri={`/parts/posts?category=${categorySlug}&filter=${postLoaderFilter.join(',')}`}
             />
