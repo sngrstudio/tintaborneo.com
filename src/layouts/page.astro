@@ -52,7 +52,15 @@ const { title, description, ...attrs } = Astro.props
       </Fragment>
 
       {/* Below */}
-      <slot name='below' />
+      <Fragment>
+        {
+          Astro.slots.has('below') && (
+            <div class='sm:col-span-2 md:col-span-5'>
+              <slot name='below' />
+            </div>
+          )
+        }
+      </Fragment>
     </section>
   </main>
 </Layout>
