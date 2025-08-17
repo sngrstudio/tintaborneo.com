@@ -49,7 +49,10 @@ Astro.response.headers.set(
   <Fragment set:html={post.content} />
 
   {/* TEMPORARY AD SECTION - Below Article */}
-  <div class='mb-2 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4' slot='below'>
+  <div
+    class='mb-2 grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4'
+    slot='below'
+  >
     <Ad image={adKasatReskrim} />
     <Ad image={adKasatNarkoba} />
     <Ad image={adKasatLantas} />
