@@ -50,6 +50,9 @@ const { title, description, ...attrs } = Astro.props
           )
         }
       </Fragment>
+
+      {/* Below */}
+      <slot name='below' />
     </section>
   </main>
 </Layout>
