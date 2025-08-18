@@ -14,6 +14,7 @@ import { MenuLocationEnum, type Category } from '~/graphql/types'
 import Ad from '~/components/ad/ad.astro' // temporary ad section
 
 // Ad images (aside first order)
+import adRedaksi from '~/assets/ads/redaksi.jpg'
 import adDirpolairud from '~/assets/ads/dirpolairud.jpg'
 import adKapolres from '~/assets/ads/kapolres.jpg'
 import adAngga from '~/assets/ads/angga.jpg'
@@ -61,7 +62,8 @@ Astro.response.headers.set(
     {
       (
         <section class='mx-auto grid w-full max-w-screen-lg grid-cols-1 gap-2 sm:grid-cols-2'>
-          <Ad className='sm:col-span-2' image={adDirpolairud} />
+          <Ad className='sm:col-span-2' image={adRedaksi} />
+          <Ad image={adDirpolairud} />
           <Ad image={adKapolres} />
           <Ad image={adAngga} />
         </section>
