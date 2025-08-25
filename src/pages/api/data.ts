@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     const response = await fetch(
-      `${import.meta.env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
+      `${process.env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
     )
     const data = await response.json()
 
