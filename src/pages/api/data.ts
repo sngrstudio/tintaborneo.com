@@ -1,8 +1,6 @@
 import type { APIRoute } from 'astro'
 
-export const GET: APIRoute = async ({ locals, url }) => {
-  // @ts-ignore
-  const { env } = locals.runtime
+export const GET: APIRoute = async ({ url }) => {
   const queryId = url.searchParams.get('queryId')
   const variables = url.searchParams.get('variables')
 
@@ -12,7 +10,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
     }
 
     const response = await fetch(
-      `${env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
+      `${process.env.ADMIN_ENDPOINT}/wp/graphql?queryId=${queryId}${variables ? `&variables=${encodeURIComponent(variables)}` : ''}`
     )
     const data = await response.json()
 
