@@ -1,15 +1,14 @@
 ---
 // @ts-nocheck
-const { env } = Astro.locals.runtime
 ---
 
 <Fragment>
   {/* In-house analytics (using Umami) */}
-  {(import.meta.env.PROD && env.ANALYTICS_ENDPOINT) && (
+  {(import.meta.env.PROD && import.meta.env.ANALYTICS_ENDPOINT) && (
     <script
       defer
-      src={env.ANALYTICS_ENDPOINT}
-      data-website-id={env.ANALYTICS_ID}
+      src={import.meta.env.ANALYTICS_ENDPOINT}
+      data-website-id={import.meta.env.ANALYTICS_ID}
       is:inline
     />
   )}
