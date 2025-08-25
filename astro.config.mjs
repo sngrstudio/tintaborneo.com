@@ -10,8 +10,7 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   output: 'server',
   adapter: node({
-    mode: 'standalone',
-    host: '0.0.0.0'
+    mode: 'standalone'
   }),
   image: {
     domains: ['tintaborneo.com', 'www.tintaborneo.com']
