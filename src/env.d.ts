@@ -5,9 +5,8 @@ type ENV = {
   ANALYTICS_ID: string
 }
 
-type Runtime = import('@astrojs/cloudflare').Runtime<ENV>
 declare namespace App {
-  interface Locals extends Runtime {}
+  interface Locals {}
 }
 
 import 'react'
