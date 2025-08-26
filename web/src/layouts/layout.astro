@@ -1,0 +1,29 @@
+---
+import BaseLayout, { type Props as BLProps } from './base.astro'
+import Meta, { type Props as MetaProps } from './meta.astro'
+import Header from '~/components/header/header.astro'
+import '@fontsource-variable/albert-sans'
+import '@fontsource-variable/plus-jakarta-sans'
+import './global.css'
+
+export interface Props extends BLProps, MetaProps {}
+const { title, description, hide, class: className, ...props } = Astro.props
+---
+
+<BaseLayout
+  class:list={[
+    'bg-brand-background text-brand-text min-h-svh pt-[calc(96px+1rem)]',
+    className
+  ]}
+  {...props}
+>
+  {/* <body /> */}
+  <Header />
+  <slot />
+
+  {/* <head /> */}
+  <Fragment slot='head'>
+    <Meta {...{ title, description, hide }} />
+    <slot name='head' />
+  </Fragment>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+import News from '~/components/news/news.astro'
+import { ArticlePlaceholder } from '~/components/news/article'
+---
+
+{/* Latest News */}
+<News title='Baca Juga' first={4}>
+  <ArticlePlaceholder className='mx-4 mb-12' slot='fallback' />
+</News>

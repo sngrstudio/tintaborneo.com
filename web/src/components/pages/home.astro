@@ -1,0 +1,40 @@
+---
+import FeaturedNews from '~/components/news/featured.astro'
+import News from '~/components/news/news.astro'
+import { FeaturedArticlePlaceholder } from '~/components/news/featured'
+import { ArticlePlaceholder } from '~/components/news/article'
+import { getEntry } from 'astro:content'
+import settings from '~/settings'
+
+const categories =
+  (await getEntry('menus', settings.menuSlug)?.then((menu) =>
+    menu.data.menuItems?.map((item) => item.connectedNode?.node)
+  )) || []
+---
+
+<FeaturedNews tag='berita-utama' server:defer>
+  <div class='mx-4 mb-8 grid grid-cols-1 gap-y-4' slot='fallback'>
+    <FeaturedArticlePlaceholder />
+    <ArticlePlaceholder />
+  </div>
+</FeaturedNews>
+
+{/* Categorical News */}
+<Fragment>
+  {
+    categories.map((category) => (
+      <News
+        title={category.name}
+        categoryName={category.slug}
+        first={12}
+        className='max-xl:px-4 mb-16 max-w-screen-xl mx-auto'
+        server:defer
+      >
+        <ArticlePlaceholder
+          className='max-xl:px-4 mb-16 max-w-screen-xl mx-auto'
+          slot='fallback'
+        />
+      </News>
+    ))
+  }
+</Fragment>

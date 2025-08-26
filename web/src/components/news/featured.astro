@@ -1,0 +1,98 @@
+---
+import FeaturedList, { FeaturedArticle } from './featured'
+import ArticleList, { Article } from './article'
+import { Picture } from 'astro:assets'
+import { getLiveCollection } from 'astro:content'
+
+interface Props {
+  tag?: string
+  categoryName?: string
+}
+
+const { tag, categoryName } = Astro.props
+
+const featuredNews = await getLiveCollection('posts', {
+  tag,
+  categoryName,
+  first: 4
+})
+
+const latestNews = await getLiveCollection('posts', {
+  tag,
+  categoryName,
+  first: 4,
+  notIn: featuredNews.entries?.map((news) => news.data.id)
+})
+---
+
+<div
+  class='mx-auto grid max-w-screen-xl grid-cols-1 items-start gap-4 sm:mb-16 md:grid-cols-3'
+>
+  <Fragment>
+    {
+      featuredNews.entries && featuredNews.entries.length > 0 && (
+        <div class='mx-4 grid grid-cols-1 gap-y-4 md:col-span-2'>
+          <FeaturedList className='__carousel -mx-4'>
+            {featuredNews.entries.map((article) => (
+              <FeaturedArticle
+                className='min-w-0 flex-[0_0_100%]'
+                title={article.data.title!}
+                href={article.data.uri!}
+                date={new Date(article.data.date! + '+07:00')}
+                section='Berita Utama'
+              >
+                <Picture
+                  src={article.data.featuredImage!}
+                  class='aspect-[480/300] w-full overflow-hidden'
+                  width={480}
+                  height={300}
+                  layout='constrained'
+                  formats={['avif', 'webp']}
+                  alt=''
+                />
+              </FeaturedArticle>
+            ))}
+          </FeaturedList>
+        </div>
+      )
+    }</Fragment
+  >
+
+  <Fragment>
+    {
+      latestNews.entries && latestNews.entries.length > 0 && (
+        <ArticleList className='max-sm:px-4 max-sm:mb-16 sm:pt-[133px]'>
+          {latestNews.entries?.map((article, _i) => (
+            <Article
+              title={article.data.title!}
+              href={article.data.uri!}
+              date={new Date(article.data.date! + '+07:00')}
+            >
+              <Picture
+                class='aspect-[240/180] w-full overflow-hidden'
+                src={article.data.featuredImage!}
+                width={240}
+                height={180}
+                layout='fixed'
+                formats={['avif', 'webp']}
+                alt=''
+              />
+            </Article>
+          ))}
+        </ArticleList>
+      )
+    }
+  </Fragment>
+
+  <slot name='after-list' />
+</div>
+
+<script>
+  import carousel from 'embla-carousel'
+  import autoplay from 'embla-carousel-autoplay'
+
+  const carouselNode = document.querySelector('.__carousel') as HTMLElement
+  const carouselAPI = carousel(carouselNode, { loop: true }, [autoplay()])
+
+  carouselAPI.slideNodes()
+</script>

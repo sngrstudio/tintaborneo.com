@@ -1,0 +1,40 @@
+---
+import PageLayout, { type Props as LProps } from '~/layouts/page.astro'
+import Related from '~/components/pages/related.astro'
+import { getLiveEntry, render } from 'astro:content'
+
+export const prerender = false
+
+const { year, month, post: slug } = Astro.params
+const { entry: post } = await getLiveEntry('posts', {
+  id: `${year}/${month}/${slug}`
+})
+if (!post) {
+  return Astro.redirect('/404')
+}
+
+// @ts-ignore
+const { Content } = await render(post)
+const props = {
+  title: post.data.title ?? '',
+  image: post.data.featuredImage ?? undefined,
+  imageCaption: post.data.featuredImageCaption ?? undefined
+} satisfies LProps
+const date = new Date(post.data.date! + '+07:00')
+---
+
+<PageLayout {...props}>
+  <Content />
+
+  <Fragment slot='hgroup'>
+    <div class='not-prose text-brand-text/60 -mt-6 italic'>
+      <time datetime={post.data.date + '+07:00'}>
+        {date.toLocaleDateString('id-ID', { dateStyle: 'full' })}
+      </time>
+    </div>
+  </Fragment>
+
+  <Fragment slot='aside'>
+    <Related />
+  </Fragment>
+</PageLayout>

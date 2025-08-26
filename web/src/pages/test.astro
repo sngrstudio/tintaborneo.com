@@ -1,0 +1,27 @@
+---
+// import { Debug } from 'astro:components'
+// import { getLiveCollection } from 'astro:content'
+
+// const featured = await getLiveCollection('posts', {
+//   tag: 'berita-utama',
+//   first: 3
+// })
+// const latestNonFeatured = await getLiveCollection('posts', {
+//   notIn: featured.entries?.map((entry) => entry.data.id) ?? [],
+//   first: 3
+// })
+import Layout from '~/layouts/layout.astro'
+import { FeaturedArticlePlaceholder } from '~/components/news/featured'
+import { ArticlePlaceholder } from '~/components/news/article'
+
+export const prerender = false
+---
+
+<!-- <Debug {featured} />
+<Debug {latestNonFeatured} /> -->
+<Layout>
+  <section class='mx-4 grid grid-cols-1 gap-4'>
+    <FeaturedArticlePlaceholder />
+    <ArticlePlaceholder />
+  </section>
+</Layout>
