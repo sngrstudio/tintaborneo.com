@@ -1,7 +1,10 @@
 ---
 import PageLayout, { type Props as LProps } from '~/layouts/page.astro'
 import Related from '~/components/pages/related.astro'
-import { getLiveEntry, render } from 'astro:content'
+import { getLiveEntry, getEntry, render } from 'astro:content'
+import { getImage } from 'astro:assets'
+import { stripHTML } from '~/helpers/html'
+import wordmark from '~/assets/wordmark.png'
 
 export const prerender = false
 
@@ -9,18 +12,75 @@ const { year, month, post: slug } = Astro.params
 const { entry: post } = await getLiveEntry('posts', {
   id: `${year}/${month}/${slug}`
 })
+const site = await getEntry('site', 'SITE')
 if (!post) {
   return Astro.redirect('/404')
 }
 
 // @ts-ignore
 const { Content } = await render(post)
+const image =
+  typeof post.data.featuredImage === 'string'
+    ? post.data.featuredImage
+    : undefined
+const imageCaption =
+  typeof post.data.featuredImageCaption === 'string'
+    ? post.data.featuredImageCaption
+    : undefined
+
 const props = {
   title: post.data.title ?? '',
-  image: post.data.featuredImage ?? undefined,
-  imageCaption: post.data.featuredImageCaption ?? undefined
+  description: post.data.excerpt ? stripHTML(post.data.excerpt) : '',
+  image,
+  imageCaption
 } satisfies LProps
 const date = new Date(post.data.date! + '+07:00')
+
+const imageSrc = typeof props.image === 'string' ? props.image : undefined
+const ogImage = imageSrc
+  ? await getImage({ src: imageSrc, width: 1200, height: 630 })
+  : undefined
+const logo = await getImage({ src: wordmark, width: 400 })
+
+const jsonLD = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  inLanguage: 'id',
+  headline: props.title,
+  description: props.description,
+  datePublished: date.toISOString(),
+  url: Astro.url.href,
+  thumbnailUrl: ogImage ? new URL(ogImage.src, Astro.url.origin) : undefined,
+  mainEntityofPage: Astro.url.href,
+  articleBody: post.data.content ? stripHTML(post.data.content) : '',
+  keywords: post.data.tags
+    ? post.data.tags.map((tag) => tag.name).join(', ')
+    : '',
+  author: {
+    '@type': 'Person',
+    name: `Redaksi ${site?.data.title}`,
+    url: new URL('/about', Astro.url.origin)
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site?.data.title,
+    url: Astro.url.origin,
+    image: {
+      '@type': 'ImageObject',
+      url: new URL(logo.src, Astro.url.origin),
+      width: logo.options.width,
+      height: logo.options.height
+    }
+  },
+  image: ogImage
+    ? {
+        '@type': 'ImageObject',
+        url: new URL(ogImage.src, Astro.url.origin),
+        width: ogImage.options.width,
+        height: ogImage.options.height
+      }
+    : undefined
+}
 ---
 
 <PageLayout {...props}>
@@ -28,7 +88,7 @@ const date = new Date(post.data.date! + '+07:00')
 
   <Fragment slot='hgroup'>
     <div class='not-prose text-brand-text/60 -mt-6 italic'>
-      <time datetime={post.data.date + '+07:00'}>
+      <time datetime={date.toISOString()}>
         {date.toLocaleDateString('id-ID', { dateStyle: 'full' })}
       </time>
     </div>
@@ -36,5 +96,57 @@ const date = new Date(post.data.date! + '+07:00')
 
   <Fragment slot='aside'>
     <Related />
+  </Fragment>
+
+  <Fragment slot='head'>
+    {/* OpenGraph Properties */}
+    <meta property='og:type' content='article' />
+    <meta property='og:title' content={props.title} />
+    <meta property='og:description' content={props.description} />
+    <meta property='og:url' content={Astro.url.href} />
+    {
+      ogImage && (
+        <Fragment>
+          <meta
+            property='og:image'
+            content={new URL(ogImage.src, Astro.url.origin)}
+          />
+          <meta
+            property='og:image:width'
+            content={ogImage.options.width?.toString()}
+          />
+          <meta
+            property='og:image:height'
+            content={ogImage.options.height?.toString()}
+          />
+        </Fragment>
+      )
+    }
+    {
+      post.data.categories && (
+        <Fragment>
+          {post.data.categories.map((category) => (
+            <meta property='article:section' content={category.name} />
+          ))}
+        </Fragment>
+      )
+    }
+    {
+      post.data.tags && (
+        <Fragment>
+          {post.data.tags.map((tag) => (
+            <meta property='article:tag' content={tag.name} />
+          ))}
+        </Fragment>
+      )
+    }
+    <meta property='article:published_time' content={date.toISOString()} />
+
+    {/* JSONLD Structured Data */}
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify(jsonLD)}
+      is:inline
+    />
   </Fragment>
 </PageLayout>
