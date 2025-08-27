@@ -3,7 +3,6 @@ import type { HTMLAttributes } from 'react'
 import ArticleList, { Article } from './article'
 import { Picture } from 'astro:assets'
 import { getLiveCollection } from 'astro:content'
-import clsx from 'clsx'
 
 interface Props extends HTMLAttributes<HTMLElement> {
   tag?: string
@@ -25,15 +24,14 @@ const latestNews = await getLiveCollection('posts', {
   {
     latestNews.entries && latestNews.entries.length > 0 && (
       <ArticleList title={title} className={className} {...props}>
-        {latestNews.entries?.map((article, i) => (
+        {latestNews.entries?.map((article) => (
           <Article
             title={article.data.title!}
             href={article.data.uri!}
             date={new Date(article.data.date! + '+07:00')}
-            className={clsx(i === 0 && '@md:col-span-2 @md:row-span-2')}
           >
             <Picture
-              class='aspect-[240/180] w-full overflow-hidden'
+              class='aspect-[240/180] w-full overflow-hidden rounded-lg'
               src={article.data.featuredImage!}
               width={240}
               height={180}
