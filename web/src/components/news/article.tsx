@@ -77,7 +77,7 @@ const ArticleList: FC<PropsWithChildren<HTMLAttributes<HTMLElement>>> = ({
         {...props}
       >
         {title && (
-          <h2 className='font-headings text-brand-accent text-lg leading-relaxed font-bold uppercase @md:col-span-3'>
+          <h2 className='font-subheadings text-brand-primary text-lg leading-relaxed font-bold uppercase @md:col-span-3'>
             {title}
           </h2>
         )}

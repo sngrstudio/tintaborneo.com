@@ -25,7 +25,7 @@ export const FeaturedArticle: FC<PropsWithChildren<FeaturedArticleProps>> = ({
     >
       <hgroup className='flex flex-1 flex-col gap-y-1'>
         {section && (
-          <div className='font-headings text-brand-accent text-sm leading-relaxed font-bold uppercase max-sm:mx-4'>
+          <div className='font-subheadings text-brand-accent text-sm leading-relaxed font-bold uppercase max-sm:mx-4'>
             {section}
           </div>
         )}

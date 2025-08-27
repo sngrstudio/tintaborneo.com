@@ -22,7 +22,7 @@ const HeaderNavigation: FC<HeaderNavigationProps> = ({ items }) => {
       <ul className='-ml-2 flex flex-nowrap justify-center-safe overflow-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
         {items.map((item, i) => (
           <li
-            className='font-headings text-brand-primary px-2 py-1 font-bold text-nowrap uppercase'
+            className='font-subheadings text-brand-primary px-2 py-1 font-bold text-nowrap uppercase'
             key={i}
           >
             <a href={item.uri}>{item.label}</a>

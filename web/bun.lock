@@ -8,6 +8,7 @@
         "@astrojs/react": "^4.3.0",
         "@fontsource-variable/albert-sans": "^5.2.6",
         "@fontsource-variable/plus-jakarta-sans": "^5.2.6",
+        "@fontsource-variable/source-serif-4": "^5.2.8",
         "@tailwindcss/vite": "^4.1.11",
         "astro": "5.13.3",
         "clsx": "^2.1.1",
@@ -205,6 +206,8 @@
     "@fontsource-variable/albert-sans": ["@fontsource-variable/albert-sans@5.2.6", "", {}, "sha512-TgYX3iYk4jRJGs0FAEk6br21oe5NLd9DTWN17hN7Bc1zcVANNs3lIv1Tu0CdMBu/lXHObw0YD0fxVINxoZ/rVg=="],
 
     "@fontsource-variable/plus-jakarta-sans": ["@fontsource-variable/plus-jakarta-sans@5.2.6", "", {}, "sha512-w0954jYDlHvzABXY5NgkBtitBiHcULblm1cScowZrRV5V6KtgB17Ubw3knFr82P3qvN48kgQk5DLPhB27OlTnQ=="],
+
+    "@fontsource-variable/source-serif-4": ["@fontsource-variable/source-serif-4@5.2.8", "", {}, "sha512-qj5xZxbKmucdY2t6Qp2RdFzgQoepl7FLukVOE527o9ueDSQ3M4nwoec5YyTn45iP2y8jCb8H3Se6JnhL7tlltA=="],
 
     "@graphql-codegen/add": ["@graphql-codegen/add@5.0.3", "", { "dependencies": { "@graphql-codegen/plugin-helpers": "^5.0.3", "tslib": "~2.6.0" }, "peerDependencies": { "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0" } }, "sha512-SxXPmramkth8XtBlAHu4H4jYcYXM/o3p01+psU+0NADQowA8jtYkK6MW5rV6T+CxkEaNZItfSmZRPgIuypcqnA=="],
 

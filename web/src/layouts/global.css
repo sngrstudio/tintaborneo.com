@@ -3,14 +3,14 @@
 
 @theme {
   /* Typefaces */
-  --font-headings: 'Albert Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-article: 'Plus Jakarta Sans Variable', ui-sans-serif, sans-serif;
+  --font-headings: 'Source Serif 4 Variable', ui-serif, serif;
+  --font-subheadings: 'Plus Jakarta Sans Variable', ui-sans-serif, sans-serif;
 
   /* Colors */
   --color-brand-background: oklch(1 0 0);
   --color-brand-text: oklch(0 0 0);
   --color-brand-muted: oklch(0.5795 0 0);
-  --color-brand-primary: oklch(0.5444 0.2234 29.23);
-  --color-brand-accent: oklch(0.3097 0.1643 263.46);
-  --color-brand-highlight: oklch(0.9577 0.2066 108.26);
+  --color-brand-primary: oklch(0.5415 0.1983 258.21);
+  --color-brand-accent: oklch(0.5797 0.2315 29.59);
+  /* --color-brand-highlight: oklch(0.9577 0.2066 108.26); */
 }

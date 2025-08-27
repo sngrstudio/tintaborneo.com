@@ -24,10 +24,10 @@ const props = {
 ---
 
 <Layout {...props}>
-  <hgroup
-    class='bg-brand-accent text-brand-background -mt-[1rem] mb-4 px-4 py-8'
-  >
-    <h1 class='font-headings text-3xl font-black'>{props.title}</h1>
+  <hgroup class='text-brand-primary -mt-[1rem] mb-4 px-4 py-8'>
+    <div class='mx-auto max-w-screen-xl'>
+      <h1 class='font-subheadings text-3xl font-black'>{props.title}</h1>
+    </div>
   </hgroup>
   <CategoryHome category={category.data.name ?? ''} />
 </Layout>

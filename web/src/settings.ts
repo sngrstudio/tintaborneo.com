@@ -1,3 +1,3 @@
 export default {
-  menuSlug: 'primary'
+  menuSlug: 'main-categories'
 } as const
