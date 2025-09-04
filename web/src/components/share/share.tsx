@@ -32,11 +32,12 @@ const Share: FC<HTMLAttributes<HTMLElement>> = ({ className, ...props }) => {
   }
 
   const handleFacebookShareBtn = () => {
-    const FACEBOOK_SHARE_ENDPOINT = 'https://www.facebook.com/sharer/sharer.php'
+    const FACEBOOK_SHARE_ENDPOINT = 'https://www.facebook.com/dialog/share'
     const url = window.location.href
 
     const handlerURL = new URL(FACEBOOK_SHARE_ENDPOINT)
-    handlerURL.searchParams.append('u', url)
+    handlerURL.searchParams.append('href', url)
+    handlerURL.searchParams.append('display', 'popup')
 
     window.open(handlerURL.href, '_blank')
   }
