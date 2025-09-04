@@ -26,13 +26,13 @@ export const Article: FC<PropsWithChildren<ArticleProps>> = ({
   return (
     <article
       className={clsx(
-        'grid grid-cols-3 gap-x-2 @sm:grid-cols-1 @sm:gap-y-4',
+        'grid grid-cols-3 gap-x-2 md:@sm:grid-cols-1 md:@sm:gap-y-4',
         className
       )}
       title={title}
       {...props}
     >
-      <div className='col-span-2 flex flex-col justify-between gap-y-1 @sm:col-span-1'>
+      <div className='col-span-2 flex flex-col justify-between gap-y-1 md:@sm:col-span-1'>
         {section && <div className='text-sm uppercase'>{section}</div>}
         <h3 className='font-headings line-clamp-3 leading-snug font-bold'>
           <a href={href}>{title}</a>
@@ -78,14 +78,11 @@ const ArticleList: FC<PropsWithChildren<HTMLAttributes<HTMLElement>>> = ({
   return (
     <div className='@container'>
       <div
-        className={clsx(
-          'grid grid-cols-1 gap-4 @sm:grid-cols-2 @md:grid-cols-4',
-          className
-        )}
+        className={clsx('grid grid-cols-1 gap-4 @md:grid-cols-4', className)}
         {...props}
       >
         {title && (
-          <h2 className='font-subheadings text-brand-primary text-lg leading-relaxed font-bold uppercase @sm:col-span-2 @md:col-span-4'>
+          <h2 className='font-subheadings text-brand-primary text-lg leading-relaxed font-bold uppercase @md:col-span-4'>
             {title}
           </h2>
         )}

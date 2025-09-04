@@ -23,7 +23,7 @@ const categories =
 <News
   title='Terkini'
   first={20}
-  className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
+  className='mx-auto mb-8 max-w-screen-xl max-xl:px-4 md:mb-16'
   server:defer
 />
 
@@ -35,11 +35,11 @@ const categories =
         title={category.name}
         categoryName={category.slug}
         first={12}
-        className='max-xl:px-4 mb-16 max-w-screen-xl mx-auto'
+        className='max-xl:px-4 mb-8 md:mb-16 max-w-screen-xl mx-auto'
         server:defer
       >
         <ArticlePlaceholder
-          className='max-xl:px-4 mb-16 max-w-screen-xl mx-auto'
+          className='max-xl:px-4 mb-8 md:mb-16 max-w-screen-xl mx-auto'
           slot='fallback'
         />
       </News>
