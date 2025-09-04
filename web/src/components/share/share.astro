@@ -1,0 +1,9 @@
+---
+import ShareFC from './share'
+
+type Props = Parameters<typeof ShareFC>[0]
+
+const { ...props } = Astro.props
+---
+
+<ShareFC {...props} client:idle />

@@ -1,6 +1,7 @@
 ---
 import PageLayout, { type Props as LProps } from '~/layouts/page.astro'
 import Related from '~/components/pages/related.astro'
+import Share from '~/components/share/share.astro'
 import { getLiveEntry, getEntry, render } from 'astro:content'
 import { getImage } from 'astro:assets'
 import { stripHTML } from '~/helpers/html'
@@ -92,6 +93,7 @@ const jsonLD = {
         {date.toLocaleDateString('id-ID', { dateStyle: 'full' })}
       </time>
     </div>
+    <Share className='mt-2' />
   </Fragment>
 
   <Fragment slot='aside'>
