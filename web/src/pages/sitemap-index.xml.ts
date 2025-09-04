@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ site }) => {
       <?xml version="1.0" encoding="UTF-8"?>
       <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <sitemap>
-          <loc>${site}/news-sitemap.xml</loc>
+          <loc>${new URL('news-sitemap.xml', site).href}</loc>
         </sitemap>
       </sitemapindex>
     `
