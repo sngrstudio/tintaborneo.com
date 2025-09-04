@@ -41,10 +41,7 @@ const HeaderButton: FC<PropsWithChildren<HeaderButtonProps>> = ({
   ...props
 }) => {
   return (
-    <button
-      className={clsx('border border-black/25 p-[6px]', className)}
-      {...props}
-    >
+    <button className={clsx('p-[6px]', className)} {...props}>
       {children}
     </button>
   )
