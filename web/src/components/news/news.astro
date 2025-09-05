@@ -9,14 +9,24 @@ interface Props extends HTMLAttributes<HTMLElement> {
   categoryName?: string
   first?: number
   title?: string
+  notIn?: Array<string>
 }
 
-const { tag, categoryName, first = 8, title, className, ...props } = Astro.props
+const {
+  tag,
+  categoryName,
+  first = 8,
+  title,
+  notIn,
+  className,
+  ...props
+} = Astro.props
 
 const latestNews = await getLiveCollection('posts', {
   tag,
   categoryName,
-  first
+  first,
+  notIn
 })
 ---
 
