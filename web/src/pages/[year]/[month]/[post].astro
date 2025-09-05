@@ -85,6 +85,7 @@ const jsonLD = {
 ---
 
 <PageLayout {...props}>
+  <Share className='not-prose mt-2' />
   <Content />
 
   <Fragment slot='hgroup'>
@@ -97,10 +98,6 @@ const jsonLD = {
 
   <Fragment slot='aside'>
     <Related />
-  </Fragment>
-
-  <Fragment slot='before-content'>
-    <Share className='mt-2' />
   </Fragment>
 
   <Fragment slot='head'>
