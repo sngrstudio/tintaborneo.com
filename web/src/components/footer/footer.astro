@@ -1,0 +1,24 @@
+---
+import FooterRC from './footer'
+import { getEntry } from 'astro:content'
+import { Picture } from 'astro:assets'
+import wordmark from '~/assets/wordmark-white.svg'
+
+const links =
+  (await getEntry('menus', 'links')?.then((menu) => menu.data.menuItems)) ?? []
+
+const site = await getEntry('site', 'SITE')
+---
+
+<FooterRC
+  title={site?.data.title!}
+  links={links.map((link) => ({ label: link.label!, url: link.uri! }))}
+>
+  <Picture
+    class='w-[224px]'
+    src={wordmark}
+    widths={[224]}
+    layout='fixed'
+    alt=''
+  />
+</FooterRC>
