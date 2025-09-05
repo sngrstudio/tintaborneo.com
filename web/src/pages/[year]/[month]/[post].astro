@@ -93,11 +93,14 @@ const jsonLD = {
         {date.toLocaleDateString('id-ID', { dateStyle: 'full' })}
       </time>
     </div>
-    <Share className='mt-2' />
   </Fragment>
 
   <Fragment slot='aside'>
     <Related />
+  </Fragment>
+
+  <Fragment slot='before-content'>
+    <Share className='mt-2' />
   </Fragment>
 
   <Fragment slot='head'>

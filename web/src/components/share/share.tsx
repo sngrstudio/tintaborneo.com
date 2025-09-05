@@ -43,18 +43,18 @@ const Share: FC<HTMLAttributes<HTMLElement>> = ({ className, ...props }) => {
   }
 
   return (
-    <div className={clsx('flex items-center gap-1', className)} {...props}>
+    <div className={clsx('flex items-center gap-2', className)} {...props}>
       <div className='text-brand-muted text-xs font-bold'>Bagikan</div>
 
       <ShareButton onClick={handleNativeShareBtn}>
         <ShareIcon />
       </ShareButton>
 
-      <ShareButton className='!text-[#25D366]' onClick={handleWhatsAppShareBtn}>
+      <ShareButton className='!bg-[#25D366]' onClick={handleWhatsAppShareBtn}>
         <WhatsAppIcon />
       </ShareButton>
 
-      <ShareButton className='!text-[#0866FF]' onClick={handleFacebookShareBtn}>
+      <ShareButton className='!bg-[#0866FF]' onClick={handleFacebookShareBtn}>
         <FacebookIcon />
       </ShareButton>
     </div>
@@ -67,7 +67,7 @@ const ShareButton: FC<
   return (
     <button
       className={clsx(
-        'text-brand-muted aspect-[1/1] p-1 text-lg sm:text-sm',
+        'bg-brand-muted text-brand-background rounded px-3 py-2 text-lg sm:text-sm',
         className
       )}
       {...props}
