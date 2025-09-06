@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # graphql generated types
 src/graphql/types.ts
+
+src/components/scripts/analytics.astro

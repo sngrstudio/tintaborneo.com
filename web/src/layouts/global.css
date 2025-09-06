@@ -11,6 +11,7 @@
   --color-brand-text: oklch(0 0 0);
   --color-brand-muted: oklch(0.5795 0 0);
   --color-brand-primary: oklch(0.5415 0.1983 258.21);
+  --color-brand-secondary: oklch(0.5876 0.127656 199.3103);
   --color-brand-accent: oklch(0.5797 0.2315 29.59);
   /* --color-brand-highlight: oklch(0.9577 0.2066 108.26); */
 }
