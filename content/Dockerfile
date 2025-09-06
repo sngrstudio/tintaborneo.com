@@ -1,0 +1,38 @@
+# Dependencies installer image
+FROM composer:2.8.9 AS installer
+WORKDIR /usr/src/app
+
+RUN --mount=type=bind,source=./composer.json,target=composer.json \
+    --mount=type=bind,source=./composer.lock,target=composer.lock \
+    --mount=type=cache,id=composer,target=/tmp \
+    composer install --no-dev --no-interaction
+
+# Runner image
+FROM php:8.2.29-apache-bookworm AS runner
+WORKDIR /var/www/html
+
+ARG CLI=false
+
+RUN a2enmod rewrite
+COPY --from=ghcr.io/mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions mysqli exif imagick zip gd intl
+
+# Install WP-CLI only if CLI=true
+RUN if [ "$CLI" = "true" ]; then \
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp; \
+    fi
+
+RUN echo "Listen 80" > /etc/apache2/ports.conf
+COPY server/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY server/php.ini $PHP_INI_DIR/php.ini
+COPY --chown=www-data:www-data --from=installer /usr/src/app/vendor vendor
+COPY --chown=www-data:www-data --from=installer /usr/src/app/web/wp web/wp
+COPY --chown=www-data:www-data --from=installer /usr/src/app/web/app/mu-plugins web/app/mu-plugins
+COPY --chown=www-data:www-data --from=installer /usr/src/app/web/app/plugins web/app/plugins
+COPY --chown=www-data:www-data config ./config
+COPY --chown=www-data:www-data web ./web
+
+USER www-data
+EXPOSE 80

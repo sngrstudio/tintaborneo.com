@@ -1,0 +1,59 @@
+---
+import type { HTMLAttributes } from 'react'
+import ArticleList, { Article } from './article'
+import { Picture } from 'astro:assets'
+import { getLiveCollection } from 'astro:content'
+
+interface Props extends HTMLAttributes<HTMLElement> {
+  tag?: string
+  categoryName?: string
+  first?: number
+  title?: string
+  notIn?: Array<string>
+}
+
+const {
+  tag,
+  categoryName,
+  first = 8,
+  title,
+  notIn,
+  className,
+  ...props
+} = Astro.props
+
+const latestNews = await getLiveCollection('posts', {
+  tag,
+  categoryName,
+  first,
+  notIn
+})
+---
+
+<Fragment>
+  {
+    latestNews.entries && latestNews.entries.length > 0 && (
+      <ArticleList title={title} className={className} {...props}>
+        {latestNews.entries?.map((article) => (
+          <Article
+            title={article.data.title!}
+            href={article.data.uri!}
+            date={new Date(article.data.date! + '+07:00')}
+          >
+            <Picture
+              class='aspect-[240/180] w-full overflow-hidden rounded-lg'
+              src={article.data.featuredImage!}
+              width={240}
+              height={180}
+              layout='fixed'
+              formats={['avif', 'webp']}
+              alt=''
+            />
+          </Article>
+        ))}
+      </ArticleList>
+    )
+  }
+</Fragment>
+
+<slot name='after-list' />

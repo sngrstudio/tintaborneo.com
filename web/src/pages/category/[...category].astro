@@ -1,0 +1,33 @@
+---
+import Layout, { type Props as LProps } from '~/layouts/layout.astro'
+import CategoryHome from '~/components/pages/category.astro'
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+
+export const getStaticPaths = (async () => {
+  const categories = await getCollection('categories')
+
+  return categories.map((category) => ({
+    params: {
+      category: category.id
+    },
+    props: {
+      category
+    }
+  }))
+}) satisfies GetStaticPaths
+
+const { category } = Astro.props
+const props = {
+  title: category.data.name ?? ''
+} satisfies LProps
+---
+
+<Layout {...props}>
+  <hgroup class='text-brand-primary -mt-[1rem] mb-4 px-4 py-8'>
+    <div class='mx-auto max-w-screen-xl'>
+      <h1 class='font-subheadings text-3xl font-black'>{props.title}</h1>
+    </div>
+  </hgroup>
+  <CategoryHome category={category.data.name ?? ''} />
+</Layout>

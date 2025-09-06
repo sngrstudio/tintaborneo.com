@@ -1,0 +1,30 @@
+---
+import HeaderFC, { MenuButton, SearchButton } from './header'
+import { getEntry } from 'astro:content'
+import { Picture } from 'astro:assets'
+import wordmark from '~/assets/wordmark.svg'
+import settings from '~/settings'
+
+const menu = ((await getEntry('menus', settings.menuSlug)?.then(
+  (menu) => menu.data.menuItems
+)) ?? []) as {
+  label: string
+  uri: string
+  childItems?: { label: string; uri: string }[]
+}[]
+---
+
+<HeaderFC items={menu}>
+  <MenuButton className='mr-auto -ml-2' client:idle />
+  <a href='/'>
+    <Picture
+      class='w-[224px]'
+      src={wordmark}
+      widths={[224]}
+      layout='fixed'
+      alt=''
+      priority
+    />
+  </a>
+  <SearchButton className='-mr-2 ml-auto' client:idle />
+</HeaderFC>

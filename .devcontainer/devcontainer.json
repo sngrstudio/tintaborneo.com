@@ -1,17 +1,34 @@
+// The Dev Container format allows you to configure your environment. At the heart of it
+// is a Docker image or Dockerfile which controls the tools available in your environment.
+//
+// See https://aka.ms/devcontainer.json for more information.
 {
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-  "containerEnv": {
-    "ADMIN_ENDPOINT": "https://content.tintaborneo.com"
+  "name": "kaltengbersuara.com",
+  // Use "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  // instead of the build to use a pre-built image.
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
   },
-  "forwardPorts": [4321],
+  // Features add additional features to your environment. See https://containers.dev/features
+  // Beware: features are not supported on all platforms and may have unintended side-effects.
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {},
+    "ghcr.io/shyim/devcontainers-features/bun:0": {}
+  },
+  "forwardPorts": [4321, 43210],
   "customizations": {
     "vscode": {
       "extensions": [
+        "DEVSENSE.phptools-vscode",
         "astro-build.astro-vscode",
-        "bradlc.vscode-tailwindcss",
-        "GitHub.vscode-github-actions"
-      ]
+        "GraphQL.vscode-graphql",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "composer.workingPath": "./content"
+      }
     }
   },
-  "postCreateCommand": "echo \"ADMIN_ENDPOINT=${ADMIN_ENDPOINT}\" > .dev.vars && corepack prepare && corepack enable && pnpm install --frozen-lockfile"
+  "postCreateCommand": "echo 'export PATH=\"$PATH:/home/vscode/.bun/bin\"' >> /home/vscode/.bashrc && bun install --global prettier"
 }

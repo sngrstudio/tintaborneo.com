@@ -1,0 +1,33 @@
+---
+import FeaturedNews from '~/components/news/featured.astro'
+import News from '~/components/news/news.astro'
+import { FeaturedArticlePlaceholder } from '~/components/news/featured'
+import { ArticlePlaceholder } from '~/components/news/article'
+
+interface Props {
+  category: string
+}
+
+const { category } = Astro.props
+---
+
+<FeaturedNews tag='berita-utama' categoryName={category} server:defer>
+  <section class='mx-4 mb-8 grid grid-cols-1 gap-y-4' slot='fallback'>
+    <FeaturedArticlePlaceholder />
+    <ArticlePlaceholder />
+  </section>
+</FeaturedNews>
+
+{/* Latest News */}
+<News
+  title='Berita Terbaru'
+  categoryName={category}
+  first={48}
+  className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
+  server:defer
+>
+  <ArticlePlaceholder
+    className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
+    slot='fallback'
+  />
+</News>
