@@ -4,6 +4,8 @@ import News from '~/components/news/news.astro'
 export const prerender = false
 
 const search = Astro.url.searchParams.get('q') ?? ''
+
+Astro.response.headers.set('Cache-Control', 'public, max-age=5000')
 ---
 
 <News title='Hasil Pencarian' first={100} search={search} />
