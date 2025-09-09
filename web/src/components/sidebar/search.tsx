@@ -24,7 +24,7 @@ const Search: FC = () => {
       className='bg-brand-text/50 fixed inset-0 z-[999] min-h-screen min-w-screen backdrop-blur-sm'
       ref={ref}
     >
-      <div className='bg-brand-primary text-brand-background ml-auto flex h-screen w-[90vw] flex-col overflow-scroll px-4 py-4'>
+      <div className='bg-brand-primary text-brand-background ml-auto flex h-screen w-[90vw] max-w-[384px] flex-col overflow-scroll px-4 py-4'>
         <button className='mb-8 ml-auto' onClick={handleCloseSearch}>
           <CloseIcon />
         </button>
