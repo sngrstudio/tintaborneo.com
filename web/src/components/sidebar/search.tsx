@@ -31,7 +31,7 @@ const Search: FC = () => {
         >
           <CloseIcon />
         </button>
-        <div className='border-brand-background ring-brand-background mb-8 flex border ring-offset-2 focus:ring'>
+        <div className='border-brand-background ring-brand-background mb-2 flex border ring-offset-2 focus:ring'>
           <input
             className='w-full border-0 bg-transparent ring-0'
             type='search'
@@ -44,6 +44,12 @@ const Search: FC = () => {
             <SearchIcon />
           </button>
         </div>
+        <a
+          className='bg-brand-background/20 border-brand-background mb-8 rounded border p-2 text-center'
+          href='/search'
+        >
+          Halaman Pencarian
+        </a>
         <div id='search-result' className='**:text-brand-background'></div>
       </div>
     </dialog>

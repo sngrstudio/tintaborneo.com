@@ -32,7 +32,7 @@ const Footer: FC<PropsWithChildren<FooterProps>> = ({
   ]
 
   return (
-    <footer className='bg-brand-secondary text-brand-background mt-16 -mb-24 pt-4 pb-6 max-xl:px-4'>
+    <footer className='bg-brand-secondary text-brand-background mt-auto -mb-24 pt-4 pb-6 max-xl:px-4'>
       <div className='mx-auto flex max-w-screen-xl justify-center pb-4'>
         {children}
       </div>
