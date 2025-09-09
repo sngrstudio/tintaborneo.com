@@ -42,7 +42,7 @@ const HeaderButton: FC<PropsWithChildren<HeaderButtonProps>> = ({
   ...props
 }) => {
   return (
-    <button className={clsx('p-[6px]', className)} {...props}>
+    <button className={clsx('cursor-pointer p-[6px]', className)} {...props}>
       {children}
     </button>
   )

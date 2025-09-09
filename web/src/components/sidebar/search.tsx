@@ -25,7 +25,10 @@ const Search: FC = () => {
       ref={ref}
     >
       <div className='bg-brand-primary text-brand-background ml-auto flex h-screen w-[90vw] max-w-[384px] flex-col overflow-scroll px-4 py-4'>
-        <button className='mb-8 ml-auto' onClick={handleCloseSearch}>
+        <button
+          className='mb-8 ml-auto cursor-pointer'
+          onClick={handleCloseSearch}
+        >
           <CloseIcon />
         </button>
         <div className='border-brand-background ring-brand-background mb-8 flex border ring-offset-2 focus:ring'>
