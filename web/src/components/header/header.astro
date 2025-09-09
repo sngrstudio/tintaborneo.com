@@ -15,7 +15,7 @@ const menu = ((await getEntry('menus', settings.menuSlug)?.then(
 ---
 
 <HeaderFC items={menu}>
-  <MenuButton className='mr-auto -ml-2' client:idle />
+  <MenuButton className='mr-auto -ml-2' client:load />
   <a href='/'>
     <Picture
       class='w-[224px]'
@@ -26,5 +26,5 @@ const menu = ((await getEntry('menus', settings.menuSlug)?.then(
       priority
     />
   </a>
-  <SearchButton className='-mr-2 ml-auto' client:idle />
+  <SearchButton className='-mr-2 ml-auto' client:load />
 </HeaderFC>

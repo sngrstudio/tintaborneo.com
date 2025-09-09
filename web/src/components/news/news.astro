@@ -10,6 +10,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   first?: number
   title?: string
   notIn?: Array<string>
+  search?: string
 }
 
 const {
@@ -18,6 +19,7 @@ const {
   first = 8,
   title,
   notIn,
+  search,
   className,
   ...props
 } = Astro.props
@@ -26,7 +28,8 @@ const latestNews = await getLiveCollection('posts', {
   tag,
   categoryName,
   first,
-  notIn
+  notIn,
+  search
 })
 ---
 
@@ -40,15 +43,17 @@ const latestNews = await getLiveCollection('posts', {
             href={article.data.uri!}
             date={new Date(article.data.date! + '+07:00')}
           >
-            <Picture
-              class='aspect-[240/180] w-full overflow-hidden rounded-lg'
-              src={article.data.featuredImage!}
-              width={240}
-              height={180}
-              layout='fixed'
-              formats={['avif', 'webp']}
-              alt=''
-            />
+            {article.data.featuredImage && (
+              <Picture
+                class='aspect-[240/180] w-full overflow-hidden rounded-lg'
+                src={article.data.featuredImage}
+                width={240}
+                height={180}
+                layout='fixed'
+                formats={['avif', 'webp']}
+                alt=''
+              />
+            )}
           </Article>
         ))}
       </ArticleList>

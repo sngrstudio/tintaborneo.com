@@ -1,0 +1,9 @@
+---
+import News from '~/components/news/news.astro'
+
+export const prerender = false
+
+const search = Astro.url.searchParams.get('q') ?? ''
+---
+
+<News title='Hasil Pencarian' first={100} search={search} />

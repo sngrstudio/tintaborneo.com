@@ -1,5 +1,6 @@
 import type { FC, PropsWithChildren, ButtonHTMLAttributes } from 'react'
 import clsx from 'clsx/lite'
+import { setOpenSearch } from '../sidebar/search.store'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
 
@@ -60,12 +61,12 @@ export const MenuButton: FC<HeaderButtonProps> = ({ ...props }) => {
 }
 
 export const SearchButton: FC<HeaderButtonProps> = ({ ...props }) => {
-  const handleClick = () => {
-    console.log('Search Button Clicked!')
+  const handleOpenSearch = () => {
+    setOpenSearch(true)
   }
 
   return (
-    <HeaderButton onClick={handleClick} {...props}>
+    <HeaderButton onClick={handleOpenSearch} {...props}>
       <SearchIcon />
     </HeaderButton>
   )

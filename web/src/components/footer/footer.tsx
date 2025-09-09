@@ -38,8 +38,11 @@ const Footer: FC<PropsWithChildren<FooterProps>> = ({
       </div>
       <div className='mx-auto max-w-screen-xl py-4'>
         <ul className='flex justify-center gap-2'>
-          {social.map((link) => (
-            <li className='border-brand-background bg-brand-background/20 rounded border p-2'>
+          {social.map((link, i) => (
+            <li
+              className='border-brand-background bg-brand-background/20 rounded border p-2'
+              key={i}
+            >
               <a href={link.url} aria-label={link.title}>
                 {link.icon}
               </a>

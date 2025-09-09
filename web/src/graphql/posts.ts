@@ -21,14 +21,16 @@ const getPostsGQL = gql`
     $tag: String = ""
     $categoryName: String = ""
     $notIn: [ID] = ""
+    $search: String = ""
   ) {
     posts(
       where: {
-        status: PUBLISH
         tag: $tag
         categoryName: $categoryName
         notIn: $notIn
+        search: $search
         orderby: { field: DATE, order: DESC }
+        status: PUBLISH
       }
       first: $first
     ) {
@@ -72,12 +74,14 @@ export const getPosts = async ({
   first = 8,
   tag = '',
   categoryName = '',
-  notIn = []
+  notIn = [],
+  search = ''
 }: {
   first?: number | undefined
   tag?: string | undefined
   categoryName?: string | undefined
   notIn?: string[] | undefined
+  search?: string | undefined
 }) => {
   const { data } = await execute<PostsQuery>(
     getPostsGQL,
@@ -85,7 +89,8 @@ export const getPosts = async ({
       first,
       tag,
       categoryName,
-      notIn
+      notIn,
+      search
     },
     { ttl: 60 }
   )
