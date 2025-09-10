@@ -27,6 +27,8 @@ COPY --from=prod-deps --chown=nonroot:nonroot /usr/src/app/node_modules ./node_m
 COPY --from=builder --chown=nonroot:nonroot /usr/src/app/dist ./dist
 COPY --chown=nonroot:nonroot server.mjs ./
 
+ARG CONTENT_ENDPOINT
+ENV CONTENT_ENDPOINT=$CONTENT_ENDPOINT
 ENV HOST=0.0.0.0
 ENV PORT=4321
 ENV NODE_ENV=production
