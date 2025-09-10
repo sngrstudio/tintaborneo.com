@@ -1,4 +1,4 @@
-const ENDPOINT = import.meta.env.CONTENT_ENDPOINT
+const ENDPOINT = process.env.CONTENT_ENDPOINT
 
 export const gql = String.raw
 
