@@ -20,7 +20,7 @@ COPY public ./public
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs22-debian12:nonroot-debug AS runtime
+FROM gcr.io/distroless/nodejs22-debian12:debug-nonroot AS runtime
 WORKDIR /home/nonroot/app
 
 COPY --from=prod-deps --chown=nonroot:nonroot /usr/src/app/node_modules ./node_modules
