@@ -18,6 +18,7 @@ type PostsQuery = Pick<RootQuery, 'posts'>
 const getPostsGQL = gql`
   query GetPosts(
     $first: Int = 10
+    $after: String = ""
     $tag: String = ""
     $categoryName: String = ""
     $notIn: [ID] = ""
@@ -33,6 +34,7 @@ const getPostsGQL = gql`
         status: PUBLISH
       }
       first: $first
+      after: $after
     ) {
       nodes {
         title
@@ -72,12 +74,14 @@ const getPostsGQL = gql`
 
 export const getPosts = async ({
   first = 8,
+  after = '',
   tag = '',
   categoryName = '',
   notIn = [],
   search = ''
 }: {
   first?: number | undefined
+  after?: string | undefined
   tag?: string | undefined
   categoryName?: string | undefined
   notIn?: string[] | undefined
@@ -87,6 +91,7 @@ export const getPosts = async ({
     getPostsGQL,
     {
       first,
+      after,
       tag,
       categoryName,
       notIn,

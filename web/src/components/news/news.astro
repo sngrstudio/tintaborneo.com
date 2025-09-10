@@ -5,29 +5,34 @@ import { Picture } from 'astro:assets'
 import { getLiveCollection } from 'astro:content'
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  tag?: string
-  categoryName?: string
-  first?: number
-  title?: string
-  notIn?: Array<string>
-  search?: string
+  title?: string | undefined
+  first?: number | undefined
+  after?: string | undefined
+  tag?: string | undefined
+  categoryName?: string | undefined
+  notIn?: Array<string> | undefined
+  search?: string | undefined
+  continuous?: boolean | undefined
 }
 
 const {
+  title,
+  first = 8,
+  after,
   tag,
   categoryName,
-  first = 8,
-  title,
   notIn,
   search,
+  continuous,
   className,
   ...props
 } = Astro.props
 
 const latestNews = await getLiveCollection('posts', {
+  first,
+  after,
   tag,
   categoryName,
-  first,
   notIn,
   search
 })
@@ -58,6 +63,26 @@ const latestNews = await getLiveCollection('posts', {
         ))}
       </ArticleList>
     )
+  }
+
+  {
+    continuous &&
+      latestNews.entries?.at(0)?.data.pageInfo.hasNextPage &&
+      latestNews.entries?.at(0)?.data.pageInfo.endCursor && (
+        <Astro.self
+          after={latestNews.entries?.at(0)?.data.pageInfo.endCursor as string}
+          {...{
+            first,
+            tag,
+            categoryName,
+            notIn,
+            search,
+            continuous,
+            className,
+            ...props
+          }}
+        />
+      )
   }
 </Fragment>
 
