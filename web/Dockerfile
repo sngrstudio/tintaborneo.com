@@ -20,15 +20,13 @@ COPY public ./public
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs22-debian12:nonroot AS runtime
+FROM gcr.io/distroless/nodejs22-debian12:nonroot-debug AS runtime
 WORKDIR /home/nonroot/app
 
 COPY --from=prod-deps --chown=nonroot:nonroot /usr/src/app/node_modules ./node_modules
 COPY --from=builder --chown=nonroot:nonroot /usr/src/app/dist ./dist
 COPY --chown=nonroot:nonroot server.mjs ./
 
-ARG CONTENT_ENDPOINT
-ENV CONTENT_ENDPOINT=$CONTENT_ENDPOINT
 ENV HOST=0.0.0.0
 ENV PORT=4321
 ENV NODE_ENV=production
