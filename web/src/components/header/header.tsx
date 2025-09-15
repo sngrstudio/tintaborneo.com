@@ -1,5 +1,6 @@
 import type { FC, PropsWithChildren, ButtonHTMLAttributes } from 'react'
 import clsx from 'clsx/lite'
+import { setOpenNavigation } from '../sidebar/navigation.store'
 import { setOpenSearch } from '../sidebar/search.store'
 import MenuIcon from '~icons/material-symbols/menu'
 import SearchIcon from '~icons/material-symbols/search'
@@ -50,7 +51,7 @@ const HeaderButton: FC<PropsWithChildren<HeaderButtonProps>> = ({
 
 export const MenuButton: FC<HeaderButtonProps> = ({ ...props }) => {
   const handleClick = () => {
-    console.log('Menu Button Clicked!')
+    setOpenNavigation(true)
   }
 
   return (

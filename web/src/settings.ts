@@ -1,3 +1,4 @@
 export default {
-  menuSlug: 'main-categories'
+  menuSlug: 'main-categories',
+  navigationSlug: 'sidebar-navigation'
 } as const

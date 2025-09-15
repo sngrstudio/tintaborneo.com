@@ -4,7 +4,7 @@ import execute, { gql } from './execute'
 type MenuResult = Pick<Menu, 'name' | 'slug' | 'locations' | 'menuItems'>
 type MenuItemsResult = Pick<
   MenuItem,
-  'label' | 'uri' | 'connectedNode' | 'childItems'
+  'label' | 'uri' | 'parentId' | 'connectedNode' | 'childItems'
 >
 type MenuQuery = Pick<RootQuery, 'menus'>
 
@@ -19,6 +19,7 @@ const getMenusGQL = gql`
           nodes {
             label
             uri
+            parentId
             connectedNode {
               node {
                 ... on Category {
@@ -59,6 +60,7 @@ export const getMenus = async () => {
     menuItems: menu.menuItems?.nodes.map((item: MenuItemsResult) => ({
       label: item.label ?? '',
       uri: item.uri ?? '',
+      parentId: item.parentId ?? undefined,
       connectedNode: item.connectedNode ?? {},
       childItems: item.childItems?.nodes.map(
         (child: Omit<MenuItemsResult, 'childItems'>) => ({

@@ -1,4 +1,5 @@
 import { type FC, useRef, useEffect } from 'react'
+import SidebarDialog from './sidebar'
 import SearchIcon from '~icons/material-symbols/search'
 import CloseIcon from '~icons/material-symbols/close'
 import { useStore } from '@nanostores/react'
@@ -20,10 +21,7 @@ const Search: FC = () => {
   }, [openSearch])
 
   return (
-    <dialog
-      className='bg-brand-text/50 fixed inset-0 z-[999] min-h-screen min-w-screen backdrop-blur-sm'
-      ref={ref}
-    >
+    <SidebarDialog ref={ref}>
       <div className='bg-brand-primary text-brand-background ml-auto flex h-screen w-[90vw] max-w-[384px] flex-col overflow-scroll px-4 py-4'>
         <button
           className='mb-8 ml-auto cursor-pointer'
@@ -52,7 +50,7 @@ const Search: FC = () => {
         </a>
         <div id='search-result' className='**:text-brand-background'></div>
       </div>
-    </dialog>
+    </SidebarDialog>
   )
 }
 

@@ -1,5 +1,50 @@
 ---
 import Search from './search'
+import SidebarNavigation from './navigation'
+import { getEntry } from 'astro:content'
+import settings from '~/settings'
+
+const menu =
+  (await getEntry('menus', settings.navigationSlug)?.then((res) =>
+    res.data.menuItems?.filter((item) => !item.parentId)
+  )) ?? []
 ---
+
+<SidebarNavigation client:load>
+  <ul
+    class='font-subheadings flex h-full w-full flex-col justify-center-safe font-medium *:py-1 *:text-2xl'
+  >
+    {
+      menu.map((entry) => {
+        if (entry.childItems && entry.childItems.length > 0) {
+          return (
+            <li>
+              <details>
+                <summary class='list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden'>
+                  {entry.label} <span class='ml-2'>&#x25BE;</span>
+                </summary>
+                <ul class='pl-4 *:py-1 *:text-xl'>
+                  <li>
+                    <a href={entry.uri}>{`Semua Berita ${entry.label}`}</a>
+                  </li>
+                  {entry.childItems.map((childEntry) => (
+                    <li>
+                      <a href={childEntry.uri}>{childEntry.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          )
+        }
+        return (
+          <li>
+            <a href={entry.uri}>{entry.label}</a>
+          </li>
+        )
+      })
+    }
+  </ul>
+</SidebarNavigation>
 
 <Search client:load />

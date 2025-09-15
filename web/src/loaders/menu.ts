@@ -36,6 +36,7 @@ const menuLoader = (): Loader => {
         .object({
           label: z.string().default(''),
           uri: z.string().default(''),
+          parentId: z.string().optional(),
           connectedNode: z.record(z.string(), z.any()),
           childItems: z
             .object({
