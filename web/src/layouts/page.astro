@@ -14,7 +14,7 @@ const { title, image, imageCaption, class: className, ...props } = Astro.props
 <Layout title={title} class:list={['pb-24', className]} {...props}>
   {/* <body /> */}
   <main
-    class='prose lg:prose-lg prose-headings:font-headings prose-p:leading-snug mx-auto grid max-w-screen-lg grid-cols-1 gap-x-4 px-4 sm:grid-cols-3 lg:pt-8 xl:px-0'
+    class='prose lg:prose-lg prose-headings:font-headings prose-p:leading-snug mx-auto grid max-w-screen-lg grid-cols-1 gap-x-4 px-4 pb-8 sm:grid-cols-3 lg:pt-8 xl:px-0'
   >
     {/* <hgroup - headings /> */}
     <hgroup class='sm:col-span-3'>
@@ -29,11 +29,13 @@ const { title, image, imageCaption, class: className, ...props } = Astro.props
               <Picture
                 class='min-w-screen max-lg:-mx-4 lg:min-w-full'
                 src={image}
-                alt=''
+                alt={imageCaption ?? title}
                 formats={['avif', 'webp']}
+                widths={[640, 750, 800, 828, 1280]}
+                sizes='(min-width: 1280px) 1280px, 100vw'
                 layout='constrained'
-                inferSize
-                priority
+                inferSize={true}
+                priority={true}
               />
               {imageCaption && (
                 <figcaption class='text-sm italic'>

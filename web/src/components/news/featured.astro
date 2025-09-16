@@ -44,12 +44,13 @@ const latestNews = await getLiveCollection('posts', {
                 <Picture
                   src={article.data.featuredImage!}
                   class='aspect-[656/421] w-full overflow-hidden'
-                  width={656}
-                  height={421}
-                  layout='constrained'
+                  alt={article.data.title!}
                   formats={['avif', 'webp']}
-                  alt=''
-                  priority
+                  widths={[640, 750, 800, 828]}
+                  sizes='(min-width: 828px) 828px, 100vw'
+                  layout='constrained'
+                  inferSize={true}
+                  priority={true}
                 />
               </FeaturedArticle>
             ))}
@@ -76,8 +77,8 @@ const latestNews = await getLiveCollection('posts', {
                 height={240}
                 layout='fixed'
                 formats={['avif', 'webp']}
-                alt=''
-                priority
+                alt={article.data.title!}
+                priority={true}
               />
             </FeaturedArticle>
           ))}

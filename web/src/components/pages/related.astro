@@ -3,13 +3,19 @@ import News from '~/components/news/news.astro'
 import { ArticlePlaceholder } from '~/components/news/article'
 
 interface Props {
+  search?: string | undefined
   exclude?: string | undefined
 }
 
-const { exclude } = Astro.props
+const { search, exclude } = Astro.props
 ---
 
 {/* Latest News */}
-<News title='Baca Juga' first={8} notIn={exclude ? [exclude] : []}>
+<News
+  title='Baca Juga'
+  search={search ?? ''}
+  first={8}
+  notIn={exclude ? [exclude] : []}
+>
   <ArticlePlaceholder className='mx-4 mb-12' slot='fallback' />
 </News>
