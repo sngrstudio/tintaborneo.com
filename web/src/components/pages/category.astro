@@ -1,6 +1,5 @@
 ---
 import FeaturedNews from '~/components/news/featured.astro'
-import News from '~/components/news/news.astro'
 import { FeaturedArticlePlaceholder } from '~/components/news/featured'
 import { ArticlePlaceholder } from '~/components/news/article'
 
@@ -19,16 +18,10 @@ const { category } = Astro.props
 </FeaturedNews>
 
 {/* Latest News */}
-<News
-  title='Berita Terbaru'
-  categoryName={category}
-  first={48}
-  className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
-  continuous={true}
-  server:defer
+<div
+  class='invisible min-h-[240px]'
+  hx-get={`/dynamic/category-latest/?slug=${category}`}
+  hx-trigger='revealed'
+  hx-swap='outerHTML'
 >
-  <ArticlePlaceholder
-    className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
-    slot='fallback'
-  />
-</News>
+</div>

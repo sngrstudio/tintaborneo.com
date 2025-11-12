@@ -31,18 +31,12 @@ const categories =
 <Fragment>
   {
     categories.map((category) => (
-      <News
-        title={category.name}
-        categoryName={category.slug}
-        first={12}
-        className='max-xl:px-4 mb-8 md:mb-16 max-w-screen-xl mx-auto'
-        server:defer
-      >
-        <ArticlePlaceholder
-          className='max-xl:px-4 mb-8 md:mb-16 max-w-screen-xl mx-auto'
-          slot='fallback'
-        />
-      </News>
+      <div
+        class='invisible min-h-[240px]'
+        hx-get={`/dynamic/category/?category=${category.name}&slug=${category.slug}`}
+        hx-trigger='revealed'
+        hx-swap='outerHTML'
+      />
     ))
   }
 </Fragment>

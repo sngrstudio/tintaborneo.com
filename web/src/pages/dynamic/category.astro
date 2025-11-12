@@ -1,0 +1,22 @@
+---
+import News from '~/components/news/news.astro'
+import { ArticlePlaceholder } from '~/components/news/article'
+
+export const partial = true
+export const prerender = false
+
+const category = Astro.url.searchParams.get('category') ?? ''
+const slug = Astro.url.searchParams.get('slug') ?? ''
+---
+
+<News
+  title={category}
+  categoryName={slug}
+  first={12}
+  className='mx-auto mb-8 max-w-screen-xl max-xl:px-4 md:mb-16'
+>
+  <ArticlePlaceholder
+    className='mx-auto mb-8 max-w-screen-xl max-xl:px-4 md:mb-16'
+    slot='fallback'
+  />
+</News>

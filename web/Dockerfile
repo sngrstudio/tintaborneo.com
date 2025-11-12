@@ -1,4 +1,4 @@
-FROM oven/bun:1.2.19-debian AS base
+FROM oven/bun:1.3.1-debian AS base
 WORKDIR /usr/src/app
 
 COPY package.json bun.lock ./
@@ -20,7 +20,7 @@ COPY public ./public
 
 RUN bun run build
 
-FROM oven/bun:1.2.19-slim AS runtime
+FROM oven/bun:1.3.1-slim AS runtime
 WORKDIR /home/bun/app
 
 COPY --from=prod-deps --chown=bun:bun /usr/src/app/node_modules ./node_modules
