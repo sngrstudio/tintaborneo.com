@@ -19,9 +19,9 @@ const { category } = Astro.props
 
 {/* Latest News */}
 <div
-  class='invisible min-h-[240px]'
+  class='invisible'
   hx-get={`/dynamic/category-latest/?slug=${category}`}
-  hx-trigger='revealed'
+  hx-trigger='load'
   hx-swap='outerHTML'
 >
 </div>

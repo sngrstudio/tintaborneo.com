@@ -10,6 +10,7 @@ const tag = Astro.url.searchParams.get('tag') ?? ''
 const categoryName = Astro.url.searchParams.get('categoryName') ?? ''
 const notIn = Astro.url.searchParams.getAll('notIn') ?? []
 const search = Astro.url.searchParams.get('search') ?? ''
+const lazyLoad = Astro.url.searchParams.get('lazyLoad') === 'true'
 ---
 
 <NewsComponent
@@ -19,5 +20,5 @@ const search = Astro.url.searchParams.get('search') ?? ''
   categoryName={categoryName}
   notIn={notIn}
   search={search}
-  lazyLoad={true}
+  lazyLoad={lazyLoad}
 />

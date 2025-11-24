@@ -33,7 +33,7 @@ const categories =
   {
     categories.map((category) => (
       <div
-        class='invisible min-h-[240px]'
+        class='invisible'
         hx-get={`/dynamic/category/?category=${category.name}&slug=${category.slug}`}
         hx-trigger='revealed'
         hx-swap='outerHTML'

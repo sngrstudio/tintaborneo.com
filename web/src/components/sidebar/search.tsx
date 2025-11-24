@@ -37,6 +37,7 @@ const Search: FC = () => {
             data-hx-get='/dynamic/query'
             data-hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
             hx-target='#search-result'
+            suppressHydrationWarning
           />
           <button className='pr-1' type='submit'>
             <SearchIcon />
