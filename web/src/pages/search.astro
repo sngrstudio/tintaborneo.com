@@ -42,9 +42,9 @@ const props = {
     query ? (
       <News
         title='Hasil Pencarian'
-        first={100}
+        first={12}
         search={query}
-        continuous={true}
+        lazyLoad={true}
         className='mx-auto mb-8 max-w-screen-xl max-xl:px-4 md:mb-16'
       />
     ) : (

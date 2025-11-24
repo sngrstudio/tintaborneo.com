@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   categoryName?: string | undefined
   notIn?: Array<string> | undefined
   search?: string | undefined
-  continuous?: boolean | undefined
+  lazyLoad?: boolean | undefined
 }
 
 const {
@@ -23,7 +23,7 @@ const {
   categoryName,
   notIn,
   search,
-  continuous,
+  lazyLoad = false,
   className,
   ...props
 } = Astro.props
@@ -36,6 +36,20 @@ const latestNews = await getLiveCollection('posts', {
   notIn,
   search
 })
+
+// Build query params for HTMX pagination
+const buildQueryParams = () => {
+  const params = new URLSearchParams()
+  params.set('first', first.toString())
+  if (tag) params.set('tag', tag)
+  if (categoryName) params.set('categoryName', categoryName)
+  if (search) params.set('search', search)
+  if (notIn) notIn.forEach((id) => params.append('notIn', id))
+  return params.toString()
+}
+
+const hasNextPage = latestNews.entries?.at(0)?.data.pageInfo.hasNextPage
+const endCursor = latestNews.entries?.at(0)?.data.pageInfo.endCursor
 ---
 
 <Fragment>
@@ -66,23 +80,14 @@ const latestNews = await getLiveCollection('posts', {
   }
 
   {
-    continuous &&
-      latestNews.entries?.at(0)?.data.pageInfo.hasNextPage &&
-      latestNews.entries?.at(0)?.data.pageInfo.endCursor && (
-        <Astro.self
-          after={latestNews.entries?.at(0)?.data.pageInfo.endCursor as string}
-          {...{
-            first,
-            tag,
-            categoryName,
-            notIn,
-            search,
-            continuous,
-            className,
-            ...props
-          }}
-        />
-      )
+    lazyLoad && hasNextPage && endCursor && (
+      <div
+        class='invisible min-h-[240px]'
+        hx-get={`/dynamic/news/?after=${endCursor}&${buildQueryParams()}`}
+        hx-trigger='revealed'
+        hx-swap='outerHTML'
+      />
+    )
   }
 </Fragment>
 

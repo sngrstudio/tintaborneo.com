@@ -11,9 +11,9 @@ const slug = Astro.url.searchParams.get('slug') ?? ''
 <News
   title='Berita Terkini'
   categoryName={slug}
-  first={24}
+  first={12}
   className='mx-auto mb-16 max-w-screen-xl max-xl:px-4'
-  continuous={true}
+  lazyLoad={true}
   server:defer
 >
   <ArticlePlaceholder

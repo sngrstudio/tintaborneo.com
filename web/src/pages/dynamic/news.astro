@@ -1,0 +1,23 @@
+---
+import NewsComponent from '~/components/news/news.astro'
+
+export const partial = true
+export const prerender = false
+
+const after = Astro.url.searchParams.get('after') ?? ''
+const first = parseInt(Astro.url.searchParams.get('first') ?? '8')
+const tag = Astro.url.searchParams.get('tag') ?? ''
+const categoryName = Astro.url.searchParams.get('categoryName') ?? ''
+const notIn = Astro.url.searchParams.getAll('notIn') ?? []
+const search = Astro.url.searchParams.get('search') ?? ''
+---
+
+<NewsComponent
+  first={first}
+  after={after}
+  tag={tag}
+  categoryName={categoryName}
+  notIn={notIn}
+  search={search}
+  lazyLoad={true}
+/>
