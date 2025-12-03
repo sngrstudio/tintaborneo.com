@@ -24,7 +24,7 @@
     "@fontsource/martel-sans": "5.0.15",
     "@fontsource/source-serif-pro": "5.0.8",
     "alpinejs": "3.14.1",
-    "astro": "4.16.18",
+    "astro": "5.15.9",
     "embla-carousel": "8.1.8",
     "embla-carousel-autoplay": "8.1.8",
     "graphql": "16.9.0",
