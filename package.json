@@ -59,7 +59,7 @@
     "prettier-plugin-tailwindcss": "0.6.8",
     "typescript": "5.5.4",
     "unplugin-icons": "0.19.3",
-    "wrangler": "3.67.1"
+    "wrangler": "3.114.17"
   },
   "packageManager": "pnpm@10.0.0",
   "pnpm": {
